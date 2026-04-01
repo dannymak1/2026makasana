@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block title %}My Profile | Makasana{% endblock %}
+{% block content %}
+<div class="min-h-screen flex">
+    <aside class="w-64 mk-sidebar p-6">
+        <h2 class="text-lg font-semibold mb-1">Client DMS</h2>
+        <p class="text-xs mk-sidebar-muted mb-6">{{ current_user.organization.name }}</p>
+        <nav class="space-y-2 text-sm">
+            <a class="block px-3 py-2 rounded mk-nav-link" href="{{ url_for('dms.dashboard') }}">Dashboard</a>
+            <a class="block px-3 py-2 rounded mk-nav-link" href="{{ url_for('dms.documents') }}">Documents</a>
+            <a class="block px-3 py-2 rounded mk-nav-link" href="{{ url_for('dms.requests_page') }}">Requests</a>
+            <a class="block px-3 py-2 rounded mk-nav-active" href="{{ url_for('dms.profile') }}">Profile</a>
+            <a class="block px-3 py-2 rounded mk-nav-link" href="{{ url_for('auth.logout') }}">Logout</a>
+        </nav>
+    </aside>
+    <main class="flex-1 p-8">
+        <h1 class="text-2xl font-semibold mb-6 mk-page-title">My Profile</h1>
+        <form method="post" action="{{ url_for('dms.profile') }}" class="space-y-6 max-w-2xl">
+            {% if current_user.organization %}
+            <div class="mk-card rounded-xl p-6 space-y-4">
+                <h2 class="text-lg font-semibold mk-page-title">Organization</h2>
+                <div>
+                    <label for="organization_name" class="block text-sm font-medium mb-1">Organization Name</label>
+                    <input id="organization_name" name="organization_name" maxlength="100" required value="{{ current_user.organization.name }}" class="w-full border border-slate-300 rounded-lg px-3 py-2">
+                </div>
+                <div>
+                    <label for="organization_email" class="block text-sm font-medium mb-1">Organization Email <span class="text-slate-500 font-normal">(optional)</span></label>
+                    <input id="organization_email" name="organization_email" type="email" maxlength="150" value="{{ current_user.organization.email or '' }}" class="w-full border border-slate-300 rounded-lg px-3 py-2" placeholder="e.g. info@company.com">
+                </div>
+                <div>
+                    <label for="organization_phone" class="block text-sm font-medium mb-1">Organization Phone</label>
+                    <input id="organization_phone" name="organization_phone" required maxlength="50" value="{{ current_user.organization.phone or '' }}" class="w-full border border-slate-300 rounded-lg px-3 py-2" placeholder="e.g. +254700000000">
+                </div>
+            </div>
+            {% endif %}
+
+            <div class="mk-card rounded-xl p-6 space-y-4">
+                <h2 class="text-lg font-semibold mk-page-title">Your account</h2>
+                <div class="grid sm:grid-cols-2 gap-4">
+                    <div>
+                        <label for="first_name" class="block text-sm font-medium mb-1">First Name</label>
+                        <input id="first_name" name="first_name" maxlength="100" value="{{ current_user.first_name or '' }}" class="w-full border border-slate-300 rounded-lg px-3 py-2">
+                    </div>
+                    <div>
+                        <label for="last_name" class="block text-sm font-medium mb-1">Last Name</label>
+                        <input id="last_name" name="last_name" maxlength="100" value="{{ current_user.last_name or '' }}" class="w-full border border-slate-300 rounded-lg px-3 py-2">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-1">Email</label>
+                    <p class="text-sm text-slate-600 bg-slate-50 border border-slate-200 rounded-lg px-3 py-2">{{ current_user.username }}</p>
+                    <p class="text-xs text-slate-500 mt-1">Email cannot be changed. Contact support if you need to update it.</p>
+                </div>
+                <div>
+                    <label for="phone" class="block text-sm font-medium mb-1">Phone</label>
+                    <input id="phone" name="phone" required maxlength="50" value="{{ current_user.phone or '' }}" class="w-full border border-slate-300 rounded-lg px-3 py-2" placeholder="e.g. +254700000000">
+                </div>
+                <div class="grid sm:grid-cols-2 gap-4">
+                    <div>
+                        <label for="password" class="block text-sm font-medium mb-1">New Password (optional)</label>
+                        <input id="password" type="password" name="password" minlength="8" class="w-full border border-slate-300 rounded-lg px-3 py-2">
+                    </div>
+                    <div>
+                        <label for="confirm_password" class="block text-sm font-medium mb-1">Confirm New Password</label>
+                        <input id="confirm_password" type="password" name="confirm_password" minlength="8" class="w-full border border-slate-300 rounded-lg px-3 py-2">
+                    </div>
+                </div>
+                <p class="text-xs text-slate-500">Password must include uppercase, lowercase, number, and special character.</p>
+                <button type="submit" class="mk-btn-primary px-4 py-2 rounded-lg">Save Changes</button>
+            </div>
+        </form>
+    </main>
+</div>
+{% endblock %}

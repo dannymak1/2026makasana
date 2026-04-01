@@ -1,0 +1,169 @@
+{% extends "public/base.html" %}
+{% block title %}Services | Makasana{% endblock %}
+{% block content %}
+<!-- Breadcrump Section Start -->
+<section class="stp-30 pt-20 md:pt-24 bg-softBg1 relative max-xxl:overflow-hidden">
+  <img
+    src="{{ url_for('static', filename='assets/images/breadcrump_icon.png') }}"
+    alt="image"
+    class="absolute bottom-0 left-[-10%] xxl:left-0 max-lg:hidden"
+  />
+  <div class="container max-md:stp-15 relative z-10">
+    <div class="col-span-12 flex justify-center items-start flex-col">
+      <ul class="flex justify-start items-center gap-1 flex-wrap">
+        <li>
+          <a href="{{ url_for('public.home') }}" class="flex justify-start items-center gap-1">
+            <i class="ph ph-house"></i>
+            <span class="hover:text-s2 duration-300">Home</span>
+          </a>
+        </li>
+        <li class="flex justify-start items-center gap-1">
+          <i class="ph ph-caret-right"></i>
+          Services
+        </li>
+      </ul>
+
+      <h1 class="display-3 pt-4">Services</h1>
+      <p class="text-bodyText pt-6">Explore our core services.</p>
+    </div>
+  </div>
+</section>
+<!-- Breadcrump Section End -->
+
+<!-- Services Grid Section Start -->
+<section class="bg-softBg1 stp-30 sbp-30">
+  <div class="container">
+    <div class="grid grid-cols-12 gap-6">
+      <div class="col-span-12 sm:col-span-6 lg:col-span-3">
+        <div class="bg-white p-6 xl:p-8 flex flex-col border border-white group hover:border-mainTextColor duration-700 hover:bg-s2 h-full">
+          <div class="text-4xl text-s1 pb-6 group-hover:text-mainTextColor duration-500">
+            <i class="ph-fill ph-users-three"></i>
+          </div>
+          <h4 class="heading-4 pb-5">Business Registration & Compliance</h4>
+          <p class="text-bodyText pb-6">
+            Register and structure your business correctly from the start. We handle company registration, statutory compliance, and regulatory requirements.
+          </p>
+          <button type="button" class="flex justify-start items-center gap-2 font-medium mt-auto" data-modal-target="service-modal-1">
+            Learn more <i class="ph ph-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="col-span-12 sm:col-span-6 lg:col-span-3">
+        <div class="bg-white p-6 xl:p-8 flex flex-col border border-white group hover:border-mainTextColor duration-700 hover:bg-s2 h-full">
+          <div class="text-4xl text-s1 pb-6 group-hover:text-mainTextColor duration-500">
+            <i class="ph-fill ph-hand-coins"></i>
+          </div>
+          <h4 class="heading-4 pb-5">Tax & Financial Compliance</h4>
+          <p class="text-bodyText pb-6">
+            Stay compliant with all tax obligations including VAT, income tax, and corporate filings with accurate and timely submissions.
+          </p>
+          <button type="button" class="flex justify-start items-center gap-2 font-medium mt-auto" data-modal-target="service-modal-2">
+            Learn more <i class="ph ph-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="col-span-12 sm:col-span-6 lg:col-span-3">
+        <div class="bg-white p-6 xl:p-8 flex flex-col border border-white group hover:border-mainTextColor duration-700 hover:bg-s2 h-full">
+          <div class="text-4xl text-s1 pb-6 group-hover:text-mainTextColor duration-500">
+            <i class="ph-fill ph-user-gear"></i>
+          </div>
+          <h4 class="heading-4 pb-5">Document Management System (DMS)</h4>
+          <p class="text-bodyText pb-6">
+            Centralize and manage your business documents with our structured system-track expiries, maintain records, and stay audit-ready.
+          </p>
+          <button type="button" class="flex justify-start items-center gap-2 font-medium mt-auto" data-modal-target="service-modal-3">
+            Learn more <i class="ph ph-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="col-span-12 sm:col-span-6 lg:col-span-3">
+        <div class="bg-white p-6 xl:p-8 flex flex-col border border-white group hover:border-mainTextColor duration-700 hover:bg-s2 h-full">
+          <div class="text-4xl text-s1 pb-6 group-hover:text-mainTextColor duration-500">
+            <i class="ph-fill ph-user-plus"></i>
+          </div>
+          <h4 class="heading-4 pb-5">Tendering & Government Systems</h4>
+          <p class="text-bodyText pb-6">
+            Access government opportunities with confidence through IFMIS registration, tender preparation, and compliance support.
+          </p>
+          <button type="button" class="flex justify-start items-center gap-2 font-medium mt-auto" data-modal-target="service-modal-4">
+            Learn more <i class="ph ph-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Services Grid Section End -->
+
+<!-- Service Modals -->
+<div id="service-modal-1" class="fixed inset-0 z-[9999] hidden items-center justify-center bg-black/60 px-4">
+  <div class="bg-white w-full max-w-2xl rounded-2xl p-6 md:p-8 relative">
+    <button type="button" class="absolute top-4 right-4 text-2xl" data-modal-close>&times;</button>
+    <h3 class="display-4 !text-[34px] pb-4">Business Registration & Compliance</h3>
+    <p class="text-bodyText">Register and structure your business correctly from the start. We handle company registration, statutory compliance, and regulatory requirements so your organization is built on a compliant foundation.</p>
+  </div>
+</div>
+
+<div id="service-modal-2" class="fixed inset-0 z-[9999] hidden items-center justify-center bg-black/60 px-4">
+  <div class="bg-white w-full max-w-2xl rounded-2xl p-6 md:p-8 relative">
+    <button type="button" class="absolute top-4 right-4 text-2xl" data-modal-close>&times;</button>
+    <h3 class="display-4 !text-[34px] pb-4">Tax & Financial Compliance</h3>
+    <p class="text-bodyText">Stay compliant with all tax obligations including VAT, income tax, and corporate filings with accurate and timely submissions. We help businesses reduce compliance risk and maintain clear financial governance.</p>
+  </div>
+</div>
+
+<div id="service-modal-3" class="fixed inset-0 z-[9999] hidden items-center justify-center bg-black/60 px-4">
+  <div class="bg-white w-full max-w-2xl rounded-2xl p-6 md:p-8 relative">
+    <button type="button" class="absolute top-4 right-4 text-2xl" data-modal-close>&times;</button>
+    <h3 class="display-4 !text-[34px] pb-4">Document Management System (DMS)</h3>
+    <p class="text-bodyText">Centralize and manage your business documents with a structured system. Track expiries, maintain accessible records, and stay audit-ready with secure document controls and full visibility.</p>
+  </div>
+</div>
+
+<div id="service-modal-4" class="fixed inset-0 z-[9999] hidden items-center justify-center bg-black/60 px-4">
+  <div class="bg-white w-full max-w-2xl rounded-2xl p-6 md:p-8 relative">
+    <button type="button" class="absolute top-4 right-4 text-2xl" data-modal-close>&times;</button>
+    <h3 class="display-4 !text-[34px] pb-4">Tendering & IFMIS Support</h3>
+    <p class="text-bodyText">Access government opportunities with confidence through IFMIS registration, tender preparation, and compliance support. We help you manage requirements cleanly from submission to review.</p>
+  </div>
+</div>
+
+<script>
+  (function () {
+    const triggers = document.querySelectorAll('[data-modal-target]');
+    const closers = document.querySelectorAll('[data-modal-close]');
+
+    triggers.forEach((trigger) => {
+      trigger.addEventListener('click', () => {
+        const modal = document.getElementById(trigger.getAttribute('data-modal-target'));
+        if (modal) {
+          modal.classList.remove('hidden');
+          modal.classList.add('flex');
+        }
+      });
+    });
+
+    closers.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const modal = btn.closest('[id^="service-modal-"]');
+        if (modal) {
+          modal.classList.add('hidden');
+          modal.classList.remove('flex');
+        }
+      });
+    });
+
+    document.querySelectorAll('[id^="service-modal-"]').forEach((modal) => {
+      modal.addEventListener('click', (event) => {
+        if (event.target === modal) {
+          modal.classList.add('hidden');
+          modal.classList.remove('flex');
+        }
+      });
+    });
+  })();
+</script>
+{% endblock %}

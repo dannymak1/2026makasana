@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}Admin Profile | Makasana{% endblock %}
+{% block content %}
+<div class="min-h-screen flex">
+    <aside class="w-64 mk-sidebar p-6">
+        <h2 class="text-lg font-semibold mb-6">Bird Eye</h2>
+        <nav class="space-y-2 text-sm">
+            <a class="block px-3 py-2 rounded mk-nav-link" href="{{ url_for('admin.dashboard') }}">Dashboard</a>
+            <a class="block px-3 py-2 rounded mk-nav-link" href="{{ url_for('admin.users_page') }}">Users</a>
+            <a class="block px-3 py-2 rounded mk-nav-link" href="{{ url_for('admin.manage_documents') }}">Manage Documents</a>
+            <a class="block px-3 py-2 rounded mk-nav-link" href="{{ url_for('admin.blogs_list') }}">Blogs</a>
+            <a class="block px-3 py-2 rounded mk-nav-link" href="{{ url_for('admin.requests_page') }}">Requests</a>
+            <a class="block px-3 py-2 rounded mk-nav-link" href="{{ url_for('admin.mailing_list') }}">Mailing List</a>
+            <a class="block px-3 py-2 rounded mk-nav-link" href="{{ url_for('admin.settings') }}">Settings</a>
+            <a class="block px-3 py-2 rounded mk-nav-link" href="{{ url_for('admin.site_info') }}">Site Info</a>
+            <a class="block px-3 py-2 rounded mk-nav-active" href="{{ url_for('admin.profile') }}">Manage Profile</a>
+            <a class="block px-3 py-2 rounded mk-nav-link" href="{{ url_for('auth.logout') }}">Logout</a>
+        </nav>
+    </aside>
+    <main class="flex-1 p-8">
+        <h1 class="text-2xl font-semibold mk-page-title mb-6">Manage Profile</h1>
+        <form method="post" class="mk-card rounded-xl p-6 space-y-4 max-w-2xl">
+            <div class="grid sm:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-medium mb-1">First name</label>
+                    <input name="first_name" value="{{ current_user.first_name or '' }}" placeholder="First name" class="w-full border border-slate-300 rounded-lg px-3 py-2">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-1">Last name</label>
+                    <input name="last_name" value="{{ current_user.last_name or '' }}" placeholder="Last name" class="w-full border border-slate-300 rounded-lg px-3 py-2">
+                </div>
+            </div>
+            <div>
+                <label class="block text-sm font-medium mb-1">Email</label>
+                <p class="text-sm text-slate-600 bg-slate-50 border border-slate-200 rounded-lg px-3 py-2">{{ current_user.username }}</p>
+                <p class="text-xs text-slate-500 mt-1">Email cannot be changed from this form.</p>
+            </div>
+            <div>
+                <label class="block text-sm font-medium mb-1" for="phone">Phone</label>
+                <input id="phone" name="phone" type="tel" required maxlength="50" value="{{ current_user.phone or '' }}" placeholder="e.g. +254700000000" class="w-full border border-slate-300 rounded-lg px-3 py-2">
+            </div>
+            <div class="grid sm:grid-cols-2 gap-4">
+                <input name="password" type="password" placeholder="New password (optional)" class="w-full border border-slate-300 rounded-lg px-3 py-2">
+                <input name="confirm_password" type="password" placeholder="Confirm password" class="w-full border border-slate-300 rounded-lg px-3 py-2">
+            </div>
+            <button class="mk-btn-primary px-4 py-2 rounded-lg">Save Profile</button>
+        </form>
+    </main>
+</div>
+{% endblock %}

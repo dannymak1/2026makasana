@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block title %}Users | Makasana{% endblock %}
+{% block content %}
+<div class="min-h-screen flex">
+    <aside class="w-64 mk-sidebar p-6">
+        <h2 class="text-lg font-semibold mb-6">Bird Eye</h2>
+        <nav class="space-y-2 text-sm">
+            <a class="block px-3 py-2 rounded mk-nav-link" href="{{ url_for('admin.dashboard') }}">Dashboard</a>
+            <a class="block px-3 py-2 rounded mk-nav-active" href="{{ url_for('admin.users_page') }}">Users</a>
+            <a class="block px-3 py-2 rounded mk-nav-link" href="{{ url_for('admin.manage_documents') }}">Manage Documents</a>
+            <a class="block px-3 py-2 rounded mk-nav-link" href="{{ url_for('admin.blogs_list') }}">Blogs</a>
+            <a class="block px-3 py-2 rounded mk-nav-link" href="{{ url_for('admin.requests_page') }}">Requests</a>
+            <a class="block px-3 py-2 rounded mk-nav-link" href="{{ url_for('admin.mailing_list') }}">Mailing List</a>
+            <a class="block px-3 py-2 rounded mk-nav-link" href="{{ url_for('admin.settings') }}">Settings</a>
+            <a class="block px-3 py-2 rounded mk-nav-link" href="{{ url_for('admin.site_info') }}">Site Info</a>
+            <a class="block px-3 py-2 rounded mk-nav-link" href="{{ url_for('admin.profile') }}">Manage Profile</a>
+            <a class="block px-3 py-2 rounded mk-nav-link" href="{{ url_for('auth.logout') }}">Logout</a>
+        </nav>
+    </aside>
+    <main class="flex-1 p-8 space-y-6">
+        <div class="flex items-center justify-between">
+            <h1 class="text-2xl font-semibold mk-page-title">Users</h1>
+            <form method="get" class="flex gap-2">
+                <input name="q" value="{{ search }}" placeholder="Search users..." class="border border-slate-300 rounded-lg px-3 py-2 text-sm">
+                <button class="mk-btn-secondary px-3 py-2 rounded-lg text-sm">Search</button>
+            </form>
+        </div>
+        <section class="mk-card rounded-xl overflow-hidden">
+            <table class="min-w-full divide-y divide-slate-200">
+                <thead class="mk-table-head">
+                    <tr>
+                        <th class="px-4 py-3 text-left text-xs font-semibold uppercase">Full Name</th>
+                        <th class="px-4 py-3 text-left text-xs font-semibold uppercase">Email</th>
+                        <th class="px-4 py-3 text-left text-xs font-semibold uppercase">Phone</th>
+                        <th class="px-4 py-3 text-left text-xs font-semibold uppercase">Role</th>
+                        <th class="px-4 py-3 text-left text-xs font-semibold uppercase">Organization</th>
+                        <th class="px-4 py-3 text-left text-xs font-semibold uppercase">Created</th>
+                        <th class="px-4 py-3 text-left text-xs font-semibold uppercase">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-200">
+                    {% for user in users %}
+                        <tr class="mk-table-row">
+                            <td class="px-4 py-3 text-sm">{{ user.full_name }}</td>
+                            <td class="px-4 py-3 text-sm">{{ user.username }}</td>
+                            <td class="px-4 py-3 text-sm">{{ user.phone or '—' }}</td>
+                            <td class="px-4 py-3 text-sm">{{ user.role }}</td>
+                            <td class="px-4 py-3 text-sm">{{ user.organization.name if user.organization else '-' }}</td>
+                            <td class="px-4 py-3 text-sm">{{ user.created_at|format_dt('%Y-%m-%d') }}</td>
+                            <td class="px-4 py-3 text-sm">
+                                <details>
+                                    <summary class="mk-link cursor-pointer">Edit</summary>
+                                    <form method="post" action="{{ url_for('admin.edit_user', user_id=user.id) }}" class="mt-2 p-2 border border-slate-200 rounded space-y-2">
+                                        <input name="first_name" value="{{ user.first_name or '' }}" placeholder="First name" class="w-full border border-slate-300 rounded px-2 py-1 text-xs">
+                                        <input name="last_name" value="{{ user.last_name or '' }}" placeholder="Last name" class="w-full border border-slate-300 rounded px-2 py-1 text-xs">
+                                        <p class="text-xs text-slate-500">{{ user.username }}</p>
+                                        <input name="phone" type="tel" required maxlength="50" value="{{ user.phone or '' }}" placeholder="Phone (required)" class="w-full border border-slate-300 rounded px-2 py-1 text-xs">
+                                        <button class="mk-btn-primary px-2 py-1 rounded text-xs">Save</button>
+                                    </form>
+                                </details>
+                                <form method="post" action="{{ url_for('admin.delete_user', user_id=user.id) }}" onsubmit="return confirm('Delete this user?');">
+                                    <button class="text-rose-600 hover:text-rose-700 text-xs mt-1">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr><td colspan="7" class="px-4 py-6 text-sm text-slate-500">No users found.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+    </main>
+</div>
+{% endblock %}

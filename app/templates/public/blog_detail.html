@@ -1,0 +1,51 @@
+{% extends "public/base.html" %}
+{% block title %}{{ post.title }} | Makasana{% endblock %}
+{% block content %}
+<section class="stp-30 bg-softBg1 relative max-xxl:overflow-hidden">
+  <img
+    src="{{ url_for('static', filename='assets/images/breadcrump_icon.png') }}"
+    alt="image"
+    class="absolute bottom-0 left-[-10%] xxl:left-0 max-lg:hidden"
+  />
+  <div class="container grid grid-cols-12 gap-6 max-md:stp-15 relative z-10">
+    <div class="col-span-12 md:col-span-8 flex justify-center items-start flex-col">
+      <ul class="flex justify-start items-center gap-1 flex-wrap">
+        <li>
+          <a href="{{ url_for('public.home') }}" class="flex justify-start items-center gap-1">
+            <i class="ph ph-house"></i>
+            <span class="hover:text-s2 duration-300">Home</span>
+          </a>
+        </li>
+        <li class="flex justify-start items-center gap-1">
+          <i class="ph ph-caret-right"></i>
+          <a href="{{ url_for('public.blog') }}" class="hover:text-s2 duration-300">Blog</a>
+        </li>
+        <li class="flex justify-start items-center gap-1">
+          <i class="ph ph-caret-right"></i>
+          Article
+        </li>
+      </ul>
+      <h1 class="display-4 pt-4">{{ post.title }}</h1>
+      <div class="flex justify-start items-center gap-3 pt-6">
+        <span class="bg-p1 py-2 px-4 rounded-full text-white">{{ post.category }}</span>
+        <p class="border-l pl-3 border-bodyText">{{ post.published_at.strftime('%B %d, %Y') }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="container stp-30 sbp-30">
+  <div class="max-w-[900px] mx-auto">
+    <div class="overflow-hidden">
+      <img
+        src="{{ url_for('static', filename=post.image_path or 'assets/images/blogImg1.png') }}"
+        alt="{{ post.title }}"
+        class="w-full h-full"
+      />
+    </div>
+    <div class="pt-8">
+      <div class="text-bodyText text-lg leading-8">{{ post.content | safe }}</div>
+    </div>
+  </div>
+</section>
+{% endblock %}

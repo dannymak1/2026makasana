@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% block title %}{% if post %}Edit Blog{% else %}Create Blog{% endif %} | Makasana{% endblock %}
+{% block content %}
+<div class="min-h-screen flex">
+    <aside class="w-64 mk-sidebar p-6">
+        <h2 class="text-lg font-semibold mb-6">Bird Eye</h2>
+        <nav class="space-y-2 text-sm">
+            <a class="block px-3 py-2 rounded mk-nav-link" href="{{ url_for('admin.dashboard') }}">Dashboard</a>
+            <a class="block px-3 py-2 rounded mk-nav-link" href="{{ url_for('admin.users_page') }}">Users</a>
+            <a class="block px-3 py-2 rounded mk-nav-link" href="{{ url_for('admin.manage_documents') }}">Manage Documents</a>
+            <a class="block px-3 py-2 rounded mk-nav-active" href="{{ url_for('admin.blogs_list') }}">Blogs</a>
+            <a class="block px-3 py-2 rounded mk-nav-link" href="{{ url_for('admin.requests_page') }}">Requests</a>
+            <a class="block px-3 py-2 rounded mk-nav-link" href="{{ url_for('admin.mailing_list') }}">Mailing List</a>
+            <a class="block px-3 py-2 rounded mk-nav-link" href="{{ url_for('admin.settings') }}">Settings</a>
+            <a class="block px-3 py-2 rounded mk-nav-link" href="{{ url_for('admin.site_info') }}">Site Info</a>
+            <a class="block px-3 py-2 rounded mk-nav-link" href="{{ url_for('admin.profile') }}">Manage Profile</a>
+            <a class="block px-3 py-2 rounded mk-nav-link" href="{{ url_for('auth.logout') }}">Logout</a>
+        </nav>
+    </aside>
+    <main class="flex-1 p-8">
+        <h1 class="text-2xl font-semibold mb-6 mk-page-title">{% if post %}Edit Blog{% else %}Create Blog{% endif %}</h1>
+        <form method="post" class="mk-card rounded-xl p-6 space-y-4">
+            <div class="grid md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-medium mb-1">Title</label>
+                    <input id="title" name="title" required value="{{ post.title if post else '' }}" class="w-full border border-slate-300 rounded-lg px-3 py-2">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-1">Slug</label>
+                    <input id="slug" name="slug" value="{{ post.slug if post else '' }}" class="w-full border border-slate-300 rounded-lg px-3 py-2" placeholder="auto-generated if empty">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-1">Category</label>
+                    <input name="category" required value="{{ post.category if post else '' }}" class="w-full border border-slate-300 rounded-lg px-3 py-2">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-1">Image Path</label>
+                    <input name="image_path" value="{{ post.image_path if post else '' }}" class="w-full border border-slate-300 rounded-lg px-3 py-2" placeholder="assets/images/blogImg1.png">
+                </div>
+            </div>
+            <div>
+                <label class="block text-sm font-medium mb-1">Excerpt</label>
+                <textarea name="excerpt" rows="3" class="w-full border border-slate-300 rounded-lg px-3 py-2">{{ post.excerpt if post else '' }}</textarea>
+            </div>
+            <div>
+                <label class="block text-sm font-medium mb-1">Content</label>
+                <div id="editor" class="border border-slate-300 rounded-lg bg-white min-h-[260px]"></div>
+                <textarea id="content" name="content" class="hidden">{{ post.content if post else '' }}</textarea>
+            </div>
+            <label class="inline-flex items-center gap-2 text-sm">
+                <input type="checkbox" name="is_published" {% if not post or post.is_published %}checked{% endif %}>
+                Published
+            </label>
+            <div class="pt-2">
+                <button class="mk-btn-primary px-4 py-2 rounded-lg">{% if post %}Update Blog{% else %}Create Blog{% endif %}</button>
+                <a href="{{ url_for('admin.blogs_list') }}" class="ml-2 mk-link">Cancel</a>
+            </div>
+        </form>
+    </main>
+</div>
+<link href="https://cdn.jsdelivr.net/npm/quill@1.3.7/dist/quill.snow.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/quill@1.3.7/dist/quill.min.js"></script>
+<script>
+const quill = new Quill('#editor', {
+  theme: 'snow',
+  modules: {
+    toolbar: [
+      [{ header: [1, 2, 3, false] }],
+      ['bold', 'italic', 'underline'],
+      [{ list: 'ordered' }, { list: 'bullet' }],
+      ['link', 'blockquote'],
+      ['clean']
+    ]
+  }
+});
+const existing = document.getElementById('content').value || '';
+quill.root.innerHTML = existing;
+const form = document.querySelector('form');
+form.addEventListener('submit', function () {
+  document.getElementById('content').value = quill.root.innerHTML;
+});
+document.getElementById('title').addEventListener('input', function () {
+  const slugInput = document.getElementById('slug');
+  if (!slugInput.dataset.manual && !slugInput.value) {
+    slugInput.value = this.value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+  }
+});
+document.getElementById('slug').addEventListener('input', function () {
+  if (this.value.trim().length > 0) {
+    this.dataset.manual = '1';
+  } else {
+    delete this.dataset.manual;
+  }
+});
+</script>
+{% endblock %}

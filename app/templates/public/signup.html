@@ -1,0 +1,99 @@
+{% extends "public/base.html" %}
+{% block title %}Sign Up | Makasana{% endblock %}
+{% block content %}
+<style>
+  .mk-signup-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .mk-col-span-2 {
+    grid-column: span 1;
+  }
+  @media (min-width: 768px) {
+    .mk-signup-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .mk-col-span-2 {
+      grid-column: span 2;
+    }
+  }
+</style>
+<section class="bg-repeat hero_bg_gradient relative overflow-hidden stp-30 sbp-30">
+    <div class="absolute left-1/2 -translate-x-1/2 top-20 w-[520px] h-[520px] rounded-full bg-s2/25 blur-[140px] pointer-events-none"></div>
+    <main class="container relative z-10">
+    <div class="w-full max-w-[800px] mx-auto bg-white border border-strokeColor rounded-2xl p-8 md:p-10 shadow-sm" style="max-width: 800px; margin-left: auto; margin-right: auto; box-shadow: 0 0 0 1px rgba(0,0,0,0.02), 0 12px 30px rgba(247, 195, 61, 0.18);">
+        <h1 class="text-3xl font-semibold mb-2">Create Account</h1>
+        <p class="text-bodyText mb-8">Register for secure access to makasanaconsultancy.com DMS portal.</p>
+        <form method="post" action="{{ url_for('auth.signup') }}" class="space-y-6" novalidate>
+            <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+            <div>
+                <h3 class="text-sm font-semibold uppercase tracking-wide text-slate-600 mb-3">Organization</h3>
+                <div class="mk-signup-grid">
+                    <div class="mk-col-span-2">
+                        <label class="block text-sm font-medium mb-1" for="organization_name">Organization Name</label>
+                        <input id="organization_name" name="organization_name" class="w-full border border-strokeColor rounded-lg px-3 py-3 focus:outline-none focus:ring-2 focus:ring-s2" placeholder="e.g. Acme Limited" required>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-1" for="organization_email">Organization Email (optional)</label>
+                        <input id="organization_email" name="organization_email" type="email" class="w-full border border-strokeColor rounded-lg px-3 py-3 focus:outline-none focus:ring-2 focus:ring-s2" placeholder="e.g. info@company.com">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-1" for="organization_phone">Organization Phone</label>
+                        <input id="organization_phone" name="organization_phone" required maxlength="50" class="w-full border border-strokeColor rounded-lg px-3 py-3 focus:outline-none focus:ring-2 focus:ring-s2" placeholder="e.g. +254700000000">
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 20px;">
+                <h3 class="text-sm font-semibold uppercase tracking-wide text-slate-600 mb-3">User</h3>
+                <div class="mk-signup-grid">
+                    <div>
+                        <label class="block text-sm font-medium mb-1" for="first_name">First Name</label>
+                        <input id="first_name" name="first_name" maxlength="100" autocomplete="given-name" class="w-full border border-strokeColor rounded-lg px-3 py-3 focus:outline-none focus:ring-2 focus:ring-s2" placeholder="e.g. John">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-1" for="last_name">Last Name</label>
+                        <input id="last_name" name="last_name" maxlength="100" autocomplete="family-name" class="w-full border border-strokeColor rounded-lg px-3 py-3 focus:outline-none focus:ring-2 focus:ring-s2" placeholder="e.g. Doe">
+                    </div>
+                    <div class="mk-col-span-2">
+                        <label class="block text-sm font-medium mb-1" for="email">Email</label>
+                        <input id="email" name="email" type="email" required maxlength="100" autocomplete="username" class="w-full border border-strokeColor rounded-lg px-3 py-3 focus:outline-none focus:ring-2 focus:ring-s2" placeholder="e.g. john.doe@company.com">
+                    </div>
+                    <div class="mk-col-span-2">
+                        <label class="block text-sm font-medium mb-1" for="user_phone">Your Phone</label>
+                        <input id="user_phone" name="user_phone" type="tel" required maxlength="50" autocomplete="tel" class="w-full border border-strokeColor rounded-lg px-3 py-3 focus:outline-none focus:ring-2 focus:ring-s2" placeholder="e.g. +254700000000">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-1" for="password">Password</label>
+                        <input id="password" name="password" type="password" required minlength="8" autocomplete="new-password" class="w-full border border-strokeColor rounded-lg px-3 py-3 focus:outline-none focus:ring-2 focus:ring-s2" placeholder="Min 8 chars">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-1" for="confirm_password">Confirm Password</label>
+                        <input id="confirm_password" name="confirm_password" type="password" required minlength="8" autocomplete="new-password" class="w-full border border-strokeColor rounded-lg px-3 py-3 focus:outline-none focus:ring-2 focus:ring-s2" placeholder="Repeat password">
+                    </div>
+                </div>
+            </div>
+
+            <p class="text-xs text-bodyText">Use at least one uppercase letter, one lowercase letter, one number, and one special character.</p>
+            <div style="margin-top: 30px;">
+                <button type="submit" class="w-full bg-s2 border border-mainTextColor text-mainTextColor py-3 rounded-full font-semibold hover:opacity-90">
+                    Create Account
+                </button>
+            </div>
+            <p class="text-sm text-bodyText text-center">
+                Already registered? <a class="underline font-medium" href="{{ url_for('auth.login') }}">Sign in</a>
+            </p>
+        </form>
+    </div>
+</main>
+</section>
+<script>
+function slugifyOrgName(value) {
+    return (value || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+}
+document.getElementById('organization_name').addEventListener('input', function () {
+    slugifyOrgName(this.value);
+});
+</script>
+{% endblock %}

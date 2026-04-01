@@ -1,0 +1,628 @@
+{% extends "public/base.html" %}
+{% block title %}Makasana Consultancy{% endblock %}
+{% block content %}
+<style>
+  @media (max-width: 767px) {
+    .mk-hero-copy {
+      margin-top: 50px !important;
+    }
+  }
+</style>
+<!-- Header Section End -->
+
+    <!-- Hero Section Start -->
+    <section class="bg-repeat stp-30 hero_bg_gradient overflow-hidden">
+      <img
+        src="{{ url_for('static', filename='assets/images/hero_bg_element1.png') }}"
+        alt="image"
+        class="absolute top-0 left-0 xxxl:left-36 max-lg:w-[300px] max-xxl:w-[500px] max-md:hidden"
+      />
+      <img
+        src="{{ url_for('static', filename='assets/images/hero_bg_element2.png') }}"
+        alt="image"
+        class="absolute top-0 right-0 max-xxl:w-[300px] max-sm:hidden"
+      />
+      <div
+        class="absolute -left-[200px] -bottom-1/2 bg-white blur-[200px] rounded-[1176px] max-w-full lg:w-[1176px] h-[1176px] overflow-hidden"
+      ></div>
+      <div
+        class="xxl:ml-[calc((100%-1296px)/2)] lg:max-xxl:py-10 max-xxl:container relative z-20 max-lg:pt-15 text-s1 grid grid-cols-12"
+      >
+        <img
+          src="{{ url_for('static', filename='assets/images/hero_bg_element3.png') }}"
+          alt="image"
+          class="absolute top-1/3 left-1/3 max-sm:hidden"
+        />
+        <div
+          class="mk-hero-copy col-span-12 lg:col-span-5 flex flex-col justify-center gap-2"
+          style="margin-top: 100px;"
+        >
+          <p
+            class="uppercase text-base lg:text-xl font-semibold animate__animated animate__fadeInUp"
+          >
+            Compliance, Documentation, and DMS Excellence
+          </p>
+          <div class="display-2">
+            We Make
+            <div class="text-s3 inline-flex">Compliance</div>
+            <br />
+            Structured.
+          </div>
+          <p class="max-w-[550px]">
+            Makasana Consultancy helps organizations manage critical documents,
+            renewal timelines, and audit readiness through a secure multi-tenant DMS.
+          </p>
+          <div class="flex justify-start items-center gap-4 pt-6 lg:pt-8 pb-15">
+            <a
+              href="{{ url_for('public.contact') }}"
+              class="font-medium bg-s2 py-2 lg:py-3 px-4 lg:px-6 rounded-full text-mainTextColor"
+            >
+              Get Started
+            </a>
+            <a href="{{ url_for('public.services') }}" class="underline font-medium"> Learn More </a>
+          </div>
+        </div>
+        <div class="col-span-12 lg:col-span-6 lg:col-start-7">
+          <img src="{{ url_for('static', filename='assets/images/makasana-hero.png') }}" alt="Makasana compliance hero image" />
+        </div>
+      </div>
+    </section>
+    <!-- Hero Section End -->
+
+    <!-- Company Slider Start -->
+    <section
+      class="stp-15 sbp-15 container grid grid-cols-12 gap-6 border-b border-strokeColor"
+    >
+      <div class="col-span-12 sm:col-span-6 xl:col-span-4">
+        <p
+          class="text-xl lg:text-2xl text-bodyText relative after:absolute after:top-[55%] after:right-0 after:w-[50px] after:h-[2px] after:bg-bodyText max-xxl:after:content-none"
+        >
+          We help many organizations manage over
+          <span class="font-bold text-mainTextColor">
+            {% if stats.document_count < 20 %}Thousands{% else %}{{ stats.document_count }}+{% endif %}
+          </span>
+          {% if stats.document_count < 20 %}of{% endif %}
+          documents.
+        </p>
+      </div>
+      <div class="col-span-12 sm:col-span-6 xl:col-span-8 flex pt-4">
+        <div class="swiper company-images-carousel sponsors">
+          <div
+            class="swiper-wrapper !flex !justify-center !items-center sponsors"
+          >
+            {% if client_logos %}
+              {% for logo_path in client_logos %}
+                <div class="swiper-slide">
+                  <a href="#" class="flex justify-center items-center">
+                    <img src="{{ url_for('static', filename=logo_path) }}" alt="Client logo" class="max-h-10 w-auto" />
+                  </a>
+                </div>
+              {% endfor %}
+            {% else %}
+              <div class="swiper-slide">
+                <a href="#" class="flex justify-center items-center">
+                  <img src="{{ url_for('static', filename='assets/images/logo1.png') }}" alt="Logo placeholder" />
+                </a>
+              </div>
+              <div class="swiper-slide">
+                <a href="#" class="flex justify-center items-center">
+                  <img src="{{ url_for('static', filename='assets/images/logo2.png') }}" alt="Logo placeholder" />
+                </a>
+              </div>
+              <div class="swiper-slide">
+                <a href="#" class="flex justify-center items-center">
+                  <img src="{{ url_for('static', filename='assets/images/logo3.png') }}" alt="Logo placeholder" />
+                </a>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Company Slider End -->
+
+    <!-- Solutions Section Start -->
+    <section class="stp-30 sbp-30 relative">
+      <img
+        src="{{ url_for('static', filename='assets/images/circleIcon.png') }}"
+        alt="circle icon"
+        class="absolute top-10 left-0 max-xxl:hidden xxl:-left-72 xxxl:-left-40"
+      />
+      <img
+        src="{{ url_for('static', filename='assets/images/sliceIcon.png') }}"
+        alt="slice icon"
+        class="absolute right-0 sm:right-2 lg:right-10 top-10 xl:top-32 max-md:h-[80px]"
+      />
+      <div class="container z-10 relative">
+        <div class="flex justify-center items-center">
+          <div class="flex justify-center items-center max-xxl:overflow-hidden">
+            <div
+              class="max-w-[700px] text-center flex justify-center items-center flex-col"
+            >
+              <p
+                class="bg-p1 py-2 sm:py-3 px-5 rounded-full text-white wow animate__animated animate__fadeInUp"
+              >
+                Solutions
+              </p>
+
+              <h1
+                class="display-4 pt-4 pb-4 lg:pb-6 wow animate__animated animate__fadeInDown"
+              >
+                Structured Compliance & Document Management
+              </h1>
+
+              <p
+                class="text-bodyText wow animate__animated animate__fadeInDown"
+              >
+                We provide integrated solutions that simplify business
+                compliance, document management, and regulatory processes for
+                organizations operating in Kenya.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="grid grid-cols-12 stp-15 max-lg:gap-6">
+          <div class="col-span-12 lg:col-span-6">
+            <div
+              class="flex justify-center items-center overflow-hidden self-stretch"
+            >
+              <img
+                src="{{ url_for('static', filename='assets/images/solution_illustrations.png') }}"
+                alt="image"
+                class="hover:scale-110 duration-500 w-full"
+              />
+            </div>
+          </div>
+          <div
+            class="col-span-12 lg:col-start-8 lg:col-span-5 flex justify-center items-start flex-col"
+          >
+            <h1 class="heading-1 pb-5">Centralized Compliance & DMS Platform</h1>
+            <p class="text-bodyText">
+              Our platform helps organizations manage critical documents, track
+              compliance requirements, and stay audit-ready through a secure and
+              structured system.
+            </p>
+            <div class="grid grid-cols-2 gap-4 lg:gap-6 py-6 lg:py-10 w-full">
+              <div
+                class="group col-span-2 sm:col-span-1 flex justify-start items-center gap-5"
+              >
+                <i
+                  class="ph-fill ph-file-text rounded-full border border-strokeColor bg-softBg w-[60px] h-[60px] sm:w-[80px] sm:h-[80px] text-4xl text-s1 group-hover:text-mainTextColor group-hover:bg-s2 group-hover:border-mainTextColor duration-500 !leading-[0] flex justify-center items-center"
+                ></i>
+                <p class="text-lg font-medium group-hover:text-s1 duration-500">
+                  Business Registration & Compliance
+                </p>
+              </div>
+              <div
+                class="group col-span-2 sm:col-span-1 flex justify-start items-center gap-5"
+              >
+                <i
+                  class="ph-fill ph-hand-heart rounded-full border border-strokeColor bg-softBg w-[60px] h-[60px] sm:w-[80px] sm:h-[80px] text-4xl text-s1 group-hover:text-mainTextColor group-hover:bg-s2 group-hover:border-mainTextColor duration-500 !leading-[0] flex justify-center items-center"
+                ></i>
+                <p class="text-lg font-medium group-hover:text-s1 duration-500">
+                  Tax & Regulatory Management
+                </p>
+              </div>
+              <div
+                class="group col-span-2 sm:col-span-1 flex justify-start items-center gap-5"
+              >
+                <i
+                  class="ph-fill ph-lightbulb-filament rounded-full border border-strokeColor bg-softBg w-[60px] h-[60px] sm:w-[80px] sm:h-[80px] text-4xl text-s1 group-hover:text-mainTextColor group-hover:bg-s2 group-hover:border-mainTextColor duration-500 !leading-[0] flex justify-center items-center"
+                ></i>
+                <p class="text-lg font-medium group-hover:text-s1 duration-500">
+                  Document Management System (DMS)
+                </p>
+              </div>
+              <div
+                class="group col-span-2 sm:col-span-1 flex justify-start items-center gap-5"
+              >
+                <i
+                  class="ph-fill ph-rocket-launch rounded-full border border-strokeColor bg-softBg w-[60px] h-[60px] sm:w-[80px] sm:h-[80px] text-4xl text-s1 group-hover:text-mainTextColor group-hover:bg-s2 group-hover:border-mainTextColor duration-500 !leading-[0] flex justify-center items-center"
+                ></i>
+                <p class="text-lg font-medium group-hover:text-s1 duration-500">
+                  Tendering & IFMIS Support
+                </p>
+              </div>
+            </div>
+            <div class="flex justify-start items-start">
+              <a
+                href="{{ url_for('public.contact') }}"
+                class="flex justify-center max-sm:text-sm items-center gap-3 py-2 md:py-3 px-3 md:px-6 rounded-full bg-s2 border border-mainTextColor text-mainTextColor group font-medium"
+              >
+                Contact Us
+                <span
+                  class="group-hover:rotate-[45deg] duration-500 text-base sm:text-xl lg:text-2xl !leading-[0]"
+                >
+                  <i class="ph-bold ph-arrow-up-right"></i>
+                </span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Solutions Section End -->
+
+    <!-- Features Section Start -->
+    <section class="bg-softBg1 stp-30 sbp-30">
+      <div class="container">
+        <div
+          class="flex justify-between items-end gap-6 max-lg:flex-col max-lg:items-start"
+        >
+          <div class="max-w-[600px] flex justify-center items-start flex-col">
+            <p
+              class="bg-p1 py-3 px-5 rounded-full text-white wow animate__animated animate__fadeInUp"
+            >
+              Our Solutions
+            </p>
+            <h1
+              class="display-4 pt-4 wow animate__animated animate__fadeInDown"
+            >
+              Integrated Compliance & Business Support Solutions
+            </h1>
+          </div>
+          <p class="text-bodyText max-w-[500px]">
+            We provide a structured platform that helps businesses manage
+            compliance, documentation, taxation, and government processes
+            efficiently-ensuring operational stability and growth.
+          </p>
+        </div>
+        <div class="grid grid-cols-12 gap-6 stp-15">
+          <div
+            class="col-span-12 sm:col-span-6 lg:col-span-3 wow animate__animated animate__fadeInUp"
+            data-wow-duration="1.3s"
+          >
+            <div
+              class="bg-white p-6 xl:p-8 flex flex-col border border-white group hover:border-mainTextColor duration-700 hover:bg-s2"
+            >
+              <div
+                class="text-4xl text-s1 pb-6 group-hover:text-mainTextColor duration-500"
+              >
+                <i class="ph-fill ph-users-three"></i>
+              </div>
+              <h4 class="heading-4 pb-5">Business Registration & Compliance</h4>
+              <p class="text-bodyText pb-6">
+                Register and structure your business correctly from the start.
+                We handle company registration, statutory compliance, and
+                regulatory requirements.
+              </p>
+              <a
+                href="{{ url_for('public.contact') }}"
+                class="flex justify-start items-center gap-2 font-medium"
+              >
+                Learn more <i class="ph ph-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+          <div
+            class="col-span-12 sm:col-span-6 lg:col-span-3 wow animate__animated animate__fadeInUp"
+            data-wow-duration="1.3s"
+            data-wow-delay=".2s"
+          >
+            <div
+              class="bg-white p-6 xl:p-8 flex flex-col border border-white group hover:border-mainTextColor duration-700 hover:bg-s2"
+            >
+              <div
+                class="text-4xl text-s1 pb-6 group-hover:text-mainTextColor duration-500"
+              >
+                <i class="ph-fill ph-hand-coins"></i>
+              </div>
+              <h4 class="heading-4 pb-5">Tax & Financial Compliance</h4>
+              <p class="text-bodyText pb-6">
+                Stay compliant with all tax obligations including VAT, income
+                tax, and corporate filings with accurate and timely submissions.
+              </p>
+              <a
+                href="{{ url_for('public.contact') }}"
+                class="flex justify-start items-center gap-2 font-medium"
+              >
+                Learn more <i class="ph ph-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+          <div
+            class="col-span-12 sm:col-span-6 lg:col-span-3 wow animate__animated animate__fadeInUp"
+            data-wow-duration="1.3s"
+            data-wow-delay=".4s"
+          >
+            <div
+              class="bg-white p-6 xl:p-8 flex flex-col border border-white group hover:border-mainTextColor duration-700 hover:bg-s2"
+            >
+              <div
+                class="text-4xl text-s1 pb-6 group-hover:text-mainTextColor duration-500"
+              >
+                <i class="ph-fill ph-user-gear"></i>
+              </div>
+              <h4 class="heading-4 pb-5">Document Management System (DMS)</h4>
+              <p class="text-bodyText pb-6">
+                Centralize and manage your business documents with our
+                structured system-track expiries, maintain records, and stay
+                audit-ready.
+              </p>
+              <a
+                href="{{ url_for('public.contact') }}"
+                class="flex justify-start items-center gap-2 font-medium"
+              >
+                Learn more <i class="ph ph-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+          <div
+            class="col-span-12 sm:col-span-6 lg:col-span-3 wow animate__animated animate__fadeInUp"
+            data-wow-duration="1.3s"
+            data-wow-delay=".6s"
+          >
+            <div
+              class="bg-white p-6 xl:p-8 flex flex-col border border-white group hover:border-mainTextColor duration-700 hover:bg-s2"
+            >
+              <div
+                class="text-4xl text-s1 pb-6 group-hover:text-mainTextColor duration-500"
+              >
+                <i class="ph-fill ph-user-plus"></i>
+              </div>
+              <h4 class="heading-4 pb-5">Tendering & Government Systems</h4>
+              <p class="text-bodyText pb-6">
+                Access government opportunities with confidence through IFMIS
+                registration, tender preparation, and compliance support.
+              </p>
+              <a
+                href="{{ url_for('public.contact') }}"
+                class="flex justify-start items-center gap-2 font-medium"
+              >
+                Learn more <i class="ph ph-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Features Section End -->
+
+    <!-- Counter Section Start -->
+    <section
+      style="background-image: url('{{ url_for('static', filename='assets/images/counter_bg.png') }}')"
+      class="bg-cover stp-30 sbp-30 relative"
+    >
+      <div
+        class="container text-white flex justify-between items-center gap-8 sm:gap-4 md:gap-8 lg:gap-16 max-sm:flex-col"
+      >
+        <div class="text-center max-w-[280px]">
+          <p class="display-4 pb-3 flex justify-center items-center">
+            100% Compliance Visibility
+          </p>
+          <p>
+            Track all your regulatory requirements, documents, and deadlines in
+            one structured system.
+          </p>
+        </div>
+        <div class="h-[120px] w-[2px] bg-white/70 mt-8 max-sm:hidden"></div>
+        <div class="text-center max-w-[280px]">
+          <p class="display-4 pb-3 counters flex justify-center items-center">
+            Zero Missed Deadlines
+          </p>
+          <p>
+            Stay ahead of renewals, filings, and compliance obligations with
+            automated tracking and alerts.
+          </p>
+        </div>
+        <div class="h-[120px] w-[2px] bg-white/70 mt-8 max-sm:hidden"></div>
+        <div class="text-center max-w-[280px]">
+          <p class="display-4 pb-3 counters flex justify-center items-center">
+            Audit-Ready, Anytime
+          </p>
+          <p>
+            Access organized records instantly and confidently handle audits,
+            tenders, and inspections.
+          </p>
+        </div>
+      </div>
+    </section>
+    <!-- Counter Section End -->
+
+    <!-- Step By Step Guide Start -->
+    <section class="stp-30 sbp-30">
+  <div class="container">
+    <div class="flex justify-center items-center">
+      <div class="flex justify-center items-center max-xxl:overflow-hidden">
+        <div
+          class="max-w-[700px] text-center flex justify-center items-center flex-col"
+        >
+          <p
+            class="bg-p1 py-2 sm:py-3 px-5 rounded-full text-white wow animate__animated animate__fadeInUp"
+          >
+            How it works
+          </p>
+
+          <h1
+            class="display-4 pt-4 pb-4 lg:pb-6 wow animate__animated animate__fadeInDown"
+          >
+            A Step-by-Step Guide to Our Platform
+          </h1>
+
+          <p class="text-bodyText wow animate__animated animate__fadeInUp">
+            Explore our platform with ease! Sign up, select your industry, and
+            seamlessly integrate our tailored payment solutions.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="flex justify-between items-center gap-6 md:gap-4 lg:gap-6 stp-15 relative max-md:flex-col"
+    >
+      <img
+        src="{{ url_for('static', filename='assets/images/stepArrow1.png') }}"
+        alt="image"
+        class="absolute top-28 right-[22%] max-xxl:right-[23%] max-xxl:top-24 max-xxl:w-[200px] max-lg:right-[25%] max-lg:w-[100px] max-md:hidden"
+      />
+      <img
+        src="{{ url_for('static', filename='assets/images/stepArrow2.png') }}"
+        alt="image"
+        class="absolute top-16 left-[21%] max-xxl:top-20 max-xxl:left-[23%] max-xxl:w-[200px] max-lg:left-[25%] max-lg:w-[100px] max-md:hidden"
+      />
+
+      <div
+        class="flex justify-center items-center text-center flex-col max-w-[350px]"
+      >
+        <div
+          class="text-s1 bg-softBg border border-strokeColor rounded-full p-6 lg:p-7 text-3xl lg:text-5xl"
+        >
+          <i class="ph-fill ph-file-plus"></i>
+        </div>
+        <h4 class="heading-4 pt-8 pb-6">Create Your Organization</h4>
+        <p class="text-bodyText">
+          Set up your organization profile and onboard your team into a
+          structured compliance environment.
+        </p>
+      </div>
+      <div
+        class="flex justify-center items-center text-center flex-col max-w-[350px]"
+      >
+        <div
+          class="text-s1 bg-softBg border border-strokeColor rounded-full p-6 lg:p-7 text-3xl lg:text-5xl"
+        >
+          <i class="ph-fill ph-user"></i>
+        </div>
+        <h4 class="heading-4 pt-8 pb-6">Upload &amp; Organize Documents</h4>
+        <p class="text-bodyText">
+          Store all compliance and regulatory documents in categorized, secure,
+          and easy-to-access folders.
+        </p>
+      </div>
+      <div
+        class="flex justify-center items-center text-center flex-col max-w-[350px]"
+      >
+        <div
+          class="text-s1 bg-softBg border border-strokeColor rounded-full p-6 lg:p-7 text-3xl lg:text-5xl"
+        >
+          <i class="ph-fill ph-hand-coins"></i>
+        </div>
+        <h4 class="heading-4 pt-8 pb-6">Track, Manage &amp; Stay Compliant</h4>
+        <p class="text-bodyText">
+          Monitor document expiries, receive alerts, and stay audit-ready with
+          complete visibility.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+    <!-- Step By Step Guide End -->
+
+<!-- Blog Section Start -->
+<section class="stp-30 sbp-30 overflow-hidden">
+  <div class="container">
+    <div class="flex justify-between items-end">
+      <div class="max-w-[600px] flex justify-end items-start flex-col">
+        <p class="bg-p1 py-3 px-5 rounded-full text-white">News & Articles</p>
+        <h1 class="display-4 pt-4 pb-6">Latest compliance insights</h1>
+        <p class="text-">
+          Stay informed with practical guidance on compliance, document
+          management, and regulatory readiness.
+        </p>
+      </div>
+      <div class="max-lg:hidden">
+        <a
+          href="{{ url_for('public.blog') }}"
+          class="flex justify-center max-sm:text-sm items-center gap-3 py-2 md:py-3 px-3 md:px-6 rounded-full bg-s2 border border-mainTextColor text-mainTextColor group font-medium"
+        >
+          See All News & Articles
+          <span
+            class="group-hover:rotate-[45deg] duration-500 text-base sm:text-xl lg:text-2xl"
+          >
+            <i class="ph-bold ph-arrow-up-right"></i>
+          </span>
+        </a>
+      </div>
+    </div>
+    <div class="grid grid-cols-12 gap-6 stp-15">
+      {% for post in latest_posts %}
+      <div
+        class="col-span-12 sm:col-span-6 md:col-span-4 text-bodyText group wow animate__animated animate__fadeInUp"
+        data-wow-duration="1.3s"
+      >
+        <div class="flex flex-col justify-start items-start">
+          <div class="flex justify-between items-center w-full pb-5">
+            <p>{{ post.published_at.strftime('%B %d, %Y') }}</p>
+            <p
+              class="border border-strokeColor rounded-full group-hover:bg-s2 group-hover:border-mainTextColor group-hover:text-mainTextColor duration-500 py-1 lg:py-3 px-3 lg:px-5"
+            >
+              {{ post.category }}
+            </p>
+          </div>
+          <div class="flex justify-center items-center w-full overflow-hidden">
+            <img
+              src="{{ url_for('static', filename=post.image_path or 'assets/images/blogImg1.png') }}"
+              alt="{{ post.title }}"
+              class="object-cover hover:scale-110 duration-500"
+            />
+          </div>
+          <h4 class="heading-4 text-mainTextColor pb-4 pt-6">{{ post.title }}</h4>
+          <p class="pb-6">{{ post.excerpt or post.content[:160] ~ '...' }}</p>
+          <a
+            href="{{ url_for('public.blog_detail', slug=post.slug) }}"
+            class="text-mainTextColor flex justify-start items-center gap-3 border-b border-mainTextColor hover:border-s2 duration-500"
+          >
+            Read more
+            <i class="ph ph-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+      {% else %}
+      <div class="col-span-12">
+        <p class="text-bodyText">No articles published yet.</p>
+      </div>
+      {% endfor %}
+    </div>
+    <div class="lg:hidden flex justify-center items-center stp-15">
+      <a
+        href="{{ url_for('public.blog') }}"
+        class="flex justify-center max-sm:text-sm items-center gap-3 py-2 md:py-3 px-3 md:px-6 rounded-full bg-s2 border border-mainTextColor text-mainTextColor group font-medium"
+      >
+        See All News & Articles
+        <span
+          class="group-hover:rotate-[45deg] duration-500 text-base sm:text-xl lg:text-2xl"
+        >
+          <i class="ph-bold ph-arrow-up-right"></i>
+        </span>
+      </a>
+    </div>
+  </div>
+</section>
+<!-- Blog Section End -->
+
+    <!-- CTA Section Start -->
+    <section
+  class="relative after:absolute after:bg-mainTextColor after:bottom-0 after:right-0 after:left-0 after:h-1/2 overflow-hidden"
+>
+  <div
+    class="container bg-p1 py-12 sm:py-20 px-4 sm:px-10 md:px-20 lg:px-40 relative z-10 wow animate__animated animate__fadeInUp"
+  >
+    <img
+      src="{{ url_for('static', filename='assets/images/sliceIcon.png') }}"
+      alt="image"
+      class="absolute -top-4 sm:-top-6 lg:top-0 right-0 h-[60px] sm:h-[80px] lg:h-[120px] -rotate-90"
+    />
+    <p class="display-3 text-center text-white !leading-[130%]">
+      Take Control of Your Compliance Today
+    </p>
+    <p class="text-center text-white pt-4 max-w-3xl mx-auto">
+      Start managing your documents, deadlines, and compliance requirements in one secure platform.
+    </p>
+    <div class="pt-6 sm:pt-10 relative">
+      <div class="flex justify-center items-center gap-3">
+        <a
+          href="{{ url_for('auth.signup') }}"
+          class="border border-mainTextColor bg-s2 py-3 sm:py-4 px-6 md:px-10 font-medium text-mainTextColor inline-flex items-center"
+        >
+          Get Started
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+    <!-- CTA Section End -->
+
+    <!-- Footer Section Start -->
+{% endblock %}

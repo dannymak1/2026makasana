@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+{% block title %}Request Center | Makasana{% endblock %}
+{% block content %}
+<div class="min-h-screen flex">
+    <aside class="w-64 mk-sidebar p-6">
+        <h2 class="text-lg font-semibold mb-6">Bird Eye</h2>
+        <nav class="space-y-2 text-sm">
+            <a class="block px-3 py-2 rounded mk-nav-link" href="{{ url_for('admin.dashboard') }}">Dashboard</a>
+            <a class="block px-3 py-2 rounded mk-nav-link" href="{{ url_for('admin.users_page') }}">Users</a>
+            <a class="block px-3 py-2 rounded mk-nav-link" href="{{ url_for('admin.manage_documents') }}">Manage Documents</a>
+            <a class="block px-3 py-2 rounded mk-nav-link" href="{{ url_for('admin.blogs_list') }}">Blogs</a>
+            <a class="block px-3 py-2 rounded mk-nav-active" href="{{ url_for('admin.requests_page') }}">Requests</a>
+            <a class="block px-3 py-2 rounded mk-nav-link" href="{{ url_for('admin.mailing_list') }}">Mailing List</a>
+            <a class="block px-3 py-2 rounded mk-nav-link" href="{{ url_for('admin.settings') }}">Settings</a>
+            <a class="block px-3 py-2 rounded mk-nav-link" href="{{ url_for('admin.site_info') }}">Site Info</a>
+            <a class="block px-3 py-2 rounded mk-nav-link" href="{{ url_for('admin.profile') }}">Manage Profile</a>
+            <a class="block px-3 py-2 rounded mk-nav-link" href="{{ url_for('auth.logout') }}">Logout</a>
+        </nav>
+    </aside>
+    <main class="flex-1 p-8 space-y-6">
+        <h1 class="text-2xl font-semibold mk-page-title">Request Management</h1>
+        <section class="grid sm:grid-cols-3 gap-4">
+            <article class="mk-card rounded-xl p-4"><p class="text-sm text-slate-500">Total Requests</p><p class="text-2xl font-semibold" style="color: var(--mk-dark);">{{ stats.total }}</p></article>
+            <article class="mk-card rounded-xl p-4"><p class="text-sm text-slate-500">Total Sent</p><p class="text-2xl font-semibold text-emerald-600">{{ stats.sent }}</p></article>
+            <article class="mk-card rounded-xl p-4"><p class="text-sm text-slate-500">Pending</p><p class="text-2xl font-semibold text-amber-600">{{ stats.pending }}</p></article>
+        </section>
+        <section class="mk-card rounded-xl overflow-hidden">
+            <table class="min-w-full divide-y divide-slate-200">
+                <thead class="mk-table-head">
+                    <tr>
+                        <th class="px-4 py-3 text-left text-xs font-semibold text-slate-500 uppercase">Requester</th>
+                        <th class="px-4 py-3 text-left text-xs font-semibold text-slate-500 uppercase">Message</th>
+                        <th class="px-4 py-3 text-left text-xs font-semibold text-slate-500 uppercase">Status</th>
+                        <th class="px-4 py-3 text-left text-xs font-semibold text-slate-500 uppercase">Date</th>
+                        <th class="px-4 py-3 text-left text-xs font-semibold text-slate-500 uppercase">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-200">
+                    {% for req in requests %}
+                        <tr class="mk-table-row">
+                            <td class="px-4 py-3 text-sm">
+                                <p class="font-medium">{{ req.requester_name }}</p>
+                                <p class="text-slate-500">{{ req.requester_email }}</p>
+                                {% if req.requester_company %}<p class="text-slate-500">{{ req.requester_company }}</p>{% endif %}
+                            </td>
+                            <td class="px-4 py-3 text-sm text-slate-700">{{ req.message }}</td>
+                            <td class="px-4 py-3 text-sm"><span class="px-2 py-1 rounded bg-slate-100">{{ req.status }}</span></td>
+                            <td class="px-4 py-3 text-sm text-slate-600">{{ req.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
+                            <td class="px-4 py-3 text-sm">
+                                <button
+                                    type="button"
+                                    class="px-3 py-1.5 rounded-full bg-slate-200 text-slate-700 hover:bg-slate-300 text-xs font-medium"
+                                    onclick="openActionModal('action-modal-{{ req.id }}')"
+                                >
+                                    Take action
+                                </button>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr><td colspan="5" class="px-4 py-6 text-sm text-slate-500">No requests available.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+    </main>
+</div>
+
+{% for req in requests %}
+<div id="action-modal-{{ req.id }}" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-900/40 p-4">
+    <div class="w-full max-w-md rounded-xl bg-white border border-slate-200 shadow-xl p-5 space-y-4">
+        <div class="flex items-center justify-between">
+            <h3 class="text-base font-semibold mk-page-title">Request #{{ req.id }}</h3>
+            <button type="button" class="text-slate-500 hover:text-slate-700 text-lg leading-none" onclick="closeActionModal('action-modal-{{ req.id }}')">&times;</button>
+        </div>
+
+        <div class="text-xs space-y-1 text-slate-700 bg-slate-50 rounded-lg p-3 border border-slate-200">
+            <p><span class="font-semibold">Requester:</span> {{ req.requester_name }}</p>
+            <p><span class="font-semibold">Email:</span> {{ req.requester_email }}</p>
+            <p><span class="font-semibold">Company:</span> {{ req.requester_company or '-' }}</p>
+            <p><span class="font-semibold">Status:</span> {{ req.status }}</p>
+            <p><span class="font-semibold">Date:</span> {{ req.created_at.strftime('%Y-%m-%d %H:%M') }}</p>
+            <p><span class="font-semibold">Message:</span> {{ req.message }}</p>
+        </div>
+
+        <form method="post" action="{{ url_for('admin.send_documents_request', request_id=req.id) }}">
+            <button {% if req.status != 'pending' %}disabled{% endif %} class="w-full px-3 py-2 rounded mk-btn-primary disabled:opacity-40 text-sm">Send Documents (Generate OTP)</button>
+        </form>
+
+        <form method="post" action="{{ url_for('admin.verify_otp_and_send', request_id=req.id) }}" class="space-y-2">
+            <input name="otp_code" placeholder="Enter OTP" class="w-full border border-slate-300 rounded px-3 py-2 text-sm">
+            <button {% if req.status != 'pending' %}disabled{% endif %} class="w-full px-3 py-2 rounded bg-emerald-600 text-white disabled:opacity-40 text-sm">Verify & Send</button>
+        </form>
+
+        <form method="post" action="{{ url_for('admin.reject_request', request_id=req.id) }}">
+            <button {% if req.status != 'pending' %}disabled{% endif %} class="w-full px-3 py-2 rounded bg-rose-600 text-white disabled:opacity-40 text-sm">Reject Request</button>
+        </form>
+    </div>
+</div>
+{% endfor %}
+
+<script>
+function openActionModal(id) {
+    const modal = document.getElementById(id);
+    if (!modal) return;
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+}
+function closeActionModal(id) {
+    const modal = document.getElementById(id);
+    if (!modal) return;
+    modal.classList.remove('flex');
+    modal.classList.add('hidden');
+}
+</script>
+{% endblock %}

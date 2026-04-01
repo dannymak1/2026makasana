@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='assets/images/makasana-icon.png') }}">
+    <title>{% block title %}Makasana{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/app.css') }}">
+    <style>
+        :root {
+            --mk-primary: #1F7A74;
+            --mk-primary-dark: #17635e;
+            --mk-accent: #F4B740;
+            --mk-accent-dark: #e0a52f;
+            --mk-dark: #0B1E2D;
+            --mk-light: #F8FAFC;
+        }
+        .mk-sidebar { background: var(--mk-primary); color: #fff; }
+        .mk-sidebar-muted { color: #d7f0ee; }
+        .mk-nav-active { background: var(--mk-primary-dark); color: #fff; }
+        .mk-nav-link:hover { background: rgba(255, 255, 255, 0.16); color: #fff; }
+        .mk-page-title { color: var(--mk-dark); }
+        .mk-card { background: #fff; border: 1px solid #e6edf3; box-shadow: 0 4px 12px rgba(11, 30, 45, 0.04); }
+        .mk-btn-primary { background: var(--mk-accent); color: var(--mk-dark); }
+        .mk-btn-primary:hover { background: var(--mk-accent-dark); }
+        .mk-btn-secondary { border: 1px solid var(--mk-primary); color: var(--mk-primary); }
+        .mk-btn-secondary:hover { background: #e8f4f3; }
+        .mk-link { color: var(--mk-primary); }
+        .mk-link:hover { color: var(--mk-primary-dark); }
+        .mk-table-head { background: #f3f6f9; }
+        .mk-table-head th { color: var(--mk-dark); }
+        .mk-table-row:hover { background: #eef7f6; }
+    </style>
+</head>
+<body class="text-slate-800" style="background-color: var(--mk-light);">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="fixed top-4 right-4 space-y-2 z-50">
+                {% for category, message in messages %}
+                    <div class="px-4 py-2 rounded-lg shadow text-sm text-white {% if category == 'success' %}bg-emerald-600{% else %}bg-rose-600{% endif %}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+</body>
+</html>

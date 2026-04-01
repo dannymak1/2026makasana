@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block title %}DMS Dashboard | Makasana{% endblock %}
+{% block content %}
+<div class="min-h-screen flex">
+    <aside class="w-64 mk-sidebar p-6">
+        <h2 class="text-lg font-semibold mb-1">Client DMS</h2>
+        <p class="text-xs mk-sidebar-muted mb-6">{{ current_user.organization.name }}</p>
+        <nav class="space-y-2 text-sm">
+            <a class="block px-3 py-2 rounded mk-nav-active" href="{{ url_for('dms.dashboard') }}">Dashboard</a>
+            <a class="block px-3 py-2 rounded mk-nav-link" href="{{ url_for('dms.documents') }}">Documents</a>
+            <a class="block px-3 py-2 rounded mk-nav-link" href="{{ url_for('dms.requests_page') }}">Requests</a>
+            <a class="block px-3 py-2 rounded mk-nav-link" href="{{ url_for('dms.profile') }}">Profile</a>
+            <a class="block px-3 py-2 rounded mk-nav-link" href="{{ url_for('auth.logout') }}">Logout</a>
+        </nav>
+    </aside>
+    <main class="flex-1 p-8 space-y-8">
+        <h1 class="text-2xl font-semibold mk-page-title">Dashboard</h1>
+        <section class="grid sm:grid-cols-2 xl:grid-cols-5 gap-4">
+            <article class="mk-card rounded-xl p-5">
+                <p class="text-sm text-slate-500">Total Documents</p>
+                <p class="text-2xl font-semibold mt-1" style="color: var(--mk-dark);">{{ total_documents }}</p>
+            </article>
+            <article class="mk-card rounded-xl p-5">
+                <p class="text-sm text-slate-500">Active Documents</p>
+                <p class="text-2xl font-semibold mt-1 text-emerald-600">{{ active_documents }}</p>
+            </article>
+            <article class="mk-card rounded-xl p-5">
+                <p class="text-sm text-slate-500">Expiring Soon</p>
+                <p class="text-2xl font-semibold mt-1 text-amber-600">{{ expiring_soon_documents }}</p>
+            </article>
+            <article class="mk-card rounded-xl p-5">
+                <p class="text-sm text-slate-500">Expired</p>
+                <p class="text-2xl font-semibold mt-1 text-rose-600">{{ expired_documents }}</p>
+            </article>
+            <article class="mk-card rounded-xl p-5">
+                <p class="text-sm text-slate-500">Verification Views</p>
+                <p class="text-2xl font-semibold mt-1 mk-link">{{ total_verification_views }}</p>
+            </article>
+        </section>
+
+        <section class="mk-card rounded-xl p-5">
+            <h3 class="font-semibold mb-4">Public Verification QR</h3>
+            {% if qr_code_path and verification_slug %}
+                <div class="flex flex-col sm:flex-row sm:items-center gap-4">
+                    <img src="{{ url_for('static', filename=qr_code_path) }}" alt="Verification QR code" class="h-36 w-36 border border-slate-200 rounded-lg p-2 bg-white">
+                    <div>
+                        <p class="text-sm text-slate-600">Verification URL</p>
+                        <a class="mk-link break-all" href="{{ url_for('public.verify_organization', slug=verification_slug) }}" target="_blank">{{ url_for('public.verify_organization', slug=verification_slug, _external=True) }}</a>
+                    </div>
+                </div>
+            {% else %}
+                <p class="text-sm text-slate-500">Verification QR is not available yet.</p>
+            {% endif %}
+        </section>
+
+        <section class="mk-card rounded-xl p-5">
+            <h3 class="font-semibold mb-4">Recent Activity</h3>
+            <div class="space-y-3">
+                {% for activity in recent_activity %}
+                    <article class="border border-slate-200 rounded-lg p-3">
+                        <div class="flex items-center justify-between gap-4">
+                            <p class="text-sm font-medium">{{ activity.actor_name }}</p>
+                            <p class="text-xs text-slate-500">{{ activity.created_at.strftime('%Y-%m-%d %H:%M') }}</p>
+                        </div>
+                        <p class="text-xs text-slate-600 mt-1">{{ activity.action_type }}</p>
+                        <p class="text-sm text-slate-700 mt-2">{{ activity.description }}</p>
+                    </article>
+                {% else %}
+                    <p class="text-sm text-slate-500">No recent activity yet.</p>
+                {% endfor %}
+            </div>
+        </section>
+    </main>
+</div>
+{% endblock %}

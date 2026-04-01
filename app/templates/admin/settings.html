@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block title %}Admin Settings | Makasana{% endblock %}
+{% block content %}
+<div class="min-h-screen flex">
+    <aside class="w-64 mk-sidebar p-6">
+        <h2 class="text-lg font-semibold mb-6">Bird Eye</h2>
+        <nav class="space-y-2 text-sm">
+            <a class="block px-3 py-2 rounded mk-nav-link" href="{{ url_for('admin.dashboard') }}">Dashboard</a>
+            <a class="block px-3 py-2 rounded mk-nav-link" href="{{ url_for('admin.users_page') }}">Users</a>
+            <a class="block px-3 py-2 rounded mk-nav-link" href="{{ url_for('admin.manage_documents') }}">Manage Documents</a>
+            <a class="block px-3 py-2 rounded mk-nav-link" href="{{ url_for('admin.blogs_list') }}">Blogs</a>
+            <a class="block px-3 py-2 rounded mk-nav-link" href="{{ url_for('admin.requests_page') }}">Requests</a>
+            <a class="block px-3 py-2 rounded mk-nav-link" href="{{ url_for('admin.mailing_list') }}">Mailing List</a>
+            <a class="block px-3 py-2 rounded mk-nav-active" href="{{ url_for('admin.settings') }}">Settings</a>
+            <a class="block px-3 py-2 rounded mk-nav-link" href="{{ url_for('admin.site_info') }}">Site Info</a>
+            <a class="block px-3 py-2 rounded mk-nav-link" href="{{ url_for('admin.profile') }}">Manage Profile</a>
+            <a class="block px-3 py-2 rounded mk-nav-link" href="{{ url_for('auth.logout') }}">Logout</a>
+        </nav>
+    </aside>
+    <main class="flex-1 p-8 space-y-6">
+        <h1 class="text-2xl font-semibold mk-page-title">Settings</h1>
+        <section class="grid lg:grid-cols-2 gap-6">
+            <form method="post" action="{{ url_for('admin.create_organization') }}" class="mk-card rounded-xl p-5 space-y-4">
+                <h3 class="font-semibold">Organization Setup Tools</h3>
+                <input name="name" required placeholder="Organization name" class="w-full border border-slate-300 rounded-lg px-3 py-2">
+                <input name="phone" type="tel" required maxlength="50" placeholder="Organization phone (required)" class="w-full border border-slate-300 rounded-lg px-3 py-2">
+                <button class="mk-btn-primary px-4 py-2 rounded-lg">Create Organization</button>
+            </form>
+
+            <form method="post" action="{{ url_for('admin.create_category') }}" class="mk-card rounded-xl p-5 space-y-4">
+                <h3 class="font-semibold">Category Management</h3>
+                <input name="name" required placeholder="Category name" class="w-full border border-slate-300 rounded-lg px-3 py-2">
+                <input name="expiry_days" required type="number" min="1" placeholder="Expiry days" class="w-full border border-slate-300 rounded-lg px-3 py-2">
+                <button class="mk-btn-primary px-4 py-2 rounded-lg">Create Category</button>
+            </form>
+
+            <form method="post" action="{{ url_for('admin.create_user') }}" class="mk-card rounded-xl p-5 space-y-4">
+                <h3 class="font-semibold">User Tools</h3>
+                <input name="email" type="email" required placeholder="Email" class="w-full border border-slate-300 rounded-lg px-3 py-2">
+                <div class="grid grid-cols-2 gap-2">
+                    <input name="first_name" placeholder="First name" class="w-full border border-slate-300 rounded-lg px-3 py-2">
+                    <input name="last_name" placeholder="Last name" class="w-full border border-slate-300 rounded-lg px-3 py-2">
+                </div>
+                <input name="phone" type="tel" required maxlength="50" placeholder="Phone (required)" class="w-full border border-slate-300 rounded-lg px-3 py-2">
+                <input name="password" type="password" required placeholder="Password" class="w-full border border-slate-300 rounded-lg px-3 py-2">
+                <select name="role" required class="w-full border border-slate-300 rounded-lg px-3 py-2">
+                    <option value="">Select role</option>
+                    <option value="admin">Admin</option>
+                    <option value="client">Client</option>
+                </select>
+                <select name="organization_id" class="w-full border border-slate-300 rounded-lg px-3 py-2">
+                    <option value="">Organization (required for client)</option>
+                    {% for org in organizations %}<option value="{{ org.id }}">{{ org.name }}</option>{% endfor %}
+                </select>
+                <button class="mk-btn-primary px-4 py-2 rounded-lg">Create User</button>
+            </form>
+
+            <form method="post" action="{{ url_for('admin.upload_logo') }}" enctype="multipart/form-data" class="mk-card rounded-xl p-5 space-y-4 lg:col-span-2">
+                <h3 class="font-semibold">Branding / Client Logo tools</h3>
+                <select name="organization_id" required class="w-full border border-slate-300 rounded-lg px-3 py-2">
+                    <option value="">Select organization</option>
+                    {% for org in organizations %}<option value="{{ org.id }}">{{ org.name }}</option>{% endfor %}
+                </select>
+                <input type="file" name="logo" accept=".png,.jpg,.jpeg,.webp,.svg,image/png,image/jpeg,image/webp,image/svg+xml" required class="w-full text-sm">
+                <button class="mk-btn-primary px-4 py-2 rounded-lg">Upload Logo</button>
+            </form>
+        </section>
+    </main>
+</div>
+{% endblock %}

@@ -1,0 +1,138 @@
+{% extends "public/base.html" %}
+{% block title %}News & Articles | Makasana{% endblock %}
+{% block content %}
+<!-- Header Section End -->
+
+      <!-- Breadcrump Section Start -->
+      <section class="stp-30 bg-softBg1 relative max-xxl:overflow-hidden">
+        <img
+          src="{{ url_for('static', filename='assets/images/breadcrump_icon.png') }}"
+          alt="image"
+          class="absolute bottom-0 left-[-10%] xxl:left-0 max-lg:hidden"
+        />
+        <div
+          class="container grid grid-cols-12 gap-6 max-md:stp-15 relative z-10"
+        >
+          <div
+            class="col-span-12 md:col-span-6 flex justify-center items-start flex-col"
+          >
+            <ul class="flex justify-start items-center gap-1 flex-wrap">
+              <li>
+                <a
+                  href="{{ url_for('public.home') }}"
+                  class="flex justify-start items-center gap-1"
+                >
+                  <i class="ph ph-house"></i>
+                  <span class="hover:text-s2 duration-300">Home</span>
+                </a>
+              </li>
+
+              <li class="flex justify-start items-center gap-1">
+                <i class="ph ph-caret-right"></i>
+                Blog
+              </li>
+            </ul>
+
+            <h1 class="display-3 pt-4">News & Articles</h1>
+
+            <p class="text-bodyText pt-6">
+              Explore our insightful blog for expert perspectives on accounting,
+              taxation, and payroll processing.
+            </p>
+          </div>
+          <div
+            class="col-span-12 md:col-span-6 flex justify-center items-center"
+          >
+            <img
+              src="{{ url_for('static', filename='assets/images/breadcrumb_img_17.png') }}"
+              alt="image"
+              class="object-fit max-sm:max-h-[300px]"
+            />
+          </div>
+        </div>
+      </section>
+      <!-- Breadcrump Section End -->
+
+<!-- Blog Section Start -->
+<section class="container grid grid-cols-12 gap-6 stp-30 sbp-30">
+  {% if posts %}
+    {% for post in posts %}
+    <div class="col-span-12 md:col-span-6 text-bodyText group">
+      <div>
+        <div class="flex justify-start items-center gap-3">
+          <a class="bg-p1 py-2 lg:py-3 px-3 lg:px-5 rounded-full text-white max-lg:text-sm">
+            {{ post.category }}
+          </a>
+          <p class="border-l pl-3 border-bodyText">{{ post.published_at.strftime('%b %d, %Y') }}</p>
+        </div>
+        <h2 class="heading-3 pt-5 pb-6">
+          <a href="{{ url_for('public.blog_detail', slug=post.slug) }}">{{ post.title }}</a>
+        </h2>
+        <div class="overflow-hidden">
+          <a href="{{ url_for('public.blog_detail', slug=post.slug) }}">
+            <img
+              src="{{ url_for('static', filename=post.image_path or 'assets/images/blogImg1.png') }}"
+              alt="{{ post.title }}"
+              class="hover:scale-110 duration-500 w-full h-full"
+            />
+          </a>
+        </div>
+        <div class="pt-6 pb-6 text-bodyText">{{ (post.excerpt or post.content) | safe }}</div>
+        <div class="flex justify-start items-center">
+          <a
+            href="{{ url_for('public.blog_detail', slug=post.slug) }}"
+            class="flex justify-start items-center gap-1 border-b border-mainTextColor hover:border-s2 duration-300 group"
+          >
+            Read More
+            <span class="text-xl group-hover:translate-x-1 duration-500">
+              <i class="ph ph-arrow-right"></i>
+            </span>
+          </a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  {% else %}
+    <div class="col-span-12">
+      <p class="text-bodyText">No published blog posts yet.</p>
+    </div>
+  {% endif %}
+</section>
+<!-- Blog Section End -->
+
+      <!-- CTA Section Start -->
+      <section
+  class="relative after:absolute after:bg-mainTextColor after:bottom-0 after:right-0 after:left-0 after:h-1/2 overflow-hidden"
+>
+  <div
+    class="container bg-p1 py-12 sm:py-20 px-4 sm:px-10 md:px-20 lg:px-40 relative z-10 wow animate__animated animate__fadeInUp"
+  >
+    <img
+      src="{{ url_for('static', filename='assets/images/sliceIcon.png') }}"
+      alt="image"
+      class="absolute -top-4 sm:-top-6 lg:top-0 right-0 h-[60px] sm:h-[80px] lg:h-[120px] -rotate-90"
+    />
+    <p class="display-3 text-center text-white !leading-[130%]">
+      Make Accupay Part Of Your Work And Get Daily Update
+    </p>
+    <form onSubmit="{handleSubmit}" class="pt-6 sm:pt-10 relative">
+      <div class="flex justify-center items-center gap-3 max-[500px]:flex-col">
+        <input
+          type="text"
+          placeholder="Enter Your Email"
+          class="border border-mainTextColor outline-none bg-white py-3 sm:py-4 px-4 md:px-8 max-[500px]:w-full lg:w-2/4"
+        />
+        <button
+          class="border border-mainTextColor bg-s2 py-3 sm:py-4 px-4 md:px-8 font-medium"
+        >
+          Subscribe Now
+        </button>
+      </div>
+    </form>
+  </div>
+</section>
+
+      <!-- CTA Section End -->
+
+      <!-- Footer Section Start -->
+{% endblock %}

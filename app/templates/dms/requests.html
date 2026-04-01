@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}Requests | Makasana{% endblock %}
+{% block content %}
+<div class="min-h-screen flex">
+    <aside class="w-64 mk-sidebar p-6">
+        <h2 class="text-lg font-semibold mb-1">Client DMS</h2>
+        <p class="text-xs mk-sidebar-muted mb-6">{{ current_user.organization.name }}</p>
+        <nav class="space-y-2 text-sm">
+            <a class="block px-3 py-2 rounded mk-nav-link" href="{{ url_for('dms.dashboard') }}">Dashboard</a>
+            <a class="block px-3 py-2 rounded mk-nav-link" href="{{ url_for('dms.documents') }}">Documents</a>
+            <a class="block px-3 py-2 rounded mk-nav-active" href="{{ url_for('dms.requests_page') }}">Requests</a>
+            <a class="block px-3 py-2 rounded mk-nav-link" href="{{ url_for('dms.profile') }}">Profile</a>
+            <a class="block px-3 py-2 rounded mk-nav-link" href="{{ url_for('auth.logout') }}">Logout</a>
+        </nav>
+    </aside>
+    <main class="flex-1 p-8 space-y-6">
+        <h1 class="text-2xl font-semibold mk-page-title">Document Requests</h1>
+        <section class="grid sm:grid-cols-3 gap-4">
+            <article class="mk-card rounded-xl p-4"><p class="text-sm text-slate-500">Total</p><p class="text-2xl font-semibold" style="color: var(--mk-dark);">{{ stats.total }}</p></article>
+            <article class="mk-card rounded-xl p-4"><p class="text-sm text-slate-500">Sent</p><p class="text-2xl font-semibold text-emerald-600">{{ stats.sent }}</p></article>
+            <article class="mk-card rounded-xl p-4"><p class="text-sm text-slate-500">Pending</p><p class="text-2xl font-semibold text-amber-600">{{ stats.pending }}</p></article>
+        </section>
+        <section class="mk-card rounded-xl overflow-hidden">
+            <table class="min-w-full divide-y divide-slate-200">
+                <thead class="mk-table-head">
+                    <tr>
+                        <th class="px-4 py-3 text-left text-xs font-semibold text-slate-500 uppercase">Requester</th>
+                        <th class="px-4 py-3 text-left text-xs font-semibold text-slate-500 uppercase">Message</th>
+                        <th class="px-4 py-3 text-left text-xs font-semibold text-slate-500 uppercase">Status</th>
+                        <th class="px-4 py-3 text-left text-xs font-semibold text-slate-500 uppercase">Date</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-200">
+                    {% for req in requests %}
+                        <tr class="mk-table-row">
+                            <td class="px-4 py-3 text-sm">
+                                <p class="font-medium">{{ req.requester_name }}</p>
+                                <p class="text-slate-500">{{ req.requester_email }}</p>
+                            </td>
+                            <td class="px-4 py-3 text-sm text-slate-700">{{ req.message }}</td>
+                            <td class="px-4 py-3 text-sm"><span class="px-2 py-1 rounded bg-slate-100">{{ req.status }}</span></td>
+                            <td class="px-4 py-3 text-sm text-slate-600">{{ req.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
+                        </tr>
+                    {% else %}
+                        <tr><td colspan="4" class="px-4 py-6 text-sm text-slate-500">No requests found.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+    </main>
+</div>
+{% endblock %}

@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% block title %}Mailing List | Makasana{% endblock %}
+{% block content %}
+<div class="min-h-screen flex">
+    <aside class="w-64 mk-sidebar p-6">
+        <h2 class="text-lg font-semibold mb-6">Bird Eye</h2>
+        <nav class="space-y-2 text-sm">
+            <a class="block px-3 py-2 rounded mk-nav-link" href="{{ url_for('admin.dashboard') }}">Dashboard</a>
+            <a class="block px-3 py-2 rounded mk-nav-link" href="{{ url_for('admin.users_page') }}">Users</a>
+            <a class="block px-3 py-2 rounded mk-nav-link" href="{{ url_for('admin.manage_documents') }}">Manage Documents</a>
+            <a class="block px-3 py-2 rounded mk-nav-link" href="{{ url_for('admin.blogs_list') }}">Blogs</a>
+            <a class="block px-3 py-2 rounded mk-nav-link" href="{{ url_for('admin.requests_page') }}">Requests</a>
+            <a class="block px-3 py-2 rounded mk-nav-active" href="{{ url_for('admin.mailing_list') }}">Mailing List</a>
+            <a class="block px-3 py-2 rounded mk-nav-link" href="{{ url_for('admin.settings') }}">Settings</a>
+            <a class="block px-3 py-2 rounded mk-nav-link" href="{{ url_for('admin.site_info') }}">Site Info</a>
+            <a class="block px-3 py-2 rounded mk-nav-link" href="{{ url_for('admin.profile') }}">Manage Profile</a>
+            <a class="block px-3 py-2 rounded mk-nav-link" href="{{ url_for('auth.logout') }}">Logout</a>
+        </nav>
+    </aside>
+    <main class="flex-1 p-8 space-y-6">
+        <h1 class="text-2xl font-semibold mk-page-title">Mailing List</h1>
+        <section class="mk-card rounded-xl p-5">
+            <form method="get" class="grid md:grid-cols-3 gap-3 mb-4">
+                <input name="q" value="{{ search }}" placeholder="Search email/name" class="border border-slate-300 rounded-lg px-3 py-2 text-sm">
+                <select name="source" class="border border-slate-300 rounded-lg px-3 py-2 text-sm">
+                    <option value="">All sources</option>
+                    {% for src in sources %}<option value="{{ src }}" {% if source_filter == src %}selected{% endif %}>{{ src }}</option>{% endfor %}
+                </select>
+                <button class="mk-btn-secondary rounded-lg px-3 py-2 text-sm">Filter</button>
+            </form>
+            <form method="post" class="grid md:grid-cols-6 gap-2 mb-4">
+                <input name="email" required placeholder="Email" class="md:col-span-2 border border-slate-300 rounded px-2 py-2 text-sm">
+                <input name="first_name" placeholder="First name" class="border border-slate-300 rounded px-2 py-2 text-sm">
+                <input name="last_name" placeholder="Last name" class="border border-slate-300 rounded px-2 py-2 text-sm">
+                <input name="source" placeholder="Source" class="border border-slate-300 rounded px-2 py-2 text-sm">
+                <button class="mk-btn-primary rounded px-3 py-2 text-sm">Add / Upsert</button>
+            </form>
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-slate-200">
+                    <thead class="mk-table-head">
+                        <tr>
+                            <th class="px-3 py-2 text-left text-xs font-semibold uppercase">Email</th>
+                            <th class="px-3 py-2 text-left text-xs font-semibold uppercase">First</th>
+                            <th class="px-3 py-2 text-left text-xs font-semibold uppercase">Last</th>
+                            <th class="px-3 py-2 text-left text-xs font-semibold uppercase">Source</th>
+                            <th class="px-3 py-2 text-left text-xs font-semibold uppercase">Organization</th>
+                            <th class="px-3 py-2 text-left text-xs font-semibold uppercase">Created</th>
+                            <th class="px-3 py-2 text-left text-xs font-semibold uppercase">Status</th>
+                            <th class="px-3 py-2 text-left text-xs font-semibold uppercase">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-200">
+                        {% for sub in subscribers %}
+                        <tr class="mk-table-row">
+                            <td class="px-3 py-2 text-sm">{{ sub.email }}</td>
+                            <td class="px-3 py-2 text-sm">{{ sub.first_name or '-' }}</td>
+                            <td class="px-3 py-2 text-sm">{{ sub.last_name or '-' }}</td>
+                            <td class="px-3 py-2 text-sm">{{ sub.source or '-' }}</td>
+                            <td class="px-3 py-2 text-sm">{{ sub.organization.name if sub.organization_id and sub.organization else '-' }}</td>
+                            <td class="px-3 py-2 text-sm">{{ sub.created_at.strftime('%Y-%m-%d') }}</td>
+                            <td class="px-3 py-2 text-sm">{{ "Active" if sub.is_active else "Inactive" }}</td>
+                            <td class="px-3 py-2 text-sm">
+                                <details>
+                                    <summary class="mk-link cursor-pointer">Edit</summary>
+                                    <form method="post" action="{{ url_for('admin.mailing_list_edit', subscriber_id=sub.id) }}" class="mt-2 p-2 border border-slate-200 rounded space-y-2">
+                                        <input name="email" value="{{ sub.email }}" class="w-full border border-slate-300 rounded px-2 py-1 text-xs">
+                                        <input name="first_name" value="{{ sub.first_name or '' }}" class="w-full border border-slate-300 rounded px-2 py-1 text-xs">
+                                        <input name="last_name" value="{{ sub.last_name or '' }}" class="w-full border border-slate-300 rounded px-2 py-1 text-xs">
+                                        <input name="source" value="{{ sub.source or '' }}" class="w-full border border-slate-300 rounded px-2 py-1 text-xs">
+                                        <label class="inline-flex items-center gap-1 text-xs"><input type="checkbox" name="is_active" {% if sub.is_active %}checked{% endif %}> Active</label>
+                                        <button class="mk-btn-primary px-2 py-1 rounded text-xs">Save</button>
+                                    </form>
+                                </details>
+                                <form method="post" action="{{ url_for('admin.mailing_list_toggle', subscriber_id=sub.id) }}"><button class="text-xs mk-link mt-1">Toggle</button></form>
+                                <form method="post" action="{{ url_for('admin.mailing_list_delete', subscriber_id=sub.id) }}" onsubmit="return confirm('Delete subscriber?');"><button class="text-xs text-rose-600 mt-1">Delete</button></form>
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr><td colspan="8" class="px-3 py-4 text-sm text-slate-500">No subscribers found.</td></tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+</div>
+{% endblock %}

@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% block title %}Documents | Makasana{% endblock %}
+{% block content %}
+<div class="min-h-screen flex">
+    <aside class="w-64 mk-sidebar p-6">
+        <h2 class="text-lg font-semibold mb-1">Client DMS</h2>
+        <p class="text-xs mk-sidebar-muted mb-6">{{ current_user.organization.name }}</p>
+        <nav class="space-y-2 text-sm">
+            <a class="block px-3 py-2 rounded mk-nav-link" href="{{ url_for('dms.dashboard') }}">Dashboard</a>
+            <a class="block px-3 py-2 rounded mk-nav-active" href="{{ url_for('dms.documents') }}">Documents</a>
+            <a class="block px-3 py-2 rounded mk-nav-link" href="{{ url_for('dms.requests_page') }}">Requests</a>
+            <a class="block px-3 py-2 rounded mk-nav-link" href="{{ url_for('dms.profile') }}">Profile</a>
+            <a class="block px-3 py-2 rounded mk-nav-link" href="{{ url_for('auth.logout') }}">Logout</a>
+        </nav>
+    </aside>
+    <main class="flex-1 p-8 space-y-6">
+        <h1 class="text-2xl font-semibold mk-page-title">Document Management</h1>
+
+        <form method="post" action="{{ url_for('dms.upload_document') }}" enctype="multipart/form-data" class="mk-card rounded-xl p-5 space-y-4 max-w-2xl">
+            <h3 class="font-semibold">Upload PDF</h3>
+            <select name="category_id" required class="w-full border border-slate-300 rounded-lg px-3 py-2">
+                <option value="">Select category</option>
+                {% for cat in categories %}
+                    <option value="{{ cat.id }}">{{ cat.name }}</option>
+                {% endfor %}
+            </select>
+            <input type="file" name="document" accept="application/pdf" required class="w-full text-sm">
+            <button class="mk-btn-primary px-4 py-2 rounded-lg">Upload</button>
+        </form>
+
+        <section class="mk-card rounded-xl overflow-hidden">
+            <table class="min-w-full divide-y divide-slate-200">
+                <thead class="mk-table-head">
+                    <tr>
+                        <th class="px-4 py-3 text-left text-xs font-semibold text-slate-500 uppercase">Document</th>
+                        <th class="px-4 py-3 text-left text-xs font-semibold text-slate-500 uppercase">Category</th>
+                        <th class="px-4 py-3 text-left text-xs font-semibold text-slate-500 uppercase">Status</th>
+                        <th class="px-4 py-3 text-left text-xs font-semibold text-slate-500 uppercase">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-200">
+                    {% for doc in documents %}
+                        <tr class="mk-table-row">
+                            <td class="px-4 py-3 text-sm text-slate-700">{{ doc.file_name }}</td>
+                            <td class="px-4 py-3 text-sm text-slate-700">{{ doc.category.name }}</td>
+                            <td class="px-4 py-3">
+                                {% if doc.expires_at < now %}
+                                    <span class="inline-flex items-center gap-2 px-2 py-1 text-xs rounded bg-rose-100 text-rose-700"><span class="h-2 w-2 rounded-full bg-rose-600"></span>Expired</span>
+                                {% elif (doc.expires_at - now).days <= 7 %}
+                                    <span class="inline-flex items-center gap-2 px-2 py-1 text-xs rounded bg-amber-100 text-amber-700"><span class="h-2 w-2 rounded-full bg-amber-500"></span>Expiring Soon</span>
+                                {% else %}
+                                    <span class="inline-flex items-center gap-2 px-2 py-1 text-xs rounded bg-emerald-100 text-emerald-700"><span class="h-2 w-2 rounded-full bg-emerald-600"></span>Active</span>
+                                {% endif %}
+                            </td>
+                            <td class="px-4 py-3">
+                                <div class="flex items-center gap-4 text-sm">
+                                    <a href="{{ url_for('dms.download_document', document_id=doc.id) }}" class="mk-link" title="View">
+                                        <span aria-hidden="true">[V]</span><span class="sr-only">View</span>
+                                    </a>
+                                    <details>
+                                        <summary class="cursor-pointer text-amber-600 hover:text-amber-700" title="Edit">
+                                            <span aria-hidden="true">[E]</span><span class="sr-only">Edit</span>
+                                        </summary>
+                                        <form method="post" action="{{ url_for('dms.update_document', document_id=doc.id) }}" enctype="multipart/form-data" class="mt-2 p-3 border border-slate-200 rounded-lg bg-white space-y-2 w-72">
+                                            <select name="category_id" required class="w-full border border-slate-300 rounded px-2 py-1 text-xs">
+                                                {% for cat in categories %}
+                                                    <option value="{{ cat.id }}" {% if cat.id == doc.category_id %}selected{% endif %}>{{ cat.name }}</option>
+                                                {% endfor %}
+                                            </select>
+                                            <input type="file" name="document" accept="application/pdf" class="w-full text-xs">
+                                            <button class="bg-amber-600 text-white px-2 py-1 rounded text-xs">Save</button>
+                                        </form>
+                                    </details>
+                                    <form method="post" action="{{ url_for('dms.delete_document', document_id=doc.id) }}" onsubmit="return confirm('Delete this document?');">
+                                        <button class="text-rose-600 hover:text-rose-700" title="Delete">
+                                            <span aria-hidden="true">[D]</span><span class="sr-only">Delete</span>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="4" class="px-4 py-6 text-sm text-slate-500">No documents available for your organization yet.</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+    </main>
+</div>
+{% endblock %}

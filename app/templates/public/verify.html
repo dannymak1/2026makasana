@@ -1,0 +1,95 @@
+{% extends "public/base.html" %}
+{% block title %}Verify Organization | Makasana{% endblock %}
+{% block content %}
+<section class="stp-30 sbp-30">
+    <div class="container max-w-5xl">
+        <div class="bg-white border border-slate-200 rounded-2xl p-6 md:p-8 shadow-sm">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                <div>
+                    <h1 class="text-2xl md:text-3xl font-semibold text-mainTextColor">{{ organization.name }}</h1>
+                    <p class="text-sm text-slate-500 mt-1">Public verification portal</p>
+                </div>
+                <button type="button" onclick="openRequestModal()" class="inline-flex items-center justify-center px-5 py-2 rounded-full border border-mainTextColor bg-s2 text-mainTextColor font-medium hover:opacity-90">Request Documents</button>
+            </div>
+
+            <div class="mt-6 overflow-x-auto">
+                <table class="w-full border border-slate-200 rounded-xl overflow-hidden">
+                    <thead class="bg-slate-50">
+                        <tr>
+                            <th class="text-left text-xs uppercase text-slate-500 px-4 py-3">Document</th>
+                            <th class="text-left text-xs uppercase text-slate-500 px-4 py-3">Category</th>
+                            <th class="text-left text-xs uppercase text-slate-500 px-4 py-3">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for doc in documents %}
+                            <tr class="border-t border-slate-200">
+                                <td class="px-4 py-3 text-sm text-slate-700">{{ doc.file_name }}</td>
+                                <td class="px-4 py-3 text-sm text-slate-700">{{ doc.category.name }}</td>
+                                <td class="px-4 py-3 text-sm">
+                                    {% if doc.expires_at < now %}
+                                        <span class="text-rose-600 font-semibold" title="Invalid/Expired">✕</span>
+                                    {% else %}
+                                        <span class="text-emerald-600 font-semibold" title="Valid">✓</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr class="border-t border-slate-200">
+                                <td colspan="3" class="px-4 py-6 text-sm text-slate-500">No documents available.</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div id="request-modal" class="fixed inset-0 bg-slate-900/50 z-50 hidden items-center justify-center p-4">
+    <div class="bg-white w-full max-w-xl rounded-2xl p-6 shadow-lg">
+        <div class="flex items-center justify-between mb-4">
+            <h3 class="text-lg font-semibold">Request Documents</h3>
+            <button type="button" class="text-slate-500 hover:text-slate-700" onclick="closeRequestModal()">x</button>
+        </div>
+        <form method="post" action="{{ url_for('public.verify_organization', slug=organization.verification_slug) }}" class="space-y-3">
+            <div class="grid sm:grid-cols-2 gap-3">
+                <div>
+                    <label class="block text-xs text-slate-600 mb-1">Name</label>
+                    <input name="requester_name" required class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm">
+                </div>
+                <div>
+                    <label class="block text-xs text-slate-600 mb-1">Email</label>
+                    <input name="requester_email" type="email" required class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm">
+                </div>
+                <div>
+                    <label class="block text-xs text-slate-600 mb-1">Phone (optional)</label>
+                    <input name="requester_phone" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm">
+                </div>
+                <div>
+                    <label class="block text-xs text-slate-600 mb-1">Company (optional)</label>
+                    <input name="requester_company" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm">
+                </div>
+            </div>
+            <div>
+                <label class="block text-xs text-slate-600 mb-1">Message</label>
+                <textarea name="message" required rows="4" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm"></textarea>
+            </div>
+            <div class="flex justify-end gap-2">
+                <button type="button" onclick="closeRequestModal()" class="px-4 py-2 rounded-lg border border-slate-300 text-slate-700">Cancel</button>
+                <button class="px-4 py-2 rounded-lg bg-indigo-600 text-white">Submit Request</button>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+function openRequestModal() {
+    document.getElementById("request-modal").classList.remove("hidden");
+    document.getElementById("request-modal").classList.add("flex");
+}
+function closeRequestModal() {
+    document.getElementById("request-modal").classList.remove("flex");
+    document.getElementById("request-modal").classList.add("hidden");
+}
+</script>
+{% endblock %}

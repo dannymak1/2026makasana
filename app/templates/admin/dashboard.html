@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+{% block title %}Bird Eye Admin | Makasana{% endblock %}
+{% block content %}
+<div class="min-h-screen flex">
+    <aside class="w-64 mk-sidebar p-6">
+        <h2 class="text-lg font-semibold mb-6">Bird Eye</h2>
+        <nav class="space-y-2 text-sm">
+            <a class="block px-3 py-2 rounded mk-nav-active" href="{{ url_for('admin.dashboard') }}">Dashboard</a>
+            <a class="block px-3 py-2 rounded mk-nav-link" href="{{ url_for('admin.users_page') }}">Users</a>
+            <a class="block px-3 py-2 rounded mk-nav-link" href="{{ url_for('admin.manage_documents') }}">Manage Documents</a>
+            <a class="block px-3 py-2 rounded mk-nav-link" href="{{ url_for('admin.blogs_list') }}">Blogs</a>
+            <a class="block px-3 py-2 rounded mk-nav-link" href="{{ url_for('admin.requests_page') }}">Requests</a>
+            <a class="block px-3 py-2 rounded mk-nav-link" href="{{ url_for('admin.mailing_list') }}">Mailing List</a>
+            <a class="block px-3 py-2 rounded mk-nav-link" href="{{ url_for('admin.settings') }}">Settings</a>
+            <a class="block px-3 py-2 rounded mk-nav-link" href="{{ url_for('admin.site_info') }}">Site Info</a>
+            <a class="block px-3 py-2 rounded mk-nav-link" href="{{ url_for('admin.profile') }}">Manage Profile</a>
+            <a class="block px-3 py-2 rounded mk-nav-link" href="{{ url_for('auth.logout') }}">Logout</a>
+        </nav>
+    </aside>
+    <main class="flex-1 p-8 space-y-8">
+        <h1 class="text-2xl font-semibold mk-page-title">Admin Control Panel</h1>
+
+        <section class="grid sm:grid-cols-2 xl:grid-cols-4 gap-4">
+            <article class="mk-card rounded-xl p-4"><p class="text-sm text-slate-500">Organizations</p><p class="text-2xl font-semibold" style="color: var(--mk-dark);">{{ stats.organizations }}</p></article>
+            <article class="mk-card rounded-xl p-4"><p class="text-sm text-slate-500">Users</p><p class="text-2xl font-semibold" style="color: var(--mk-dark);">{{ stats.users }}</p></article>
+            <article class="mk-card rounded-xl p-4"><p class="text-sm text-slate-500">Documents</p><p class="text-2xl font-semibold" style="color: var(--mk-dark);">{{ stats.documents }}</p></article>
+            <article class="mk-card rounded-xl p-4"><p class="text-sm text-slate-500">Blogs</p><p class="text-2xl font-semibold" style="color: var(--mk-dark);">{{ stats.blogs }}</p></article>
+            <article class="mk-card rounded-xl p-4"><p class="text-sm text-slate-500">Categories</p><p class="text-2xl font-semibold" style="color: var(--mk-dark);">{{ stats.categories }}</p></article>
+            <article class="mk-card rounded-xl p-4"><p class="text-sm text-slate-500">Total Requests</p><p class="text-2xl font-semibold" style="color: var(--mk-dark);">{{ stats.requests_total }}</p></article>
+            <article class="mk-card rounded-xl p-4"><p class="text-sm text-slate-500">Pending Requests</p><p class="text-2xl font-semibold text-amber-600">{{ stats.requests_pending }}</p></article>
+            <article class="mk-card rounded-xl p-4"><p class="text-sm text-slate-500">Sent Requests</p><p class="text-2xl font-semibold text-emerald-600">{{ stats.requests_sent }}</p></article>
+        </section>
+
+        <section class="grid xl:grid-cols-2 gap-6">
+            <section class="mk-card rounded-xl p-5">
+                <h3 class="font-semibold mb-4">Recent Documents</h3>
+                <div class="space-y-2">
+                    {% for doc in documents %}
+                        <article class="border border-slate-200 rounded-lg p-3">
+                            <p class="text-sm font-medium">{{ doc.file_name }}</p>
+                            <p class="text-xs text-slate-500">{{ doc.organization.name }} - {{ doc.category.name }}</p>
+                            <p class="text-xs text-slate-500 mt-1">{{ doc.uploaded_at.strftime('%Y-%m-%d %H:%M') }}</p>
+                        </article>
+                    {% else %}
+                        <p class="text-sm text-slate-500">No documents uploaded yet.</p>
+                    {% endfor %}
+                </div>
+            </section>
+
+            <section class="mk-card rounded-xl p-5">
+                <h3 class="font-semibold mb-4">Recent Users</h3>
+                <div class="space-y-2">
+                    {% for user in users %}
+                        <article class="border border-slate-200 rounded-lg p-3">
+                            <p class="text-sm font-medium">{{ user.full_name }}</p>
+                            <p class="text-xs text-slate-500">{{ user.username }}</p>
+                            <p class="text-xs text-slate-500">{{ user.role }}{% if user.organization %} - {{ user.organization.name }}{% endif %}</p>
+                        </article>
+                    {% else %}
+                        <p class="text-sm text-slate-500">No users created yet.</p>
+                    {% endfor %}
+                </div>
+            </section>
+        </section>
+
+        <section class="grid xl:grid-cols-3 gap-6">
+            <section class="mk-card rounded-xl p-5">
+                <h3 class="font-semibold mb-4">Categories</h3>
+                <div class="space-y-2">
+                    {% for cat in categories %}
+                        <article class="border border-slate-200 rounded-lg p-3">
+                            <p class="text-sm font-medium">{{ cat.name }}</p>
+                            <p class="text-xs text-slate-500">{{ cat.slug }}</p>
+                            <p class="text-xs text-slate-500">Expiry: {{ cat.expiry_days }} days</p>
+                        </article>
+                    {% else %}
+                        <p class="text-sm text-slate-500">No categories found.</p>
+                    {% endfor %}
+                </div>
+            </section>
+            <section class="mk-card rounded-xl p-5 xl:col-span-2">
+                <h3 class="font-semibold mb-4">Recent Requests</h3>
+                <div class="space-y-2">
+                    {% for req in requests %}
+                        <article class="border border-slate-200 rounded-lg p-3">
+                            <p class="text-sm font-medium">{{ req.requester_name }} ({{ req.requester_email }})</p>
+                            <p class="text-xs text-slate-500">{{ req.message }}</p>
+                            <p class="text-xs text-slate-500">{{ req.status }} - {{ req.created_at.strftime('%Y-%m-%d %H:%M') }}</p>
+                        </article>
+                    {% else %}
+                        <p class="text-sm text-slate-500">No requests found.</p>
+                    {% endfor %}
+                </div>
+            </section>
+        </section>
+    </main>
+</div>
+{% endblock %}

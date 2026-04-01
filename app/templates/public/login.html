@@ -1,0 +1,28 @@
+{% extends "public/base.html" %}
+{% block title %}Login | Makasana{% endblock %}
+{% block content %}
+<section class="bg-repeat hero_bg_gradient relative overflow-hidden stp-30 sbp-30">
+    <div class="absolute left-1/2 -translate-x-1/2 top-20 w-[520px] h-[520px] rounded-full bg-s2/25 blur-[140px] pointer-events-none"></div>
+    <main class="container relative z-10">
+    <div class="w-full max-w-[500px] mx-auto bg-white border border-strokeColor rounded-2xl p-8 shadow-sm" style="max-width: 500px; margin-left: auto; margin-right: auto; box-shadow: 0 0 0 1px rgba(0,0,0,0.02), 0 12px 30px rgba(247, 195, 61, 0.18);">
+        <h1 class="text-3xl font-semibold mb-2">Sign In</h1>
+        <p class="text-bodyText mb-6">Access your secure Makasana client portal.</p>
+        <form method="post" action="{{ url_for('auth.login') }}" class="space-y-4" novalidate>
+            <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+            <div>
+                <label class="block text-sm font-medium mb-1" for="email">Email</label>
+                <input id="email" name="email" type="email" autocomplete="username" required maxlength="100" class="w-full border border-strokeColor rounded-lg px-3 py-3 focus:outline-none focus:ring-2 focus:ring-s2">
+            </div>
+            <div>
+                <label class="block text-sm font-medium mb-1" for="password">Password</label>
+                <input id="password" name="password" type="password" autocomplete="current-password" required minlength="8" class="w-full border border-strokeColor rounded-lg px-3 py-3 focus:outline-none focus:ring-2 focus:ring-s2">
+            </div>
+            <button type="submit" class="w-full bg-s2 border border-mainTextColor text-mainTextColor py-3 rounded-full font-semibold hover:opacity-90">Sign In</button>
+            <p class="text-sm text-bodyText text-center pt-2">
+                New user? <a class="underline font-medium" href="{{ url_for('auth.signup') }}">Create an account</a>
+            </p>
+        </form>
+    </div>
+</main>
+</section>
+{% endblock %}

@@ -1,0 +1,141 @@
+{% extends "public/base.html" %}
+{% block title %}Contact | Makasana{% endblock %}
+{% block content %}
+<!-- Breadcrump Section Start -->
+<section class="stp-30 pt-20 md:pt-24 bg-softBg1 relative max-xxl:overflow-hidden">
+  <img
+    src="{{ url_for('static', filename='assets/images/breadcrump_icon.png') }}"
+    alt="image"
+    class="absolute bottom-0 left-[-10%] xxl:left-0 max-lg:hidden"
+  />
+  <div class="container max-md:stp-15 relative z-10">
+    <div class="col-span-12 flex justify-center items-start flex-col">
+      <ul class="flex justify-start items-center gap-1 flex-wrap">
+        <li>
+          <a href="{{ url_for('public.home') }}" class="flex justify-start items-center gap-1">
+            <i class="ph ph-house"></i>
+            <span class="hover:text-s2 duration-300">Home</span>
+          </a>
+        </li>
+        <li class="flex justify-start items-center gap-1">
+          <i class="ph ph-caret-right"></i>
+          Contact
+        </li>
+      </ul>
+      <h1 class="display-3 pt-4">Connect With Us</h1>
+      <p class="text-bodyText pt-6 mb-8 md:mb-10">
+        Reach out to Makasana Consultancy for compliance, document management, and regulatory support.
+      </p>
+    </div>
+  </div>
+</section>
+<!-- Breadcrump Section End -->
+
+<!-- Contact Section Start -->
+<section class="container grid grid-cols-12 stp-30 sbp-30">
+  <div class="col-span-12 lg:col-span-8 lg:col-start-3 grid grid-cols-12 gap-4 lg:gap-6">
+    <div class="flex flex-col justify-start items-start p-4 lg:p-8 bg-p1 text-white w-full col-span-12 sm:col-span-4 border border-p1 hover:bg-s2 hover:text-mainTextColor hover:border-mainTextColor duration-500 group">
+      <div class="bg-white text-p1 text-2xl rounded-full p-4 group-hover:text-white group-hover:bg-mainTextColor duration-500 !leading-[0]">
+        <i class="ph-fill ph-envelope"></i>
+      </div>
+      <h4 class="heading-4 pt-5 pb-2">Email Us</h4>
+      <a href="mailto:info@makasanaconsultancy.com">info@makasanaconsultancy.com</a>
+    </div>
+    <div class="flex flex-col justify-start items-start p-4 lg:p-8 bg-p1 text-white w-full col-span-12 sm:col-span-4 border border-p1 hover:bg-s2 hover:text-mainTextColor hover:border-mainTextColor duration-500 group">
+      <div class="bg-white text-p1 text-2xl rounded-full p-4 group-hover:text-white group-hover:bg-mainTextColor duration-500 !leading-[0]">
+        <i class="ph-fill ph-phone-call"></i>
+      </div>
+      <h4 class="heading-4 pt-5 pb-2">Call Us</h4>
+      <a href="tel:+254700444222">+254 700 444222</a>
+    </div>
+    <div class="flex flex-col justify-start items-start p-4 lg:p-8 bg-p1 text-white w-full col-span-12 sm:col-span-4 border border-p1 hover:bg-s2 hover:text-mainTextColor hover:border-mainTextColor duration-500 group">
+      <div class="bg-white text-p1 text-2xl rounded-full p-4 group-hover:text-white group-hover:bg-mainTextColor duration-500 !leading-[0]">
+        <i class="ph-fill ph-map-pin"></i>
+      </div>
+      <h4 class="heading-4 pt-5 pb-2">Visit Our Office</h4>
+      <p>Nairobi, Kenya</p>
+    </div>
+  </div>
+
+  <div class="col-span-12 lg:col-span-8 lg:col-start-3 border p-4 sm:p-6 lg:p-10">
+    <h4 class="heading-4 pb-6">Send Us a Message</h4>
+    <form class="grid grid-cols-2 gap-6">
+      <div class="col-span-2 sm:col-span-1">
+        <input type="text" placeholder="First Name" class="placeholder:text-bodyText py-4 px-8 border w-full" required />
+      </div>
+      <div class="col-span-2 sm:col-span-1">
+        <input type="text" placeholder="Last Name" class="placeholder:text-bodyText py-4 px-8 border w-full" required />
+      </div>
+      <div class="col-span-2 sm:col-span-1 py-4 px-8 border flex justify-start items-center gap-2">
+        <span class="text-xl text-bodyText"><i class="ph-fill ph-envelope"></i></span>
+        <input type="email" placeholder="Type email address" class="placeholder:text-bodyText w-full outline-none" required />
+      </div>
+      <div class="col-span-2 sm:col-span-1 py-4 px-8 border flex justify-start items-center gap-2">
+        <span class="text-xl text-bodyText"><i class="ph-fill ph-pencil-simple"></i></span>
+        <input type="text" placeholder="Subject" class="placeholder:text-bodyText w-full outline-none" required />
+      </div>
+      <div class="col-span-2 py-4 px-8 border flex justify-start items-center gap-2">
+        <textarea placeholder="Type your message..." class="placeholder:text-bodyText w-full outline-none h-[200px]" required></textarea>
+      </div>
+      <div class="col-span-2 flex justify-between items-center max-[500px]:flex-col max-[500px]:items-start gap-5">
+        <label class="flex justify-start items-center gap-2">
+          <input type="checkbox" />
+          <p>Subscribe to updates from Makasana.</p>
+        </label>
+        <button class="py-2 sm:py-3 px-4 sm:px-6 bg-p1 text-white block text-center border border-p1 hover:bg-s2 hover:border-mainTextColor hover:text-mainTextColor duration-500" type="submit">
+          Submit
+        </button>
+      </div>
+    </form>
+  </div>
+</section>
+<!-- Contact Section End -->
+
+<!-- Office Address Section Start -->
+<section class="container grid grid-cols-12 gap-6 sbp-30">
+  <div class="col-span-12 md:col-span-5 xl:col-span-4 flex flex-col justify-center items-start">
+    <h2 class="display-4 pb-5">Our Office</h2>
+    <p class="text-bodyText pb-8 lg:pb-15">
+      We are available during business hours for consultations and support.
+    </p>
+    <ul class="flex flex-col gap-6 lg:gap-10">
+      <li class="flex justify-start items-start gap-3">
+        <div class="bg-mainTextColor text-white text-3xl p-3 rounded-full !leading-[0]">
+          <i class="ph-fill ph-map-pin"></i>
+        </div>
+        <div>
+          <h4 class="heading-4 pb-1">Head Office</h4>
+          <p>Nairobi, Kenya</p>
+        </div>
+      </li>
+      <li class="flex justify-start items-start gap-3">
+        <div class="bg-mainTextColor text-white text-3xl p-3 rounded-full !leading-[0]">
+          <i class="ph-fill ph-clock"></i>
+        </div>
+        <div>
+          <h4 class="heading-4 pb-1">Working Hours</h4>
+          <p>Monday to Friday, 8:00 AM - 5:00 PM</p>
+        </div>
+      </li>
+      <li class="flex justify-start items-start gap-3">
+        <div class="bg-mainTextColor text-white text-3xl p-3 rounded-full !leading-[0]">
+          <i class="ph-fill ph-globe-hemisphere-west"></i>
+        </div>
+        <div>
+          <h4 class="heading-4 pb-1">Online Support</h4>
+          <p>Available for remote onboarding and support sessions.</p>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <div class="col-span-12 md:col-span-7 xl:col-start-6 overflow-hidden">
+    <img
+      src="{{ url_for('static', filename='assets/images/makasana-hero.png') }}"
+      alt="Makasana office support"
+      class="hover:scale-110 duration-500 w-full h-full object-cover"
+    />
+  </div>
+</section>
+<!-- Office Address Section End -->
+{% endblock %}

@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+{% block title %}Manage Documents | Makasana{% endblock %}
+{% block content %}
+<div class="min-h-screen flex">
+    <aside class="w-64 mk-sidebar p-6">
+        <h2 class="text-lg font-semibold mb-6">Bird Eye</h2>
+        <nav class="space-y-2 text-sm">
+            <a class="block px-3 py-2 rounded mk-nav-link" href="{{ url_for('admin.dashboard') }}">Dashboard</a>
+            <a class="block px-3 py-2 rounded mk-nav-link" href="{{ url_for('admin.users_page') }}">Users</a>
+            <a class="block px-3 py-2 rounded mk-nav-active" href="{{ url_for('admin.manage_documents') }}">Manage Documents</a>
+            <a class="block px-3 py-2 rounded mk-nav-link" href="{{ url_for('admin.blogs_list') }}">Blogs</a>
+            <a class="block px-3 py-2 rounded mk-nav-link" href="{{ url_for('admin.requests_page') }}">Requests</a>
+            <a class="block px-3 py-2 rounded mk-nav-link" href="{{ url_for('admin.mailing_list') }}">Mailing List</a>
+            <a class="block px-3 py-2 rounded mk-nav-link" href="{{ url_for('admin.settings') }}">Settings</a>
+            <a class="block px-3 py-2 rounded mk-nav-link" href="{{ url_for('admin.site_info') }}">Site Info</a>
+            <a class="block px-3 py-2 rounded mk-nav-link" href="{{ url_for('admin.profile') }}">Manage Profile</a>
+            <a class="block px-3 py-2 rounded mk-nav-link" href="{{ url_for('auth.logout') }}">Logout</a>
+        </nav>
+    </aside>
+    <main class="flex-1 p-8 space-y-6">
+        <div class="flex flex-wrap items-center justify-between gap-4">
+            <h1 class="text-2xl font-semibold mk-page-title">Manage Documents</h1>
+            <button type="button" id="open-upload-modal" class="rounded-lg px-4 py-2 text-sm font-medium bg-slate-200 text-slate-800 hover:bg-slate-300 transition-colors">
+                Upload document
+            </button>
+        </div>
+        <section class="mk-card rounded-xl overflow-hidden">
+            <table class="min-w-full divide-y divide-slate-200">
+                <thead class="mk-table-head">
+                    <tr>
+                        <th class="px-4 py-3 text-left text-xs font-semibold uppercase">File</th>
+                        <th class="px-4 py-3 text-left text-xs font-semibold uppercase">Organization</th>
+                        <th class="px-4 py-3 text-left text-xs font-semibold uppercase">Category</th>
+                        <th class="px-4 py-3 text-left text-xs font-semibold uppercase">Uploaded</th>
+                        <th class="px-4 py-3 text-left text-xs font-semibold uppercase">Status</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-200">
+                    {% for doc in documents %}
+                        <tr class="mk-table-row">
+                            <td class="px-4 py-3 text-sm">{{ doc.file_name }}</td>
+                            <td class="px-4 py-3 text-sm">{{ doc.organization.name }}</td>
+                            <td class="px-4 py-3 text-sm">{{ doc.category.name }}</td>
+                            <td class="px-4 py-3 text-sm">{{ doc.uploaded_at|format_dt('%Y-%m-%d %H:%M') }}</td>
+                            <td class="px-4 py-3 text-sm">
+                                {% if doc.expires_at < now %}<span class="text-rose-600">Expired</span>
+                                {% elif (doc.expires_at - now).days <= 7 %}<span class="text-amber-600">Expiring soon</span>
+                                {% else %}<span class="text-emerald-600">Active</span>{% endif %}
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr><td colspan="5" class="px-4 py-6 text-sm text-slate-500">No documents found.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+    </main>
+</div>
+
+<div id="upload-modal" class="fixed inset-0 z-50 hidden" role="dialog" aria-modal="true" aria-labelledby="upload-modal-title">
+    <div class="absolute inset-0 bg-slate-900/50" data-close-upload-modal></div>
+    <div class="absolute inset-0 flex items-center justify-center p-4 pointer-events-none">
+        <div class="mk-card rounded-xl p-6 w-full max-w-md pointer-events-auto shadow-lg border border-slate-200">
+            <div class="flex items-start justify-between gap-3 mb-4">
+                <h2 id="upload-modal-title" class="text-lg font-semibold mk-page-title">Upload PDF</h2>
+                <button type="button" class="text-slate-500 hover:text-slate-800 text-xl leading-none p-1" data-close-upload-modal aria-label="Close">&times;</button>
+            </div>
+            <form method="post" action="{{ url_for('admin.upload_document') }}" enctype="multipart/form-data" class="space-y-4">
+                <div>
+                    <label for="modal_organization_id" class="block text-sm font-medium mb-1">Organization</label>
+                    <select id="modal_organization_id" name="organization_id" required class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm">
+                        <option value="">Select organization</option>
+                        {% for org in organizations %}<option value="{{ org.id }}">{{ org.name }}</option>{% endfor %}
+                    </select>
+                </div>
+                <div>
+                    <label for="modal_category_id" class="block text-sm font-medium mb-1">Category</label>
+                    <select id="modal_category_id" name="category_id" required class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm">
+                        <option value="">Select category</option>
+                        {% for cat in categories %}<option value="{{ cat.id }}">{{ cat.name }}</option>{% endfor %}
+                    </select>
+                </div>
+                <div>
+                    <label for="modal_document" class="block text-sm font-medium mb-1">PDF file</label>
+                    <input id="modal_document" type="file" name="document" accept="application/pdf" required class="w-full text-sm border border-slate-300 rounded-lg px-3 py-2 file:mr-3 file:py-1 file:px-2 file:rounded file:border-0 file:bg-slate-100 file:text-sm">
+                </div>
+                <div class="flex justify-end gap-2 pt-2">
+                    <button type="button" class="mk-btn-secondary px-4 py-2 rounded-lg text-sm" data-close-upload-modal>Cancel</button>
+                    <button type="submit" class="mk-btn-primary px-4 py-2 rounded-lg text-sm">Upload</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+(function () {
+    var modal = document.getElementById('upload-modal');
+    var openBtn = document.getElementById('open-upload-modal');
+    if (!modal || !openBtn) return;
+
+    function openModal() {
+        modal.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+    }
+    function closeModal() {
+        modal.classList.add('hidden');
+        document.body.style.overflow = '';
+    }
+
+    openBtn.addEventListener('click', openModal);
+    modal.querySelectorAll('[data-close-upload-modal]').forEach(function (el) {
+        el.addEventListener('click', closeModal);
+    });
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && !modal.classList.contains('hidden')) closeModal();
+    });
+})();
+</script>
+{% endblock %}
