@@ -7,3 +7,4 @@ deployment:
     - /bin/cp run.py $DEPLOYPATH
     - /bin/cp requirements.txt $DEPLOYPATH
     - /bin/cp passenger_wsgi.py $DEPLOYPATH
+    - /bin/cp sitemap.xml $DEPLOYPATH
