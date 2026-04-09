@@ -1,0 +1,24 @@
+/**
+ * Makasana Consultancy — brand palette (aligned with logo greens).
+ * Loaded before assets/style.css so compiled utilities resolve these tokens.
+ */
+:root {
+  --mk-dark-rgb: 20, 61, 50;
+  --mk-primary-rgb: 107, 191, 62;
+  --mk-deep-rgb: 20, 90, 71;
+  --mk-accent-rgb: 205, 232, 154;
+  --mk-soft-rgb: 238, 246, 232;
+  --mk-body-rgb: 61, 82, 72;
+
+  --mk-shadow-accent: #6bbf3f;
+  --mk-hero-grad-start: #58a835;
+  --mk-btn-solid: #4f9a2f;
+  --mk-btn-solid-hover: #3f7d26;
+
+  --mk-primary: rgb(var(--mk-primary-rgb));
+  --mk-primary-dark: #4f9a2f;
+  --mk-accent-bg: rgb(var(--mk-accent-rgb));
+  --mk-accent-bg-dark: #b8d882;
+  --mk-dark: rgb(var(--mk-dark-rgb));
+  --mk-light: #f5f9f4;
+}

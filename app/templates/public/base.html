@@ -4,9 +4,10 @@
 <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/png" href="{{ url_for('static', filename='assets/images/makasana-icon.png') }}" />
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='assets/images/makasana-consultancy-favicon.png') }}" />
 
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/makasana-brand.css') }}" />
     <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/swiper.min.css') }}" />
     <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/odometer.css') }}" />
     <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/animate.min.css') }}" />
@@ -22,7 +23,7 @@
         right: 0;
         bottom: -8px;
         height: 2px;
-        background: #f4c542;
+        background: var(--mk-shadow-accent);
         border-radius: 2px;
       }
     </style>
@@ -38,7 +39,7 @@
           <i class="ph ph-list"></i>
         </button>
         <a href="{{ url_for('public.home') }}">
-          <img src="{{ url_for('static', filename='assets/images/makasana-logo.png') }}" alt="Makasana logo" style="max-width:260px;height:auto;" />
+          <img src="{{ url_for('static', filename='assets/images/makasana-consultancy-logo.png') }}" alt="Makasana logo" style="max-width:260px;height:auto;" />
         </a>
       </div>
       <!-- Desktop Menu Start -->
@@ -105,7 +106,7 @@
     >
       <div class="flex justify-between items-center w-full p-4 sm:p-8">
         <a href="{{ url_for('public.home') }}">
-          <img src="{{ url_for('static', filename='assets/images/makasana-logo.png') }}" alt="logo" style="max-width:220px;height:auto;" />
+          <img src="{{ url_for('static', filename='assets/images/makasana-consultancy-logo.png') }}" alt="logo" style="max-width:220px;height:auto;" />
         </a>
         <i class="ri-close-line !text-3xl cursor-pointer mobileMenuCloseButton">
           <i class="ph ph-x"></i>
@@ -139,7 +140,7 @@
       class="col-span-12 min-[450px]:col-span-6 lg:col-span-3 flex flex-col gap-6 lg:gap-8"
     >
       <a href="{{ url_for('public.home') }}">
-        <img src="{{ url_for('static', filename='assets/images/makasana-logo.png') }}" alt="Makasana logo" style="max-width:260px;height:auto;" />
+        <img src="{{ url_for('static', filename='assets/images/makasana-consultancy-logo.png') }}" alt="Makasana logo" style="max-width:260px;height:auto;" />
       </a>
       <p class="">
         Your trusted partner in compliance, document management, and audit
