@@ -2,6 +2,7 @@ from datetime import datetime
 
 from flask import Blueprint, current_app, flash, redirect, render_template, request, url_for
 from sqlalchemy import desc
+from sqlalchemy.exc import OperationalError
 
 from app import db
 from app.models import BlogPost, Document, DocumentRequest, Organization, User, log_activity
@@ -24,8 +25,13 @@ def _get_public_client_logos():
 @public_bp.route("/")
 def home():
     now = datetime.utcnow()
+    try:
+        organization_count = Organization.query.count()
+    except OperationalError:
+        db.session.rollback()
+        organization_count = 0
     stats = {
-        "organization_count": Organization.query.count(),
+        "organization_count": organization_count,
         "client_user_count": User.query.filter(User.role.in_(["client", "owner", "member"])).count(),
         "document_count": Document.query.count(),
         "active_document_count": Document.query.filter(Document.expires_at >= now).count(),

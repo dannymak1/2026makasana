@@ -8,6 +8,13 @@ class Config:
 
     SECRET_KEY = os.environ.get("SECRET_KEY", "dev-secret-change-me")
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SQLALCHEMY_ENGINE_OPTIONS = {
+        "pool_pre_ping": True,
+        "pool_recycle": 280,
+        "pool_size": 3,
+        "max_overflow": 2,
+        "pool_timeout": 30,
+    }
     UPLOAD_FOLDER = os.path.join(BASE_DIR, "static", "uploads")
     SITE_URL = os.environ.get("SITE_URL", "http://127.0.0.1:5000")
     MAIL_SUPPRESS_SEND = os.environ.get("MAIL_SUPPRESS_SEND", "1") == "1"
