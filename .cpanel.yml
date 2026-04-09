@@ -1,6 +1,7 @@
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/mirazic1/makasana.kolatech.co.ke/
+    - export DEPLOYPATH=/home/mirazic1/makasana.kolatech.co.ke
+    - /bin/mkdir -p $DEPLOYPATH
     - /bin/cp -R app $DEPLOYPATH
     - /bin/cp -R migrations $DEPLOYPATH
     - /bin/cp run.py $DEPLOYPATH
