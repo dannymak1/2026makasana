@@ -1,4 +1,7 @@
 from datetime import datetime
+import re
+import secrets
+from html import escape
 
 from flask import Blueprint, current_app, flash, redirect, render_template, request, url_for
 from sqlalchemy import desc
@@ -6,10 +9,24 @@ from sqlalchemy.exc import OperationalError
 
 from app import db
 from app.models import BlogPost, Document, DocumentRequest, Organization, User, log_activity
+from app.services.emailer import build_branded_email_html, send_email_with_attachments
 from app.services.mailing_list import upsert_subscriber
 from app.services.verification import generate_org_qr_code
 
 public_bp = Blueprint("public", __name__)
+
+
+def _new_public_csrf_token():
+    token = secrets.token_urlsafe(32)
+    from flask import session
+    session["public_csrf_token"] = token
+    return token
+
+
+def _valid_public_csrf_token(submitted_token):
+    from flask import session
+    expected = session.get("public_csrf_token")
+    return bool(expected and submitted_token and secrets.compare_digest(expected, submitted_token))
 
 
 def _get_public_client_logos():
@@ -56,9 +73,96 @@ def services():
     return render_template("public/services.html")
 
 
-@public_bp.route("/contact")
+@public_bp.route("/about")
+def about():
+    return render_template("public/about.html")
+
+
+@public_bp.route("/contact", methods=["GET", "POST"])
 def contact():
-    return render_template("public/contact.html")
+    if request.method == "POST":
+        csrf_token = request.form.get("csrf_token", "")
+        if not _valid_public_csrf_token(csrf_token):
+            flash("Invalid form session. Please refresh and try again.", "error")
+            return redirect(url_for("public.contact", status="failed"))
+
+        first_name = request.form.get("first_name", "").strip()
+        last_name = request.form.get("last_name", "").strip()
+        email = request.form.get("email", "").strip().lower()
+        subject = request.form.get("subject", "").strip()
+        message = request.form.get("message", "").strip()
+        subscribe = request.form.get("subscribe") == "on"
+
+        if (
+            not first_name
+            or not last_name
+            or not email
+            or not subject
+            or not message
+            or len(first_name) > 100
+            or len(last_name) > 100
+            or len(subject) > 160
+            or len(message) > 4000
+            or not re.fullmatch(r"[^@\s]+@[^@\s]+\.[^@\s]+", email)
+        ):
+            flash("Please fill in all required contact fields.", "error")
+            return redirect(url_for("public.contact", status="failed"))
+
+        full_name = f"{first_name} {last_name}".strip()
+        mail_subject = f"Website Contact Form: {subject}"
+        mail_body = (
+            "A new contact form message was submitted.\n\n"
+            f"Name: {full_name}\n"
+            f"Email: {email}\n"
+            f"Subject: {subject}\n"
+            f"Subscribe to updates: {'Yes' if subscribe else 'No'}\n\n"
+            "Message:\n"
+            f"{message}\n"
+        )
+        mail_html = build_branded_email_html(
+            current_app.config,
+            heading="New Website Contact Message",
+            intro_text="A new contact request has been submitted from makasanaconsultancy.com.",
+            content_html=(
+                "<p style='margin:0 0 8px 0;'><strong>Name:</strong> "
+                f"{escape(full_name)}</p>"
+                "<p style='margin:0 0 8px 0;'><strong>Email:</strong> "
+                f"{escape(email)}</p>"
+                "<p style='margin:0 0 8px 0;'><strong>Subject:</strong> "
+                f"{escape(subject)}</p>"
+                "<p style='margin:0 0 8px 0;'><strong>Subscribe to updates:</strong> "
+                f"{'Yes' if subscribe else 'No'}</p>"
+                "<p style='margin:16px 0 8px 0;'><strong>Message</strong></p>"
+                f"<div style='padding:12px; border:1px solid #d7e4d8; border-radius:8px; background:#f8fbf8;'>{escape(message)}</div>"
+            ),
+            footer_note="Please respond directly to the sender email shown above.",
+        )
+
+        sent_ok = send_email_with_attachments(
+            current_app.config,
+            subject=mail_subject,
+            body=mail_body,
+            to_email="info@makasanaconsultancy.com",
+            attachments=None,
+            html_body=mail_html,
+        )
+        if not sent_ok:
+            flash("Could not send your message right now. Please try again later.", "error")
+            return redirect(url_for("public.contact", status="failed"))
+
+        if subscribe:
+            upsert_subscriber(
+                email=email,
+                first_name=first_name,
+                last_name=last_name,
+                source="contact_form",
+                organization_id=None,
+            )
+
+        flash("Your message has been sent successfully.", "success")
+        return redirect(url_for("public.contact", status="sent"))
+
+    return render_template("public/contact.html", csrf_token=_new_public_csrf_token())
 
 
 @public_bp.route("/blog")

@@ -2,6 +2,9 @@
 {% block title %}Sign Up | Makasana{% endblock %}
 {% block content %}
 <style>
+  .mk-auth-form-offset {
+    margin-top: 80px;
+  }
   .mk-signup-grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -22,10 +25,10 @@
 <section class="bg-repeat hero_bg_gradient relative overflow-hidden stp-30 sbp-30">
     <div class="absolute left-1/2 -translate-x-1/2 top-20 w-[520px] h-[520px] rounded-full bg-s2/25 blur-[140px] pointer-events-none"></div>
     <main class="container relative z-10">
-    <div class="w-full max-w-[800px] mx-auto bg-white border border-strokeColor rounded-2xl p-8 md:p-10 shadow-sm" style="max-width: 800px; margin-left: auto; margin-right: auto; box-shadow: 0 0 0 1px rgba(0,0,0,0.02), 0 12px 30px rgba(247, 195, 61, 0.18);">
+    <div class="w-full max-w-[800px] mx-auto bg-white border border-strokeColor rounded-2xl p-8 md:p-10 shadow-sm mk-auth-form-offset" style="max-width: 800px; margin-left: auto; margin-right: auto; box-shadow: 0 0 0 1px rgba(0,0,0,0.02), 0 12px 30px rgba(247, 195, 61, 0.18);">
         <h1 class="text-3xl font-semibold mb-2">Create Account</h1>
-        <p class="text-bodyText mb-8">Register for secure access to makasanaconsultancy.com DMS portal.</p>
-        <form method="post" action="{{ url_for('auth.signup') }}" class="space-y-6" novalidate>
+        <p class="text-bodyText mb-8">Register for secure access to Makasana Consultancy's document management and compliance support platform.</p>
+        <form method="post" action="{{ url_for('auth.signup') }}" enctype="multipart/form-data" class="space-y-6" novalidate>
             <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
             <div>
                 <h3 class="text-sm font-semibold uppercase tracking-wide text-slate-600 mb-3">Organization</h3>
@@ -41,6 +44,10 @@
                     <div>
                         <label class="block text-sm font-medium mb-1" for="organization_phone">Organization Phone</label>
                         <input id="organization_phone" name="organization_phone" required maxlength="50" class="w-full border border-strokeColor rounded-lg px-3 py-3 focus:outline-none focus:ring-2 focus:ring-s2" placeholder="e.g. +254700000000">
+                    </div>
+                    <div class="mk-col-span-2">
+                        <label class="block text-sm font-medium mb-1" for="organization_logo">Organization Logo (optional)</label>
+                        <input id="organization_logo" name="organization_logo" type="file" accept=".png,.jpg,.jpeg,.webp,.svg,image/png,image/jpeg,image/webp,image/svg+xml" class="w-full border border-strokeColor rounded-lg px-3 py-3 focus:outline-none focus:ring-2 focus:ring-s2">
                     </div>
                 </div>
             </div>

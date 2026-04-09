@@ -7,6 +7,7 @@
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='assets/images/makasana-consultancy-favicon.png') }}" />
 
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/makasana-brand.css') }}" />
     <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/swiper.min.css') }}" />
     <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/odometer.css') }}" />
@@ -66,6 +67,13 @@
               href="{{ url_for('public.home') }}"
               class="hover:header_menu_shadow duration-700 px-2 py-3 rounded-lg {% if request.endpoint == 'public.home' %}mk-active-line{% endif %}"
               >Home</a
+            >
+          </li>
+          <li>
+            <a
+              href="{{ url_for('public.about') }}"
+              class="hover:header_menu_shadow duration-700 px-2 py-3 rounded-lg {% if request.endpoint == 'public.about' %}mk-active-line{% endif %}"
+              >About Us</a
             >
           </li>
           <li>
@@ -131,6 +139,7 @@
 
       <ul class="text-lg sm:text-xl flex gap-6 lg:gap-10 items-start flex-col pl-8">
         <li><a href="{{ url_for('public.home') }}" class="menu-hover hover:after:border-p1 {% if request.endpoint == 'public.home' %}text-p1 after:border-p1{% endif %}">Home</a></li>
+        <li><a href="{{ url_for('public.about') }}" class="menu-hover hover:after:border-p1 {% if request.endpoint == 'public.about' %}text-p1 after:border-p1{% endif %}">About Us</a></li>
         <li><a href="{{ url_for('public.services') }}" class="menu-hover hover:after:border-p1 {% if request.endpoint == 'public.services' %}text-p1 after:border-p1{% endif %}">Services</a></li>
         <li><a href="{{ url_for('public.blog') }}" class="menu-hover hover:after:border-p1 {% if request.endpoint == 'public.blog' %}text-p1 after:border-p1{% endif %}">News & Articles</a></li>
         <li><a href="{{ url_for('public.contact') }}" class="menu-hover hover:after:border-p1 {% if request.endpoint == 'public.contact' %}text-p1 after:border-p1{% endif %}">Contact</a></li>
@@ -143,10 +152,37 @@
 </header>
 
 {% with messages = get_flashed_messages(with_categories=true) %}
-{% if messages %}
-<div class="container py-3">{% for category, message in messages %}<div class="py-2 px-3 rounded-md mb-2 {% if category == 'success' %}bg-green-100 text-green-800{% else %}bg-red-100 text-red-800{% endif %}">{{ message }}</div>{% endfor %}</div>
-{% endif %}
+<script>
+  window.mkFlashMessages = {{ messages|tojson }};
+</script>
 {% endwith %}
+<script>
+  (function () {
+    const alerts = window.mkFlashMessages || [];
+    if (!alerts.length || typeof Swal === "undefined") return;
+    alerts.forEach((item) => {
+      const category = item[0] || "info";
+      const message = item[1] || "";
+      let icon = "info";
+      if (category === "success") icon = "success";
+      else if (category === "error") icon = "error";
+      else if (category === "warning") icon = "warning";
+      Swal.fire({
+        toast: true,
+        position: "top-end",
+        icon: icon,
+        title: message,
+        showConfirmButton: false,
+        timer: 6000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener("mouseenter", Swal.stopTimer);
+          toast.addEventListener("mouseleave", Swal.resumeTimer);
+        },
+      });
+    });
+  })();
+</script>
 
 {% block content %}{% endblock %}
 
@@ -159,9 +195,7 @@
         <img class="mk-brand-logo" src="{{ url_for('static', filename='assets/images/makasana-consultancy-logo.png') }}" alt="Makasana logo" />
       </a>
       <p class="">
-        Your trusted partner in compliance, document management, and audit
-        readiness. We help organizations stay structured, secure, and
-        compliant.
+        Makasana Consultancy delivers strategic solutions for growth through integrated support in compliance, taxation, procurement readiness, and technical operations.
       </p>
     </div>
 
@@ -213,11 +247,11 @@
         Services
       </h4>
       <ul class="flex flex-col gap-4 md:gap-5">
-        <li><p class="flex justify-start items-center gap-2">Compliance Management</p></li>
-        <li><p class="flex justify-start items-center gap-2">Document Management System (DMS)</p></li>
-        <li><p class="flex justify-start items-center gap-2">Regulatory Tracking</p></li>
-        <li><p class="flex justify-start items-center gap-2">Audit Readiness</p></li>
-        <li><p class="flex justify-start items-center gap-2">Secure Document Storage</p></li>
+        <li><p class="flex justify-start items-center gap-2">Business Foundation & Compliance</p></li>
+        <li><p class="flex justify-start items-center gap-2">Tax & Financial Management</p></li>
+        <li><p class="flex justify-start items-center gap-2">Tendering & Procurement</p></li>
+        <li><p class="flex justify-start items-center gap-2">Technical & Operational Support</p></li>
+        <li><p class="flex justify-start items-center gap-2">Strategic Advisory Support</p></li>
       </ul>
     </div>
 
@@ -241,11 +275,11 @@
         </li>
         <li>
           <a
-            href="tel:+254700444222"
+            href="tel:0700444222"
             class="flex justify-start items-center gap-2 hover:text-white hover:translate-x-2 duration-500"
           >
             <span class="text-2xl pt-2"><i class="ph ph-phone-call"></i></span>
-            +254 700 444222
+            0700 444 222
           </a>
         </li>
         <li>
@@ -255,7 +289,7 @@
             <span class="text-2xl pt-2"
               ><i class="ph ph-paper-plane-tilt"></i
             ></span>
-            Nairobi, Kenya
+            P O Box 4372 00200 Nairobi
           </p>
         </li>
       </ul>

@@ -1,12 +1,17 @@
 {% extends "public/base.html" %}
 {% block title %}Login | Makasana{% endblock %}
 {% block content %}
+<style>
+  .mk-auth-form-offset {
+    margin-top: 80px;
+  }
+</style>
 <section class="bg-repeat hero_bg_gradient relative overflow-hidden stp-30 sbp-30">
     <div class="absolute left-1/2 -translate-x-1/2 top-20 w-[520px] h-[520px] rounded-full bg-s2/25 blur-[140px] pointer-events-none"></div>
     <main class="container relative z-10">
-    <div class="w-full max-w-[500px] mx-auto bg-white border border-strokeColor rounded-2xl p-8 shadow-sm" style="max-width: 500px; margin-left: auto; margin-right: auto; box-shadow: 0 0 0 1px rgba(0,0,0,0.02), 0 12px 30px rgba(247, 195, 61, 0.18);">
+    <div class="w-full max-w-[500px] mx-auto bg-white border border-strokeColor rounded-2xl p-8 shadow-sm mk-auth-form-offset" style="max-width: 500px; margin-left: auto; margin-right: auto; box-shadow: 0 0 0 1px rgba(0,0,0,0.02), 0 12px 30px rgba(247, 195, 61, 0.18);">
         <h1 class="text-3xl font-semibold mb-2">Sign In</h1>
-        <p class="text-bodyText mb-6">Access your secure Makasana client portal.</p>
+        <p class="text-bodyText mb-6">Sign in to access your Makasana Consultancy workspace.</p>
         <form method="post" action="{{ url_for('auth.login') }}" class="space-y-4" novalidate>
             <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
             <div>

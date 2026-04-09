@@ -19,7 +19,7 @@ from app.models import (
     User,
     log_activity,
 )
-from app.services.emailer import send_email_with_attachments
+from app.services.emailer import build_branded_email_html, send_email_with_attachments
 from app.services.mailing_list import upsert_subscriber
 from app.services.otp import create_verification_code, verify_latest_code
 from app.services.verification import generate_org_qr_code
@@ -364,6 +364,16 @@ def send_documents_request(request_id):
             "It expires in 10 minutes."
         ),
         to_email=owner.username,
+        html_body=build_branded_email_html(
+            current_app.config,
+            heading="OTP Verification Code",
+            intro_text=f"Use this code to authorize document release for request #{doc_request.id}.",
+            content_html=(
+                "<p style='margin:0 0 10px 0;'>Your OTP code is:</p>"
+                f"<div style='font-size:28px; letter-spacing:6px; font-weight:700; color:#0f2f2f; padding:14px 16px; border:1px dashed #9bb79f; border-radius:10px; display:inline-block; background:#f7fbf6;'>{otp_entry.code}</div>"
+                "<p style='margin:14px 0 0 0;'>This code expires in 10 minutes.</p>"
+            ),
+        ),
     )
     db.session.commit()
     flash("OTP generated and sent to organization owner email.", "success")
@@ -415,6 +425,16 @@ def verify_otp_and_send(request_id):
         ),
         to_email=doc_request.requester_email,
         attachments=attachments,
+        html_body=build_branded_email_html(
+            current_app.config,
+            heading="Requested Documents Attached",
+            intro_text="Your document request has been processed successfully.",
+            content_html=(
+                "<p style='margin:0 0 8px 0;'>Please find your requested documents attached to this email.</p>"
+                f"<p style='margin:0;'><strong>Request reference:</strong> #{doc_request.id}</p>"
+                f"<p style='margin:8px 0 0 0;'><strong>Organization:</strong> {organization.name}</p>"
+            ),
+        ),
     )
     if not sent_ok:
         flash("Failed to send requester email. Check mail configuration.", "error")

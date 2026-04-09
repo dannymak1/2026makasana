@@ -6,6 +6,7 @@
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='assets/images/makasana-consultancy-favicon.png') }}">
     <title>{% block title %}Makasana{% endblock %}</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/makasana-brand.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/app.css') }}">
     <style>
@@ -28,16 +29,37 @@
 </head>
 <body class="text-slate-800" style="background-color: var(--mk-light);">
     {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            <div class="fixed top-4 right-4 space-y-2 z-50">
-                {% for category, message in messages %}
-                    <div class="px-4 py-2 rounded-lg shadow text-sm text-white {% if category == 'success' %}bg-emerald-600{% else %}bg-rose-600{% endif %}">
-                        {{ message }}
-                    </div>
-                {% endfor %}
-            </div>
-        {% endif %}
+    <script>
+        window.mkFlashMessages = {{ messages|tojson }};
+    </script>
     {% endwith %}
+    <script>
+        (function () {
+            const alerts = window.mkFlashMessages || [];
+            if (!alerts.length || typeof Swal === "undefined") return;
+            alerts.forEach((item) => {
+                const category = item[0] || "info";
+                const message = item[1] || "";
+                let icon = "info";
+                if (category === "success") icon = "success";
+                else if (category === "error") icon = "error";
+                else if (category === "warning") icon = "warning";
+                Swal.fire({
+                    toast: true,
+                    position: "top-end",
+                    icon: icon,
+                    title: message,
+                    showConfirmButton: false,
+                    timer: 6000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.addEventListener("mouseenter", Swal.stopTimer);
+                        toast.addEventListener("mouseleave", Swal.resumeTimer);
+                    },
+                });
+            });
+        })();
+    </script>
     {% block content %}{% endblock %}
 </body>
 </html>

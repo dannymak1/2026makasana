@@ -1,0 +1,34 @@
+{% extends "public/base.html" %}
+{% block title %}Verify Signup | Makasana{% endblock %}
+{% block content %}
+<style>
+  .mk-auth-form-offset {
+    margin-top: 80px;
+  }
+</style>
+<section class="bg-repeat hero_bg_gradient relative overflow-hidden stp-30 sbp-30">
+  <div class="absolute left-1/2 -translate-x-1/2 top-20 w-[520px] h-[520px] rounded-full bg-s2/25 blur-[140px] pointer-events-none"></div>
+  <main class="container relative z-10">
+    <div class="w-full max-w-[500px] mx-auto bg-white border border-strokeColor rounded-2xl p-8 shadow-sm mk-auth-form-offset" style="max-width: 500px; margin-left: auto; margin-right: auto; box-shadow: 0 0 0 1px rgba(0,0,0,0.02), 0 12px 30px rgba(247, 195, 61, 0.18);">
+      <h1 class="text-3xl font-semibold mb-2">Verify Your Email</h1>
+      <p class="text-bodyText mb-6">Enter the OTP sent to your email to complete account creation.</p>
+      {% if otp_sent_notice %}
+      <div class="mb-4 rounded-lg border border-emerald-300 bg-emerald-50 text-emerald-700 px-4 py-3 text-sm">
+        Verification email sent successfully. Please check your inbox and spam folder for the OTP.
+      </div>
+      {% endif %}
+      <form method="post" action="{{ url_for('auth.verify_signup_otp') }}" class="space-y-4" novalidate>
+        <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+        <div>
+          <label class="block text-sm font-medium mb-1" for="otp">Verification Code</label>
+          <input id="otp" name="otp" type="text" inputmode="numeric" minlength="6" maxlength="6" required class="w-full border border-strokeColor rounded-lg px-3 py-3 focus:outline-none focus:ring-2 focus:ring-s2" placeholder="Enter 6-digit code">
+        </div>
+        <button type="submit" class="w-full bg-s2 border border-mainTextColor text-mainTextColor py-3 rounded-full font-semibold hover:opacity-90">Verify & Create Account</button>
+        <p class="text-sm text-bodyText text-center pt-2">
+          Wrong email or code expired? <a class="underline font-medium" href="{{ url_for('auth.signup') }}">Start signup again</a>
+        </p>
+      </form>
+    </div>
+  </main>
+</section>
+{% endblock %}

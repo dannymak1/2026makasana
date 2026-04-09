@@ -1,0 +1,203 @@
+{% extends "public/base.html" %}
+{% block title %}About Us | Makasana{% endblock %}
+{% block content %}
+<style>
+  .mk-inner-page-title {
+    margin-top: 80px;
+  }
+</style>
+<!-- Breadcrump Section Start -->
+<section class="stp-30 pt-20 md:pt-24 bg-softBg1 relative max-xxl:overflow-hidden">
+  <img
+    src="{{ url_for('static', filename='assets/images/breadcrump_icon.png') }}"
+    alt="image"
+    class="absolute bottom-0 left-[-10%] xxl:left-0 max-lg:hidden"
+  />
+  <div class="container max-md:stp-15 relative z-10">
+    <div class="col-span-12 flex justify-center items-start flex-col mk-inner-page-title">
+      <ul class="flex justify-start items-center gap-1 flex-wrap">
+        <li>
+          <a href="{{ url_for('public.home') }}" class="flex justify-start items-center gap-1">
+            <i class="ph ph-house"></i>
+            <span class="hover:text-s2 duration-300">Home</span>
+          </a>
+        </li>
+        <li class="flex justify-start items-center gap-1">
+          <i class="ph ph-caret-right"></i>
+          About Us
+        </li>
+      </ul>
+      <h1 class="display-3 pt-4">Strategic Solutions for Growth</h1>
+      <p class="text-bodyText pt-6 mb-8 md:mb-10 max-w-[900px]">
+        Makasana Consultancy is a professional, full-service advisory firm dedicated to simplifying the complexities of doing business in Kenya through synchronized support in compliance, advanced tax management, government tendering, and technical project execution.
+      </p>
+    </div>
+  </div>
+</section>
+<!-- Breadcrump Section End -->
+
+<!-- About Section Start -->
+<section class="stp-30 sbp-30">
+  <div class="container grid grid-cols-12 gap-6 lg:gap-10 items-center">
+    <div class="col-span-12 lg:col-span-7">
+      <h2 class="display-4 pb-6">Who We Are</h2>
+      <p class="text-bodyText pb-5">
+        Makasana Consultancy is a professional, full-service advisory firm dedicated to simplifying the complexities of doing business in Kenya. We specialize in providing synchronized solutions that span legal compliance, advanced tax management, government tendering, and technical project support.
+      </p>
+      <p class="text-bodyText">
+        We serve as a strategic partner to SMEs and organizations, helping establish robust administrative foundations and unlock sustainable growth opportunities in both the public and private sectors.
+      </p>
+    </div>
+    <div class="col-span-12 lg:col-span-5 overflow-hidden">
+      <img
+        src="{{ url_for('static', filename='assets/images/makasana-hero.png') }}"
+        alt="Makasana Consultancy team support"
+        class="w-full h-full object-cover hover:scale-110 duration-500"
+      />
+    </div>
+  </div>
+</section>
+<!-- About Section End -->
+
+<!-- Mission Vision Section Start -->
+<section class="bg-softBg1 stp-30 sbp-30">
+  <div class="container grid grid-cols-12 gap-6">
+    <div class="col-span-12 md:col-span-6">
+      <div class="bg-white p-6 xl:p-8 border border-white hover:border-mainTextColor duration-500 h-full">
+        <h3 class="heading-3 pb-4">Our Mission</h3>
+        <p class="text-bodyText">
+          To empower every client by providing expertly managed compliance, advanced tax solutions, and strategic advisory services that guarantee legal adherence and operational efficiency.
+        </p>
+      </div>
+    </div>
+    <div class="col-span-12 md:col-span-6">
+      <div class="bg-white p-6 xl:p-8 border border-white hover:border-mainTextColor duration-500 h-full">
+        <h3 class="heading-3 pb-4">Our Vision</h3>
+        <p class="text-bodyText">
+          To be the leading and most trusted integrated consultancy partner in Kenya, driving client success through uncompromising precision and compliance.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Mission Vision Section End -->
+
+<!-- Why Choose Section Start -->
+<section class="stp-30 sbp-30">
+  <div class="container">
+    <div class="max-w-[860px]">
+      <h2 class="display-4 pb-5">Why Choose Makasana Consultancy</h2>
+      <p class="text-bodyText">
+        We combine regulatory precision, operational depth, and strategic advisory support to help organizations grow on strong foundations.
+      </p>
+    </div>
+    <div class="grid grid-cols-12 gap-6 stp-15">
+      <div class="col-span-12 md:col-span-4">
+        <div class="bg-softBg p-6 xl:p-8 border border-strokeColor h-full">
+          <h4 class="heading-4 pb-4">Integrated Solutions</h4>
+          <p class="text-bodyText">
+            We are a one-stop-shop, seamlessly connecting legal status, tax compliance, and revenue-generating opportunities.
+          </p>
+        </div>
+      </div>
+      <div class="col-span-12 md:col-span-4">
+        <div class="bg-softBg p-6 xl:p-8 border border-strokeColor h-full">
+          <h4 class="heading-4 pb-4">Precision and Expertise</h4>
+          <p class="text-bodyText">
+            Our detailed focus on KRA, IFMIS, and the Registrar of Companies ensures accuracy while minimizing delays and compliance risks.
+          </p>
+        </div>
+      </div>
+      <div class="col-span-12 md:col-span-4">
+        <div class="bg-softBg p-6 xl:p-8 border border-strokeColor h-full">
+          <h4 class="heading-4 pb-4">Sector Depth</h4>
+          <p class="text-bodyText">
+            We combine statutory compliance with specialized technical services in areas such as engineering and architecture, creating strong value for technical and construction-oriented firms.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Why Choose Section End -->
+
+<!-- Service Pillars Section Start -->
+<section class="bg-softBg1 stp-30 sbp-30">
+  <div class="container">
+    <div class="max-w-[860px]">
+      <h2 class="display-4 pb-5">Our Core Service Pillars</h2>
+      <p class="text-bodyText">
+        We provide integrated support across four core areas that help businesses establish, remain compliant, compete, and grow.
+      </p>
+    </div>
+    <div class="grid grid-cols-12 gap-6 stp-15">
+      <div class="col-span-12 sm:col-span-6">
+        <div class="bg-white p-6 xl:p-8 border border-white hover:border-mainTextColor duration-500 h-full">
+          <h4 class="heading-4 pb-4">Business Foundation &amp; Compliance</h4>
+          <p class="text-bodyText">
+            We support company registration, statutory compliance, annual returns, permits, eCitizen linkage, and foundational business setup requirements.
+          </p>
+        </div>
+      </div>
+      <div class="col-span-12 sm:col-span-6">
+        <div class="bg-white p-6 xl:p-8 border border-white hover:border-mainTextColor duration-500 h-full">
+          <h4 class="heading-4 pb-4">Tax &amp; Financial Management</h4>
+          <p class="text-bodyText">
+            We manage key tax and compliance needs including VAT, income tax, corporation tax, tax certificates, ETR support, and related advisory.
+          </p>
+        </div>
+      </div>
+      <div class="col-span-12 sm:col-span-6">
+        <div class="bg-white p-6 xl:p-8 border border-white hover:border-mainTextColor duration-500 h-full">
+          <h4 class="heading-4 pb-4">Tendering &amp; Procurement</h4>
+          <p class="text-bodyText">
+            We help organizations access opportunities through AGPO support, prequalification preparation, IFMIS registration, tutorials, and tender bidding assistance.
+          </p>
+        </div>
+      </div>
+      <div class="col-span-12 sm:col-span-6">
+        <div class="bg-white p-6 xl:p-8 border border-white hover:border-mainTextColor duration-500 h-full">
+          <h4 class="heading-4 pb-4">Technical &amp; Operational Support</h4>
+          <p class="text-bodyText">
+            We provide specialized operational support including architectural works, civil engineering services, BOQ preparation, drafting, supervision, and quality control.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Service Pillars Section End -->
+
+<!-- CTA Section Start -->
+<section class="relative after:absolute after:bg-mainTextColor after:bottom-0 after:right-0 after:left-0 after:h-1/2 overflow-hidden">
+  <div class="container bg-p1 py-12 sm:py-20 px-4 sm:px-10 md:px-20 lg:px-40 relative z-10">
+    <img
+      src="{{ url_for('static', filename='assets/images/sliceIcon.png') }}"
+      alt="image"
+      class="absolute -top-4 sm:-top-6 lg:top-0 right-0 h-[60px] sm:h-[80px] lg:h-[120px] -rotate-90"
+    />
+    <p class="display-3 text-center text-white !leading-[130%]">
+      Let&rsquo;s Build a Stronger Business Foundation
+    </p>
+    <p class="text-center text-white pt-4 max-w-3xl mx-auto">
+      Partner with Makasana Consultancy for integrated support in compliance, taxation, procurement readiness, and operational execution.
+    </p>
+    <div class="pt-6 text-center text-white/90">
+      <p>0700 444 222</p>
+      <p><a href="mailto:info@makasanaconsultancy.com" class="underline">info@makasanaconsultancy.com</a></p>
+      <p>P O Box 4372 00200 Nairobi</p>
+    </div>
+    <div class="pt-6 sm:pt-10 relative">
+      <div class="flex justify-center items-center gap-3">
+        <a
+          href="{{ url_for('public.contact') }}"
+          class="border border-mainTextColor bg-s2 py-3 sm:py-4 px-6 md:px-10 font-medium text-mainTextColor inline-flex items-center"
+        >
+          Contact Us
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- CTA Section End -->
+{% endblock %}

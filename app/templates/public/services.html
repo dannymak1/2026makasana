@@ -1,6 +1,11 @@
 {% extends "public/base.html" %}
 {% block title %}Services | Makasana{% endblock %}
 {% block content %}
+<style>
+  .mk-inner-page-title {
+    margin-top: 80px;
+  }
+</style>
 <!-- Breadcrump Section Start -->
 <section class="stp-30 pt-20 md:pt-24 bg-softBg1 relative max-xxl:overflow-hidden">
   <img
@@ -9,7 +14,7 @@
     class="absolute bottom-0 left-[-10%] xxl:left-0 max-lg:hidden"
   />
   <div class="container max-md:stp-15 relative z-10">
-    <div class="col-span-12 flex justify-center items-start flex-col">
+    <div class="col-span-12 flex justify-center items-start flex-col mk-inner-page-title">
       <ul class="flex justify-start items-center gap-1 flex-wrap">
         <li>
           <a href="{{ url_for('public.home') }}" class="flex justify-start items-center gap-1">
@@ -23,8 +28,8 @@
         </li>
       </ul>
 
-      <h1 class="display-3 pt-4">Services</h1>
-      <p class="text-bodyText pt-6">Explore our core services.</p>
+      <h1 class="display-3 pt-4">Our Services</h1>
+      <p class="text-bodyText pt-6">Makasana Consultancy provides integrated advisory and execution support across business compliance, tax management, procurement readiness, and technical operations.</p>
     </div>
   </div>
 </section>
@@ -39,9 +44,9 @@
           <div class="text-4xl text-s1 pb-6 group-hover:text-mainTextColor duration-500">
             <i class="ph-fill ph-users-three"></i>
           </div>
-          <h4 class="heading-4 pb-5">Business Registration & Compliance</h4>
+          <h4 class="heading-4 pb-5">Business Foundation & Compliance</h4>
           <p class="text-bodyText pb-6">
-            Register and structure your business correctly from the start. We handle company registration, statutory compliance, and regulatory requirements.
+            We support business registration and legal compliance through Limited Company registration, CR12 processing, business name registration, conversion to limited company, partnership deed preparation, annual returns, county permits, eCitizen linkage, and other statutory requirements.
           </p>
           <button type="button" class="flex justify-start items-center gap-2 font-medium mt-auto" data-modal-target="service-modal-1">
             Learn more <i class="ph ph-arrow-right"></i>
@@ -54,9 +59,9 @@
           <div class="text-4xl text-s1 pb-6 group-hover:text-mainTextColor duration-500">
             <i class="ph-fill ph-hand-coins"></i>
           </div>
-          <h4 class="heading-4 pb-5">Tax & Financial Compliance</h4>
+          <h4 class="heading-4 pb-5">Tax & Financial Management</h4>
           <p class="text-bodyText pb-6">
-            Stay compliant with all tax obligations including VAT, income tax, and corporate filings with accurate and timely submissions.
+            Our tax support covers VAT filing, income tax filing, corporation tax, balance of tax, installment tax, rental income tax, company PIN application, tax compliance certification, ETR setup, and international tax advisory including import and export tax management.
           </p>
           <button type="button" class="flex justify-start items-center gap-2 font-medium mt-auto" data-modal-target="service-modal-2">
             Learn more <i class="ph ph-arrow-right"></i>
@@ -69,9 +74,9 @@
           <div class="text-4xl text-s1 pb-6 group-hover:text-mainTextColor duration-500">
             <i class="ph-fill ph-user-gear"></i>
           </div>
-          <h4 class="heading-4 pb-5">Document Management System (DMS)</h4>
+          <h4 class="heading-4 pb-5">Tendering & Procurement</h4>
           <p class="text-bodyText pb-6">
-            Centralize and manage your business documents with our structured system-track expiries, maintain records, and stay audit-ready.
+            We help organizations pursue public sector opportunities through AGPO certificate applications, prequalification document preparation, IFMIS registration, IFMIS tutorials, tender bidding support, and site visit certification preparation.
           </p>
           <button type="button" class="flex justify-start items-center gap-2 font-medium mt-auto" data-modal-target="service-modal-3">
             Learn more <i class="ph ph-arrow-right"></i>
@@ -84,9 +89,9 @@
           <div class="text-4xl text-s1 pb-6 group-hover:text-mainTextColor duration-500">
             <i class="ph-fill ph-user-plus"></i>
           </div>
-          <h4 class="heading-4 pb-5">Tendering & Government Systems</h4>
+          <h4 class="heading-4 pb-5">Technical & Operational Support</h4>
           <p class="text-bodyText pb-6">
-            Access government opportunities with confidence through IFMIS registration, tender preparation, and compliance support.
+            Our technical support spans architectural works, civil engineering services, advanced drafting with tools such as AutoCAD and Revit, BOQ preparation, cost analysis, project registration, site supervision, quality control, and CDC AC advice.
           </p>
           <button type="button" class="flex justify-start items-center gap-2 font-medium mt-auto" data-modal-target="service-modal-4">
             Learn more <i class="ph ph-arrow-right"></i>
@@ -102,32 +107,32 @@
 <div id="service-modal-1" class="fixed inset-0 z-[9999] hidden items-center justify-center bg-black/60 px-4">
   <div class="bg-white w-full max-w-2xl rounded-2xl p-6 md:p-8 relative">
     <button type="button" class="absolute top-4 right-4 text-2xl" data-modal-close>&times;</button>
-    <h3 class="display-4 !text-[34px] pb-4">Business Registration & Compliance</h3>
-    <p class="text-bodyText">Register and structure your business correctly from the start. We handle company registration, statutory compliance, and regulatory requirements so your organization is built on a compliant foundation.</p>
+    <h3 class="display-4 !text-[34px] pb-4">Business Foundation & Compliance</h3>
+    <p class="text-bodyText">We support business registration and legal compliance through Limited Company registration, CR12 processing, business name registration, conversion to limited company, partnership deed preparation, annual returns, county permits, eCitizen linkage, and other statutory requirements.</p>
   </div>
 </div>
 
 <div id="service-modal-2" class="fixed inset-0 z-[9999] hidden items-center justify-center bg-black/60 px-4">
   <div class="bg-white w-full max-w-2xl rounded-2xl p-6 md:p-8 relative">
     <button type="button" class="absolute top-4 right-4 text-2xl" data-modal-close>&times;</button>
-    <h3 class="display-4 !text-[34px] pb-4">Tax & Financial Compliance</h3>
-    <p class="text-bodyText">Stay compliant with all tax obligations including VAT, income tax, and corporate filings with accurate and timely submissions. We help businesses reduce compliance risk and maintain clear financial governance.</p>
+    <h3 class="display-4 !text-[34px] pb-4">Tax & Financial Management</h3>
+    <p class="text-bodyText">Our tax support covers VAT filing, income tax filing, corporation tax, balance of tax, installment tax, rental income tax, company PIN application, tax compliance certification, ETR setup, and international tax advisory including import and export tax management.</p>
   </div>
 </div>
 
 <div id="service-modal-3" class="fixed inset-0 z-[9999] hidden items-center justify-center bg-black/60 px-4">
   <div class="bg-white w-full max-w-2xl rounded-2xl p-6 md:p-8 relative">
     <button type="button" class="absolute top-4 right-4 text-2xl" data-modal-close>&times;</button>
-    <h3 class="display-4 !text-[34px] pb-4">Document Management System (DMS)</h3>
-    <p class="text-bodyText">Centralize and manage your business documents with a structured system. Track expiries, maintain accessible records, and stay audit-ready with secure document controls and full visibility.</p>
+    <h3 class="display-4 !text-[34px] pb-4">Tendering & Procurement</h3>
+    <p class="text-bodyText">We help organizations pursue public sector opportunities through AGPO certificate applications, prequalification document preparation, IFMIS registration, IFMIS tutorials, tender bidding support, and site visit certification preparation.</p>
   </div>
 </div>
 
 <div id="service-modal-4" class="fixed inset-0 z-[9999] hidden items-center justify-center bg-black/60 px-4">
   <div class="bg-white w-full max-w-2xl rounded-2xl p-6 md:p-8 relative">
     <button type="button" class="absolute top-4 right-4 text-2xl" data-modal-close>&times;</button>
-    <h3 class="display-4 !text-[34px] pb-4">Tendering & IFMIS Support</h3>
-    <p class="text-bodyText">Access government opportunities with confidence through IFMIS registration, tender preparation, and compliance support. We help you manage requirements cleanly from submission to review.</p>
+    <h3 class="display-4 !text-[34px] pb-4">Technical & Operational Support</h3>
+    <p class="text-bodyText">Our technical support spans architectural works, civil engineering services, advanced drafting with tools such as AutoCAD and Revit, BOQ preparation, cost analysis, project registration, site supervision, quality control, and CDC AC advice.</p>
   </div>
 </div>
 

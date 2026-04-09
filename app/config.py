@@ -17,13 +17,16 @@ class Config:
     }
     UPLOAD_FOLDER = os.path.join(BASE_DIR, "static", "uploads")
     SITE_URL = os.environ.get("SITE_URL", "http://127.0.0.1:5000")
-    MAIL_SUPPRESS_SEND = os.environ.get("MAIL_SUPPRESS_SEND", "1") == "1"
-    MAIL_HOST = os.environ.get("MAIL_HOST", "")
-    MAIL_PORT = int(os.environ.get("MAIL_PORT", "587"))
-    MAIL_USERNAME = os.environ.get("MAIL_USERNAME", "")
-    MAIL_PASSWORD = os.environ.get("MAIL_PASSWORD", "")
-    MAIL_USE_TLS = os.environ.get("MAIL_USE_TLS", "1") == "1"
-    MAIL_DEFAULT_SENDER = os.environ.get("MAIL_DEFAULT_SENDER", "")
+    MAIL_SUPPRESS_SEND = os.environ.get("MAIL_SUPPRESS_SEND", "0") == "1"
+    MAIL_HOST = os.environ.get("MAIL_HOST", "mail.makasanaconsultancy.com")
+    MAIL_PORT = int(os.environ.get("MAIL_PORT", "465"))
+    MAIL_USERNAME = os.environ.get("MAIL_USERNAME", "no-reply@makasanaconsultancy.com")
+    MAIL_PASSWORD = os.environ.get("MAIL_PASSWORD", "M@KAsana25")
+    MAIL_USE_TLS = os.environ.get("MAIL_USE_TLS", "0") == "1"
+    MAIL_USE_SSL = os.environ.get("MAIL_USE_SSL", "1") == "1"
+    MAIL_DEFAULT_SENDER = os.environ.get(
+        "MAIL_DEFAULT_SENDER", "no-reply@makasanaconsultancy.com"
+    )
 
 
 class DevelopmentConfig(Config):
@@ -39,10 +42,14 @@ class ProductionConfig(Config):
     )
     SITE_URL = os.environ.get("SITE_URL", "https://makasana.kolatech.co.ke")
     MAIL_SUPPRESS_SEND = os.environ.get("MAIL_SUPPRESS_SEND", "0") == "1"
-    MAIL_USERNAME = os.environ.get("MAIL_USERNAME", "no-reply@kolatech.co.ke")
-    MAIL_PASSWORD = os.environ.get("MAIL_PASSWORD", "Crane123@2020")
+    MAIL_HOST = os.environ.get("MAIL_HOST", "mail.makasanaconsultancy.com")
+    MAIL_PORT = int(os.environ.get("MAIL_PORT", "465"))
+    MAIL_USERNAME = os.environ.get("MAIL_USERNAME", "no-reply@makasanaconsultancy.com")
+    MAIL_PASSWORD = os.environ.get("MAIL_PASSWORD", "M@KAsana25")
+    MAIL_USE_TLS = os.environ.get("MAIL_USE_TLS", "0") == "1"
+    MAIL_USE_SSL = os.environ.get("MAIL_USE_SSL", "1") == "1"
     MAIL_DEFAULT_SENDER = os.environ.get(
-        "MAIL_DEFAULT_SENDER", "no-reply@kolatech.co.ke"
+        "MAIL_DEFAULT_SENDER", "no-reply@makasanaconsultancy.com"
     )
 
 

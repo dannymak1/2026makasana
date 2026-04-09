@@ -1,14 +1,19 @@
 {% extends "public/base.html" %}
 {% block title %}{{ post.title }} | Makasana{% endblock %}
 {% block content %}
-<section class="stp-30 bg-softBg1 relative max-xxl:overflow-hidden">
+<style>
+  .mk-inner-page-title {
+    margin-top: 80px;
+  }
+</style>
+<section class="stp-30 pt-20 md:pt-24 bg-softBg1 relative max-xxl:overflow-hidden">
   <img
     src="{{ url_for('static', filename='assets/images/breadcrump_icon.png') }}"
     alt="image"
     class="absolute bottom-0 left-[-10%] xxl:left-0 max-lg:hidden"
   />
-  <div class="container grid grid-cols-12 gap-6 max-md:stp-15 relative z-10">
-    <div class="col-span-12 md:col-span-8 flex justify-center items-start flex-col">
+  <div class="container max-md:stp-15 relative z-10">
+    <div class="col-span-12 flex justify-center items-start flex-col mk-inner-page-title">
       <ul class="flex justify-start items-center gap-1 flex-wrap">
         <li>
           <a href="{{ url_for('public.home') }}" class="flex justify-start items-center gap-1">
@@ -18,14 +23,14 @@
         </li>
         <li class="flex justify-start items-center gap-1">
           <i class="ph ph-caret-right"></i>
-          <a href="{{ url_for('public.blog') }}" class="hover:text-s2 duration-300">Blog</a>
+          <a href="{{ url_for('public.blog') }}" class="hover:text-s2 duration-300">News & Articles</a>
         </li>
         <li class="flex justify-start items-center gap-1">
           <i class="ph ph-caret-right"></i>
           Article
         </li>
       </ul>
-      <h1 class="display-4 pt-4">{{ post.title }}</h1>
+      <h1 class="display-3 pt-4">{{ post.title }}</h1>
       <div class="flex justify-start items-center gap-3 pt-6">
         <span class="bg-p1 py-2 px-4 rounded-full text-white">{{ post.category }}</span>
         <p class="border-l pl-3 border-bodyText">{{ post.published_at.strftime('%B %d, %Y') }}</p>

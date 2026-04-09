@@ -1,21 +1,22 @@
 {% extends "public/base.html" %}
 {% block title %}News & Articles | Makasana{% endblock %}
 {% block content %}
+<style>
+  .mk-inner-page-title {
+    margin-top: 80px;
+  }
+</style>
 <!-- Header Section End -->
 
       <!-- Breadcrump Section Start -->
-      <section class="stp-30 bg-softBg1 relative max-xxl:overflow-hidden">
+      <section class="stp-30 pt-20 md:pt-24 bg-softBg1 relative max-xxl:overflow-hidden">
         <img
           src="{{ url_for('static', filename='assets/images/breadcrump_icon.png') }}"
           alt="image"
           class="absolute bottom-0 left-[-10%] xxl:left-0 max-lg:hidden"
         />
-        <div
-          class="container grid grid-cols-12 gap-6 max-md:stp-15 relative z-10"
-        >
-          <div
-            class="col-span-12 md:col-span-6 flex justify-center items-start flex-col"
-          >
+        <div class="container max-md:stp-15 relative z-10">
+          <div class="col-span-12 flex justify-center items-start flex-col mk-inner-page-title">
             <ul class="flex justify-start items-center gap-1 flex-wrap">
               <li>
                 <a
@@ -29,25 +30,15 @@
 
               <li class="flex justify-start items-center gap-1">
                 <i class="ph ph-caret-right"></i>
-                Blog
+                News & Articles
               </li>
             </ul>
 
             <h1 class="display-3 pt-4">News & Articles</h1>
 
-            <p class="text-bodyText pt-6">
-              Explore our insightful blog for expert perspectives on accounting,
-              taxation, and payroll processing.
+            <p class="text-bodyText pt-6 mb-8 md:mb-10">
+              Articles and updates from Makasana Consultancy covering compliance, tax, procurement readiness, and operational support.
             </p>
-          </div>
-          <div
-            class="col-span-12 md:col-span-6 flex justify-center items-center"
-          >
-            <img
-              src="{{ url_for('static', filename='assets/images/breadcrumb_img_17.png') }}"
-              alt="image"
-              class="object-fit max-sm:max-h-[300px]"
-            />
           </div>
         </div>
       </section>
@@ -113,19 +104,19 @@
       class="absolute -top-4 sm:-top-6 lg:top-0 right-0 h-[60px] sm:h-[80px] lg:h-[120px] -rotate-90"
     />
     <p class="display-3 text-center text-white !leading-[130%]">
-      Make Accupay Part Of Your Work And Get Daily Update
+      Ready to Strengthen Your Business Foundation?
     </p>
     <form onSubmit="{handleSubmit}" class="pt-6 sm:pt-10 relative">
       <div class="flex justify-center items-center gap-3 max-[500px]:flex-col">
         <input
           type="text"
-          placeholder="Enter Your Email"
+          placeholder="Enter your email"
           class="border border-mainTextColor outline-none bg-white py-3 sm:py-4 px-4 md:px-8 max-[500px]:w-full lg:w-2/4"
         />
         <button
           class="border border-mainTextColor bg-s2 py-3 sm:py-4 px-4 md:px-8 font-medium"
         >
-          Subscribe Now
+          Contact Us
         </button>
       </div>
     </form>
