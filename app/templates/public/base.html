@@ -27,21 +27,51 @@
         background: var(--mk-shadow-accent);
         border-radius: 2px;
       }
+      /* Match old horizontal logo footprint (~408x226 at max-width 200 ≈ 111px tall). */
       .mk-brand-logo {
-        max-width: 200px;
+        display: block;
+        width: auto;
         height: auto;
+        max-height: 72px;
+        max-width: 200px;
+        object-fit: contain;
       }
       .mk-brand-logo--drawer {
-        max-width: 175px;
+        display: block;
+        width: auto;
         height: auto;
+        max-height: 64px;
+        max-width: 175px;
+        object-fit: contain;
       }
       @media (min-width: 1024px) {
         .mk-brand-logo {
+          max-height: 80px;
           max-width: 260px;
         }
         .mk-brand-logo--drawer {
+          max-height: 72px;
           max-width: 220px;
         }
+      }
+      /* Avoid pink wash: transparent red interpolates as pink mid-stops. */
+      .hero_bg_gradient {
+        background: linear-gradient(
+          252deg,
+          var(--mk-hero-grad-start) 0%,
+          rgba(var(--mk-dark-rgb), 0) 100.44%
+        );
+      }
+      /* CTA fills use logo red (bg-s2 stays soft navy for drawers/hovers). */
+      .mk-cta {
+        background: rgb(var(--mk-primary-rgb)) !important;
+        color: #fff !important;
+        border-color: rgb(var(--mk-primary-rgb)) !important;
+      }
+      .mk-cta:hover {
+        background: var(--mk-btn-solid-hover) !important;
+        border-color: var(--mk-btn-solid-hover) !important;
+        color: #fff !important;
       }
     </style>
     <script defer src="{{ url_for('static', filename='assets/index.js') }}"></script>
@@ -110,7 +140,7 @@
         </a>
         <a
           href="{{ url_for('auth.signup') }}"
-          class="flex justify-center items-center gap-2 py-2 md:py-3 px-4 md:px-6 rounded-full bg-s2 border border-mainTextColor text-mainTextColor group font-medium {% if request.endpoint == 'auth.signup' %}bg-s2{% endif %}"
+          class="flex justify-center items-center gap-2 py-2 md:py-3 px-4 md:px-6 rounded-full mk-cta border group font-medium"
         >
           Sign Up
           <i class="ph-bold ph-arrow-up-right group-hover:rotate-[45deg] duration-500 text-base sm:text-xl !leading-[0]"></i>

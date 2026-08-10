@@ -133,7 +133,7 @@ def contact():
                 "<p style='margin:0 0 8px 0;'><strong>Subscribe to updates:</strong> "
                 f"{'Yes' if subscribe else 'No'}</p>"
                 "<p style='margin:16px 0 8px 0;'><strong>Message</strong></p>"
-                f"<div style='padding:12px; border:1px solid #d7e4d8; border-radius:8px; background:#f8fbf8;'>{escape(message)}</div>"
+                f"<div style='padding:12px; border:1px solid #d8dee8; border-radius:8px; background:#f8fafc;'>{escape(message)}</div>"
             ),
             footer_note="Please respond directly to the sender email shown above.",
         )

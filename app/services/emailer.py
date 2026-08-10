@@ -22,13 +22,13 @@ def build_branded_email_html(config, heading, intro_text, content_html, footer_n
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{safe_heading}</title>
   </head>
-  <body style="margin:0; padding:0; background:#f2f6f2; font-family:Arial, Helvetica, sans-serif; color:#173c35;">
-    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:#f2f6f2; padding:24px 12px;">
+  <body style="margin:0; padding:0; background:#f2f4f7; font-family:Arial, Helvetica, sans-serif; color:#0a192f;">
+    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:#f2f4f7; padding:24px 12px;">
       <tr>
         <td align="center">
-          <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="max-width:680px; background:#ffffff; border:1px solid #d8e5db; border-radius:14px; overflow:hidden;">
+          <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="max-width:680px; background:#ffffff; border:1px solid #d8dee8; border-radius:14px; overflow:hidden;">
             <tr>
-              <td style="background:linear-gradient(120deg,#e7f2e7 0%,#d4ebb9 100%); padding:20px 24px; border-bottom:1px solid #d8e5db;">
+              <td style="background:#000000; padding:20px 24px; border-bottom:1px solid #1a2438;">
                 <table role="presentation" width="100%" cellspacing="0" cellpadding="0">
                   <tr>
                     <td valign="middle" style="padding-right:12px;">
@@ -42,16 +42,16 @@ def build_branded_email_html(config, heading, intro_text, content_html, footer_n
             </tr>
             <tr>
               <td style="padding:24px;">
-                <h2 style="margin:0 0 10px 0; font-size:24px; line-height:1.3; color:#0f2f2f;">{safe_heading}</h2>
-                <p style="margin:0 0 18px 0; font-size:14px; line-height:1.7; color:#355c54;">{safe_intro}</p>
-                <div style="font-size:14px; line-height:1.8; color:#1f3f39;">
+                <h2 style="margin:0 0 10px 0; font-size:24px; line-height:1.3; color:#0a192f;">{safe_heading}</h2>
+                <p style="margin:0 0 18px 0; font-size:14px; line-height:1.7; color:#475569;">{safe_intro}</p>
+                <div style="font-size:14px; line-height:1.8; color:#1e293b;">
                   {content_html}
                 </div>
               </td>
             </tr>
             <tr>
-              <td style="padding:16px 24px; border-top:1px solid #e3eee4; background:#fafdf8;">
-                <p style="margin:0; font-size:12px; line-height:1.7; color:#57736c;">
+              <td style="padding:16px 24px; border-top:1px solid #e8edf4; background:#f8fafc;">
+                <p style="margin:0; font-size:12px; line-height:1.7; color:#64748b;">
                   {safe_footer_note}<br>
                   Makasana Consultancy &middot; Strategic Solutions for Growth
                 </p>

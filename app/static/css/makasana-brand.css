@@ -1,24 +1,25 @@
 /**
- * Makasana Consultancy — brand palette (aligned with logo greens).
- * Loaded before assets/style.css so compiled utilities resolve these tokens.
+ * Makasana Consultancy — brand palette strictly from logo (navy + red).
+ * No green or yellow accents.
  */
 :root {
-  --mk-dark-rgb: 20, 61, 50;
-  --mk-primary-rgb: 107, 191, 62;
-  --mk-deep-rgb: 20, 90, 71;
-  --mk-accent-rgb: 205, 232, 154;
-  --mk-soft-rgb: 238, 246, 232;
-  --mk-body-rgb: 61, 82, 72;
+  --mk-dark-rgb: 10, 25, 47;
+  --mk-primary-rgb: 227, 6, 19;
+  --mk-deep-rgb: 8, 20, 40;
+  /* Soft navy tint for fills/hovers (logo navy family — not red wash/pink) */
+  --mk-accent-rgb: 214, 222, 235;
+  --mk-soft-rgb: 241, 244, 248;
+  --mk-body-rgb: 71, 85, 105;
 
-  --mk-shadow-accent: #6bbf3f;
-  --mk-hero-grad-start: #58a835;
-  --mk-btn-solid: #4f9a2f;
-  --mk-btn-solid-hover: #3f7d26;
+  --mk-shadow-accent: #e30613;
+  --mk-hero-grad-start: #c5d0e0;
+  --mk-btn-solid: #e30613;
+  --mk-btn-solid-hover: #b8050f;
 
   --mk-primary: rgb(var(--mk-primary-rgb));
-  --mk-primary-dark: #4f9a2f;
+  --mk-primary-dark: #b8050f;
   --mk-accent-bg: rgb(var(--mk-accent-rgb));
-  --mk-accent-bg-dark: #b8d882;
+  --mk-accent-bg-dark: #b8c4d8;
   --mk-dark: rgb(var(--mk-dark-rgb));
-  --mk-light: #f5f9f4;
+  --mk-light: #f5f7fa;
 }

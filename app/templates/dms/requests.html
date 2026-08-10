@@ -17,8 +17,8 @@
         <h1 class="text-2xl font-semibold mk-page-title">Document Requests</h1>
         <section class="grid sm:grid-cols-3 gap-4">
             <article class="mk-card rounded-xl p-4"><p class="text-sm text-slate-500">Total</p><p class="text-2xl font-semibold" style="color: var(--mk-dark);">{{ stats.total }}</p></article>
-            <article class="mk-card rounded-xl p-4"><p class="text-sm text-slate-500">Sent</p><p class="text-2xl font-semibold text-emerald-600">{{ stats.sent }}</p></article>
-            <article class="mk-card rounded-xl p-4"><p class="text-sm text-slate-500">Pending</p><p class="text-2xl font-semibold text-amber-600">{{ stats.pending }}</p></article>
+            <article class="mk-card rounded-xl p-4"><p class="text-sm text-slate-500">Sent</p><p class="text-2xl font-semibold mk-stat-ok">{{ stats.sent }}</p></article>
+            <article class="mk-card rounded-xl p-4"><p class="text-sm text-slate-500">Pending</p><p class="text-2xl font-semibold mk-stat-warn">{{ stats.pending }}</p></article>
         </section>
         <section class="mk-card rounded-xl overflow-hidden">
             <table class="min-w-full divide-y divide-slate-200">

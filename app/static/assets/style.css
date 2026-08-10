@@ -2025,8 +2025,8 @@
   }
   .text-s3{
     --tw-text-opacity: 1;
-    color: rgba(232, 161, 21, 1);
-    color: rgba(232, 161, 21, var(--tw-text-opacity));
+    color: rgba(var(--mk-primary-rgb), 1);
+    color: rgba(var(--mk-primary-rgb), var(--tw-text-opacity));
   }
   .text-white{
     --tw-text-opacity: 1;
@@ -3450,8 +3450,8 @@
   
   .hover\:text-s3:hover{
     --tw-text-opacity: 1;
-    color: rgba(232, 161, 21, 1);
-    color: rgba(232, 161, 21, var(--tw-text-opacity));
+    color: rgba(var(--mk-primary-rgb), 1);
+    color: rgba(var(--mk-primary-rgb), var(--tw-text-opacity));
   }
   
   .hover\:text-white:hover{

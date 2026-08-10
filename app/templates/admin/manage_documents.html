@@ -44,8 +44,8 @@
                             <td class="px-4 py-3 text-sm">{{ doc.uploaded_at|format_dt('%Y-%m-%d %H:%M') }}</td>
                             <td class="px-4 py-3 text-sm">
                                 {% if doc.expires_at < now %}<span class="text-rose-600">Expired</span>
-                                {% elif (doc.expires_at - now).days <= 7 %}<span class="text-amber-600">Expiring soon</span>
-                                {% else %}<span class="text-emerald-600">Active</span>{% endif %}
+                                {% elif (doc.expires_at - now).days <= 7 %}<span class="mk-stat-warn">Expiring soon</span>
+                                {% else %}<span class="mk-stat-ok">Active</span>{% endif %}
                             </td>
                         </tr>
                     {% else %}

@@ -21,8 +21,8 @@
         <h1 class="text-2xl font-semibold mk-page-title">Request Management</h1>
         <section class="grid sm:grid-cols-3 gap-4">
             <article class="mk-card rounded-xl p-4"><p class="text-sm text-slate-500">Total Requests</p><p class="text-2xl font-semibold" style="color: var(--mk-dark);">{{ stats.total }}</p></article>
-            <article class="mk-card rounded-xl p-4"><p class="text-sm text-slate-500">Total Sent</p><p class="text-2xl font-semibold text-emerald-600">{{ stats.sent }}</p></article>
-            <article class="mk-card rounded-xl p-4"><p class="text-sm text-slate-500">Pending</p><p class="text-2xl font-semibold text-amber-600">{{ stats.pending }}</p></article>
+            <article class="mk-card rounded-xl p-4"><p class="text-sm text-slate-500">Total Sent</p><p class="text-2xl font-semibold mk-stat-ok">{{ stats.sent }}</p></article>
+            <article class="mk-card rounded-xl p-4"><p class="text-sm text-slate-500">Pending</p><p class="text-2xl font-semibold mk-stat-warn">{{ stats.pending }}</p></article>
         </section>
         <section class="mk-card rounded-xl overflow-hidden">
             <table class="min-w-full divide-y divide-slate-200">
@@ -88,7 +88,7 @@
 
         <form method="post" action="{{ url_for('admin.verify_otp_and_send', request_id=req.id) }}" class="space-y-2">
             <input name="otp_code" placeholder="Enter OTP" class="w-full border border-slate-300 rounded px-3 py-2 text-sm">
-            <button {% if req.status != 'pending' %}disabled{% endif %} class="w-full px-3 py-2 rounded bg-emerald-600 text-white disabled:opacity-40 text-sm">Verify & Send</button>
+            <button {% if req.status != 'pending' %}disabled{% endif %} class="w-full px-3 py-2 rounded mk-btn-primary text-white disabled:opacity-40 text-sm">Verify & Send</button>
         </form>
 
         <form method="post" action="{{ url_for('admin.reject_request', request_id=req.id) }}">

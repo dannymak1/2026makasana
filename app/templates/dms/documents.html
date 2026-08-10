@@ -47,9 +47,9 @@
                                 {% if doc.expires_at < now %}
                                     <span class="inline-flex items-center gap-2 px-2 py-1 text-xs rounded bg-rose-100 text-rose-700"><span class="h-2 w-2 rounded-full bg-rose-600"></span>Expired</span>
                                 {% elif (doc.expires_at - now).days <= 7 %}
-                                    <span class="inline-flex items-center gap-2 px-2 py-1 text-xs rounded bg-amber-100 text-amber-700"><span class="h-2 w-2 rounded-full bg-amber-500"></span>Expiring Soon</span>
+                                    <span class="inline-flex items-center gap-2 px-2 py-1 text-xs rounded mk-stat-warn-bg"><span class="h-2 w-2 rounded-full mk-stat-warn-dot"></span>Expiring Soon</span>
                                 {% else %}
-                                    <span class="inline-flex items-center gap-2 px-2 py-1 text-xs rounded bg-emerald-100 text-emerald-700"><span class="h-2 w-2 rounded-full bg-emerald-600"></span>Active</span>
+                                    <span class="inline-flex items-center gap-2 px-2 py-1 text-xs rounded text-white" style="background: var(--mk-dark);"><span class="h-2 w-2 rounded-full" style="background: var(--mk-btn-solid);"></span>Active</span>
                                 {% endif %}
                             </td>
                             <td class="px-4 py-3">
@@ -58,7 +58,7 @@
                                         <span aria-hidden="true">[V]</span><span class="sr-only">View</span>
                                     </a>
                                     <details>
-                                        <summary class="cursor-pointer text-amber-600 hover:text-amber-700" title="Edit">
+                                        <summary class="cursor-pointer mk-stat-warn hover:opacity-80" title="Edit">
                                             <span aria-hidden="true">[E]</span><span class="sr-only">Edit</span>
                                         </summary>
                                         <form method="post" action="{{ url_for('dms.update_document', document_id=doc.id) }}" enctype="multipart/form-data" class="mt-2 p-3 border border-slate-200 rounded-lg bg-white space-y-2 w-72">
@@ -68,7 +68,7 @@
                                                 {% endfor %}
                                             </select>
                                             <input type="file" name="document" accept="application/pdf" class="w-full text-xs">
-                                            <button class="bg-amber-600 text-white px-2 py-1 rounded text-xs">Save</button>
+                                            <button class="mk-btn-primary text-white px-2 py-1 rounded text-xs">Save</button>
                                         </form>
                                     </details>
                                     <form method="post" action="{{ url_for('dms.delete_document', document_id=doc.id) }}" onsubmit="return confirm('Delete this document?');">

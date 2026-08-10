@@ -65,7 +65,7 @@
   <div class="col-span-12 lg:col-span-8 lg:col-start-3 border p-4 sm:p-6 lg:p-10">
     <h4 class="heading-4 pb-6">Send Us a Message</h4>
     {% if request.args.get('status') == 'sent' %}
-    <div class="mb-5 rounded-lg border border-emerald-300 bg-emerald-50 text-emerald-700 px-4 py-3 text-sm">
+    <div class="mb-5 rounded-lg border px-4 py-3 text-sm" style="border-color: rgba(var(--mk-primary-rgb), 0.35); background: rgba(var(--mk-primary-rgb), 0.08); color: var(--mk-dark);">
       Your message was sent successfully. We will get back to you soon.
     </div>
     {% elif request.args.get('status') == 'failed' %}

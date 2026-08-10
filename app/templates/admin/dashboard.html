@@ -27,8 +27,8 @@
             <article class="mk-card rounded-xl p-4"><p class="text-sm text-slate-500">Blogs</p><p class="text-2xl font-semibold" style="color: var(--mk-dark);">{{ stats.blogs }}</p></article>
             <article class="mk-card rounded-xl p-4"><p class="text-sm text-slate-500">Categories</p><p class="text-2xl font-semibold" style="color: var(--mk-dark);">{{ stats.categories }}</p></article>
             <article class="mk-card rounded-xl p-4"><p class="text-sm text-slate-500">Total Requests</p><p class="text-2xl font-semibold" style="color: var(--mk-dark);">{{ stats.requests_total }}</p></article>
-            <article class="mk-card rounded-xl p-4"><p class="text-sm text-slate-500">Pending Requests</p><p class="text-2xl font-semibold text-amber-600">{{ stats.requests_pending }}</p></article>
-            <article class="mk-card rounded-xl p-4"><p class="text-sm text-slate-500">Sent Requests</p><p class="text-2xl font-semibold text-emerald-600">{{ stats.requests_sent }}</p></article>
+            <article class="mk-card rounded-xl p-4"><p class="text-sm text-slate-500">Pending Requests</p><p class="text-2xl font-semibold mk-stat-warn">{{ stats.requests_pending }}</p></article>
+            <article class="mk-card rounded-xl p-4"><p class="text-sm text-slate-500">Sent Requests</p><p class="text-2xl font-semibold mk-stat-ok">{{ stats.requests_sent }}</p></article>
         </section>
 
         <section class="grid xl:grid-cols-2 gap-6">

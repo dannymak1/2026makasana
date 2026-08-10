@@ -14,14 +14,14 @@ def _slugify(value):
 
 def _pick_color():
     palette = [
-        "#0D6E6E",
-        "#2E7D32",
-        "#1E88E5",
-        "#6A1B9A",
-        "#F57C00",
-        "#C62828",
-        "#00897B",
-        "#455A64",
+        "#0A192F",
+        "#E30613",
+        "#081428",
+        "#B8050F",
+        "#1A2F4A",
+        "#C41E1E",
+        "#152238",
+        "#8B0A12",
     ]
     return secrets.choice(palette)
 
@@ -47,7 +47,7 @@ def generate_organization_text_logo(static_folder, organization_name):
     logos_dir = os.path.join(static_folder, "assets", "images", "client-logos")
     os.makedirs(logos_dir, exist_ok=True)
 
-    img = Image.new("RGB", (800, 320), "#F7FAF7")
+    img = Image.new("RGB", (800, 320), "#F5F7FA")
     draw = ImageDraw.Draw(img)
     accent = _pick_color()
 
@@ -72,7 +72,7 @@ def generate_organization_text_logo(static_folder, organization_name):
     lines = _fit_text(draw, organization_name or "Organization", title_font, 540)
     y = 110
     for line in lines:
-        draw.text((235, y), line, font=title_font, fill="#0F2E2E")
+        draw.text((235, y), line, font=title_font, fill="#0A192F")
         y += 64
 
     draw.text((235, 248), "Client Organization", fill=accent, font=ImageFont.load_default())

@@ -370,7 +370,7 @@ def send_documents_request(request_id):
             intro_text=f"Use this code to authorize document release for request #{doc_request.id}.",
             content_html=(
                 "<p style='margin:0 0 10px 0;'>Your OTP code is:</p>"
-                f"<div style='font-size:28px; letter-spacing:6px; font-weight:700; color:#0f2f2f; padding:14px 16px; border:1px dashed #9bb79f; border-radius:10px; display:inline-block; background:#f7fbf6;'>{otp_entry.code}</div>"
+                f"<div style='font-size:28px; letter-spacing:6px; font-weight:700; color:#0a192f; padding:14px 16px; border:1px dashed #e30613; border-radius:10px; display:inline-block; background:#fff5f5;'>{otp_entry.code}</div>"
                 "<p style='margin:14px 0 0 0;'>This code expires in 10 minutes.</p>"
             ),
         ),

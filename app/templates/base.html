@@ -11,11 +11,11 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/app.css') }}">
     <style>
         .mk-sidebar { background: rgb(var(--mk-deep-rgb)); color: #fff; }
-        .mk-sidebar-muted { color: #c8e6d9; }
+        .mk-sidebar-muted { color: #a8b4c8; }
         .mk-nav-active { background: rgba(0, 0, 0, 0.22); color: #fff; }
         .mk-nav-link:hover { background: rgba(255, 255, 255, 0.12); color: #fff; }
         .mk-page-title { color: var(--mk-dark); }
-        .mk-card { background: #fff; border: 1px solid #e2ebe4; box-shadow: 0 4px 12px rgba(20, 61, 50, 0.06); }
+        .mk-card { background: #fff; border: 1px solid #e2e8f0; box-shadow: 0 4px 12px rgba(10, 25, 47, 0.06); }
         .mk-btn-primary { background: var(--mk-btn-solid); color: #fff; }
         .mk-btn-primary:hover { background: var(--mk-btn-solid-hover); }
         .mk-btn-secondary { border: 1px solid var(--mk-primary); color: var(--mk-btn-solid); }
@@ -25,6 +25,10 @@
         .mk-table-head { background: rgb(var(--mk-soft-rgb)); }
         .mk-table-head th { color: var(--mk-dark); }
         .mk-table-row:hover { background: rgba(var(--mk-primary-rgb), 0.08); }
+        .mk-stat-ok { color: var(--mk-dark); }
+        .mk-stat-warn { color: var(--mk-btn-solid); }
+        .mk-stat-warn-bg { background: rgba(var(--mk-primary-rgb), 0.1); color: var(--mk-btn-solid); }
+        .mk-stat-warn-dot { background: var(--mk-btn-solid); }
     </style>
 </head>
 <body class="text-slate-800" style="background-color: var(--mk-light);">

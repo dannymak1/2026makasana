@@ -14,7 +14,7 @@
                     <h1 class="text-2xl md:text-3xl font-semibold text-mainTextColor">{{ organization.name }}</h1>
                     <p class="text-sm text-slate-500 mt-1">Public verification portal</p>
                 </div>
-                <button type="button" onclick="openRequestModal()" class="inline-flex items-center justify-center px-5 py-2 rounded-full border border-mainTextColor bg-s2 text-mainTextColor font-medium hover:opacity-90">Request Documents</button>
+                <button type="button" onclick="openRequestModal()" class="inline-flex items-center justify-center px-5 py-2 rounded-full mk-cta border font-medium">Request Documents</button>
             </div>
 
             <div class="mt-6 overflow-x-auto">
@@ -35,7 +35,7 @@
                                     {% if doc.expires_at < now %}
                                         <span class="text-rose-600 font-semibold" title="Invalid/Expired">✕</span>
                                     {% else %}
-                                        <span class="text-emerald-600 font-semibold" title="Valid">✓</span>
+                                        <span class="font-semibold" style="color: var(--mk-btn-solid);" title="Valid">✓</span>
                                     {% endif %}
                                 </td>
                             </tr>
@@ -82,7 +82,7 @@
             </div>
             <div class="flex justify-end gap-2">
                 <button type="button" onclick="closeRequestModal()" class="px-4 py-2 rounded-lg border border-slate-300 text-slate-700">Cancel</button>
-                <button class="px-4 py-2 rounded-lg bg-indigo-600 text-white">Submit Request</button>
+                <button class="px-4 py-2 rounded-lg mk-cta border">Submit Request</button>
             </div>
         </form>
     </div>
