@@ -1,6 +1,2 @@
 Options -Indexes
-
-# Block direct access to sensitive app files when Python is stopped
-<FilesMatch "\.(py|pyc|log|env|ini|cfg|sqlite3|db)$">
-  Require all denied
-</FilesMatch>
+DirectoryIndex index.html

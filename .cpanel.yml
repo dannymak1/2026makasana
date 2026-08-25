@@ -8,6 +8,6 @@ deployment:
     - /bin/cp requirements.txt $DEPLOYPATH
     - /bin/cp passenger_wsgi.py $DEPLOYPATH
     - /bin/cp sitemap.xml $DEPLOYPATH
-    - /bin/cp .htaccess $DEPLOYPATH
-    - /bin/rm -f $DEPLOYPATH/index.html
+    - /bin/cp -f .htaccess $DEPLOYPATH/.htaccess
+    - /bin/cp -f index.html $DEPLOYPATH/index.html
     - /bin/touch $DEPLOYPATH/tmp/restart.txt || (/bin/mkdir -p $DEPLOYPATH/tmp && /bin/touch $DEPLOYPATH/tmp/restart.txt)
