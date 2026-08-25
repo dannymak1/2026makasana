@@ -17,12 +17,19 @@ login_manager.login_view = "auth.login"
 
 
 def _site_is_disabled(app):
-    """Kill switch: env SITE_DISABLED=1 or marker file next to passenger_wsgi.py."""
+    """Kill switch: env SITE_DISABLED=1 or marker file SITE_DISABLED in the app root."""
     flag = (os.environ.get("SITE_DISABLED") or "").strip().lower()
     if flag in {"1", "true", "yes", "on"}:
         return True
-    marker = os.path.join(os.path.abspath(os.path.join(app.root_path, os.pardir)), "SITE_DISABLED")
-    return os.path.isfile(marker)
+
+    root = os.path.abspath(os.path.join(app.root_path, os.pardir))
+    candidates = [
+        os.path.join(root, "SITE_DISABLED"),
+        os.path.join(app.root_path, "SITE_DISABLED"),
+        os.path.join(os.getcwd(), "SITE_DISABLED"),
+        "/home/mirazic1/makasanaconsultancy/SITE_DISABLED",
+    ]
+    return any(os.path.isfile(path) for path in candidates)
 
 
 def role_required(*roles):
