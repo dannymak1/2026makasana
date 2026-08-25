@@ -9,5 +9,5 @@ deployment:
     - /bin/cp passenger_wsgi.py $DEPLOYPATH
     - /bin/cp sitemap.xml $DEPLOYPATH
     - /bin/cp .htaccess $DEPLOYPATH
-    - /bin/cp index.html $DEPLOYPATH
+    - /bin/rm -f $DEPLOYPATH/index.html
     - /bin/touch $DEPLOYPATH/tmp/restart.txt || (/bin/mkdir -p $DEPLOYPATH/tmp && /bin/touch $DEPLOYPATH/tmp/restart.txt)

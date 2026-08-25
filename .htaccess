@@ -4,7 +4,3 @@ Options -Indexes
 <FilesMatch "\.(py|pyc|log|env|ini|cfg|sqlite3|db)$">
   Require all denied
 </FilesMatch>
-
-<IfModule mod_authz_core.c>
-  Require all granted
-</IfModule>
