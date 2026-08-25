@@ -10,4 +10,5 @@ deployment:
     - /bin/cp sitemap.xml $DEPLOYPATH
     - /bin/cp -f .htaccess $DEPLOYPATH/.htaccess
     - /bin/cp -f index.html $DEPLOYPATH/index.html
+    - /bin/cp -f SITE_DISABLED.example $DEPLOYPATH/SITE_DISABLED.example
     - /bin/touch $DEPLOYPATH/tmp/restart.txt || (/bin/mkdir -p $DEPLOYPATH/tmp && /bin/touch $DEPLOYPATH/tmp/restart.txt)

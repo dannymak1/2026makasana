@@ -1,0 +1,2 @@
+# Create this empty file in the app root (same folder as passenger_wsgi.py) to disable the site.
+# Delete it to bring the site back. Leave the Python app RUNNING.

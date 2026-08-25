@@ -3,7 +3,7 @@ from datetime import date, datetime, timedelta
 from functools import wraps
 
 import click
-from flask import Flask, abort
+from flask import Flask, Response, abort
 from flask_login import LoginManager, current_user
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
@@ -14,6 +14,15 @@ db = SQLAlchemy()
 migrate = Migrate()
 login_manager = LoginManager()
 login_manager.login_view = "auth.login"
+
+
+def _site_is_disabled(app):
+    """Kill switch: env SITE_DISABLED=1 or marker file next to passenger_wsgi.py."""
+    flag = (os.environ.get("SITE_DISABLED") or "").strip().lower()
+    if flag in {"1", "true", "yes", "on"}:
+        return True
+    marker = os.path.join(os.path.abspath(os.path.join(app.root_path, os.pardir)), "SITE_DISABLED")
+    return os.path.isfile(marker)
 
 
 def role_required(*roles):
@@ -64,6 +73,12 @@ def create_app(config_class=None):
     db.init_app(app)
     migrate.init_app(app, db)
     login_manager.init_app(app)
+
+    @app.before_request
+    def _enforce_site_disabled():
+        # Keep Passenger running (no directory listing). Toggle by creating/deleting SITE_DISABLED.
+        if _site_is_disabled(app):
+            return Response("Forbidden", status=403, mimetype="text/plain")
 
     from app.models import BlogPost, DocumentCategory, Organization, User
     from app.routes.admin import admin_bp
